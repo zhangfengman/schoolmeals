@@ -237,11 +237,7 @@ a {
   text-decoration: none;
 }
 
-a:hover,
-a:focus {
-  color: #157ab5;
-  text-decoration: underline;
-}
+
 
 .img-rounded {
   -webkit-border-radius: 6px;

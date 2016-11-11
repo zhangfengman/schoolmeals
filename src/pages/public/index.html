@@ -12,76 +12,133 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="stylesheet" type="text/css" href="../../css/bootstrap_h.css">
     <link rel="stylesheet" type="text/css" href="../../css/font-awesome.css?11">
-   
     <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
 </head>
 
 <body>
     <div id="main">
         <div id="header" class="navbar navbar-fixed-top">
-            
         </div>
         <div class="container-fluid">
             <div id="content" class="row-fluid">
-                <div id="left" style="width: 160px; height: 586px;">
-                    <div class="accordion" id="menu-5428458183e14dc980179803053f7e28">
+                <div id="left">
+                    <div class="accordion" id="accordion1">
                         <div class="accordion-group">
                             <div class="accordion-heading">
-                                <a class="accordion-toggle"></i>&nbsp;教师系统</a>
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse1">
+                                    <i class="icon-chevron-right"></i> &nbsp;教师系统
+                                </a>
                             </div>
-                            <div id="collapse-be6b48798007442599158d90cd013f4b" class="accordion-body collapse in">
+                            <div id="collapse1" class="accordion-body collapse">
                                 <div class="accordion-inner">
                                     <ul class="nav nav-list">
-                                        <li class="active">
-                                            <a  href="../teacher/myclass.html" target="mainFrame" jerichotabindex="0"><i class="icon-circle-arrow-right icon-white"></i>&nbsp;我的班级</a>
+                                        <li class="">
+                                            <a href="../teacher/myclass.html" target="mainFrame" jerichotabindex="0"><i class="icon-circle-arrow-right icon-white"></i>&nbsp;我的班级</a>
                                             <ul class="nav nav-list hide" style="margin:0;padding-right:0;">
                                             </ul>
                                         </li>
-                                         <li >
-                                            <a  href="../teacher/myclassroom.html" target="mainFrame" jerichotabindex="0"><i class="icon-circle-arrow-right icon-white"></i>&nbsp;我的课堂</a>
+                                        <li>
+                                            <a href="../teacher/myclassroom.html" target="mainFrame" jerichotabindex="0"><i class="icon-circle-arrow-right icon-white"></i>&nbsp;我的课堂</a>
                                             <ul class="nav nav-list hide" style="margin:0;padding-right:0;">
                                             </ul>
                                         </li>
-                                       
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="accordion-group">
                             <div class="accordion-heading">
-                                <a class="accordion-toggle"></i>&nbsp;学生系统</a>
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse2">
+                                    <i class="icon-chevron-right"></i>&nbsp;学生系统</a>
                             </div>
-                            <div id="collapse-be6b48798007442599158d90cd013f4b" class="accordion-body collapse in">
+                            <div id="collapse2" class="accordion-body collapse">
                                 <div class="accordion-inner">
                                     <ul class="nav nav-list">
-                                        <li class="active">
-                                            <a  href="../teacher/myclass.html" target="mainFrame" jerichotabindex="0"><i class="icon-circle-arrow-right icon-white"></i>&nbsp;我的班级</a>
+                                        <li class="">
+                                            <a href="../teacher/myclass.html" target="mainFrame" jerichotabindex="0"><i class="icon-circle-arrow-right icon-white"></i>&nbsp;我的班级</a>
                                             <ul class="nav nav-list hide" style="margin:0;padding-right:0;">
                                             </ul>
                                         </li>
-                                         <li >
-                                            <a  href="../teacher/myclassroom.html" target="mainFrame" jerichotabindex="0"><i class="icon-circle-arrow-right icon-white"></i>&nbsp;我的考试</a>
+                                        <li>
+                                            <a href="../teacher/myclassroom.html" target="mainFrame" jerichotabindex="0"><i class="icon-circle-arrow-right icon-white"></i>&nbsp;我的考试</a>
                                             <ul class="nav nav-list hide" style="margin:0;padding-right:0;">
                                             </ul>
                                         </li>
-                                       
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div id="openClose" class="close" style="height: 581px;">&nbsp;</div>
-                <div id="right" style="height: 586px; width: 789px;">
-                    <iframe id="mainFrame" name="mainFrame" src="../teacher/myclass.html"  scrolling="yes" frameborder="no" width="100%" height="650"></iframe>
-                  
+                <div id="openClose" class="close">&nbsp;</div>
+                <div id="right">
+                    <iframe id="mainFrame" name="mainFrame" src="../teacher/myclass.html" scrolling="yes" frameborder="no" width="100%"></iframe>
                 </div>
             </div>
         </div>
         <div id="footer" class="row-fluid">
-            Copyright © 2015 活動預約系統 - Powered By <a href="#" target="_blank">zfm</a> V1.0
+            Copyright © 2016 熟饭教育 - Powered By <a href="#" target="_blank">zfm</a> V1.0
         </div>
     </div>
+    <script type="text/javascript">
+    var leftWidth = 160; // 左侧窗口大小
+    var tabTitleHeight = 33; // 页签的高度
+    var htmlObj = $("html"),
+        mainObj = $("#main");
+    var headerObj = $("#header"),
+        footerObj = $("#footer");
+    var frameObj = $("#left, #openClose, #right, #right iframe");
+
+    function wSize() {
+        var minHeight = 500,
+            minWidth = 980;
+        var strs = getWindowSize().toString().split(",");
+        htmlObj.css({
+            "overflow-x": strs[1] < minWidth ? "auto" : "hidden",
+            "overflow-y": strs[0] < minHeight ? "auto" : "hidden"
+        });
+        mainObj.css("width", strs[1] < minWidth ? minWidth - 10 : "auto");
+        frameObj.height((strs[0] < minHeight ? minHeight : strs[0]) - headerObj.height() - footerObj.height() - (strs[1] < minWidth ? 42 : 28));
+        $("#openClose").height($("#openClose").height() - 5); // <c:if test="${tabmode eq '1'}"> 
+        $(".jericho_tab iframe").height($("#right").height() - tabTitleHeight); // </c:if>
+        wSizeWidth();
+    }
+
+    function wSizeWidth() {
+        if (!$("#openClose").is(":hidden")) {
+            var leftWidth = ($("#left").width() < 0 ? 0 : $("#left").width());
+            $("#right").width($("#content").width() - leftWidth - $("#openClose").width() - 5);
+        } else {
+            $("#right").width("100%");
+        }
+    }
+    </script>
+    <script type="text/javascript" src="../../js/core/wsize.js"></script>
+    <script type="text/javascript">
+    // 二级标题
+    $(".accordion-heading a").click(function() {        
+        var oi = $(this).find("i");
+        if(oi.hasClass("icon-chevron-right")){
+            oi.addClass('icon-chevron-down').removeClass('icon-chevron-right');
+        }else{
+            oi.removeClass('icon-chevron-down').addClass('icon-chevron-right');    
+        }
+    });
+    // 二级内容
+    $(" .accordion-body li").click(function() {
+         $(this).addClass("active").siblings().removeClass("active");
+    });
+    // 展现三级
+    $(" .accordion-inner a").click(function() {
+        var href = $(this).attr("data-href");
+        if ($(href).length > 0) {
+            $(href).toggle().parent().toggle();
+            return false;
+        }
+    });
+    </script>
 </body>
 
 </html>
