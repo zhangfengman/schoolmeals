@@ -259,7 +259,8 @@ legend {
     width: 804px;
     padding-bottom: 40px;
 }
-.block_login .content .book{
+
+.block_login .content .book {
     position: absolute;
     right: 0px;
     bottom: 0px;
@@ -298,7 +299,6 @@ legend {
     position: relative;
     display: table-cell;
     width: 60%;
-
 }
 
 .form_row .ftext input {
@@ -365,25 +365,27 @@ legend {
     top: 0px;
     width: 200px;
 }
+
 .form_row .ftext .yzm img {
-   
     width: 100%;
 }
-.form_row .ftext .yzm .refresh{
+
+.form_row .ftext .yzm .refresh {
     position: absolute;
     bottom: -24px;
     right: 2px;
     color: #159fff;
 }
-.form_row .link{
+
+.form_row .link {
     margin-right: 46px;
     color: #fd6d0d;
     text-decoration: none;
 }
-.right{
+
+.right {
     text-align: right;
 }
-
 
 .btn {
     width: 156px;
@@ -420,6 +422,180 @@ legend {
     display: block;
     margin: 20px auto;
 }
-.my-placeholder{
+
+.my-placeholder {
     color: #A9A9A9;
+}
+
+
+/**
+  主页布局
+**/
+
+.header {
+    height: 84px;
+}
+
+.header:after,
+.header .r_menu:after {
+    content: "";
+    clear: both;
+}
+
+.header .l_logo {
+    float: left;
+    width: 222px;
+    background: #f9f6f3;
+    height: 100%;
+    text-align: center;
+}
+
+.header .l_logo img {
+    margin: 22px auto;
+}
+
+.header .r_menu {
+    float: right;
+    height: 100%;
+}
+
+.header .r_menu .username {
+    height: 60px;
+    line-height: 60px;
+    border-right: 1px solid #e6dfd8;
+    margin: 12px auto;
+    padding: 0px 36px;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+    float: left;
+}
+
+.header .r_menu .username span {
+    background: url(../images/icon_username.png) 0 50% no-repeat;
+    height: 20px;
+    padding-left: 24px;
+    font-size: 16px;
+}
+
+.header .r_menu .exit {
+    height: 60px;
+    line-height: 60px;
+    padding: 0px 36px;
+    float: left;
+    margin: 12px auto;
+}
+
+.header .r_menu .exit span {
+    background: url(../images/icon_exit.png) 0 50% no-repeat;
+    height: 20px;
+    padding-left: 24px;
+    font-size: 16px;
+    color: #faa668;
+}
+
+.content {
+    position: relative;
+}
+
+.left {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    width: 222px;
+    background: #f66a03;
+}
+
+.right {
+    background: #f9f6f3;
+    position: absolute;
+    left: 222px;
+    top: 0px;
+    bottom: 0px;
+}
+
+.right .title {
+    font-size: 30px;
+    height: 110px;
+    border-top: 1px solid #e6dfd8;
+    border-bottom: 1px solid #e6dfd8;
+    text-align: left;
+    padding-left: 30px;
+    line-height: 110px;
+}
+
+.rigth .iframec {
+    background: #fff;
+}
+
+.iframec iframe {
+    width: 100%;
+    background: #fff;
+}
+
+.menu {}
+
+.menu.active {
+    background: #e86200;
+}
+
+.menu .menu_t {
+    position: relative;
+    margin: 0px 12px;
+    border-bottom: 1px solid #e86200;
+    font-size: 16px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: #fff;
+}
+
+.menu_t .arrow {
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    background: url(../images/arr_down.png) 0 50% no-repeat;
+    width: 18px;
+    height: 8px;
+    margin-top: -4px;
+}
+
+.menu.unfold .menu_t .arrow {
+    background: url(../images/arr_up.png) 0 50% no-repeat;
+}
+
+.icon_account {
+    background: url(../images/icon_user.png) 0 50% no-repeat;
+    padding-left: 26px;
+}
+
+.icon_home {
+    background: url(../images/icon_home.png) 0 50% no-repeat;
+    padding-left: 26px;
+}
+
+.icon_role {
+    background: url(../images/icon_role.png) 0 50% no-repeat;
+    padding-left: 26px;
+}
+.menu ul{
+    display: none;
+}
+.menu.unfold ul{
+    display: block;
+}
+
+.menu ul li a {
+    font-size: 14px;
+    padding: 12px 12px 12px 38px;
+    color: #fff;
+    display: block;
+    text-decoration: none;
+}
+.menu ul li.current a {
+    background: #fff;
+    color: #f66a03;
+    border-left: 6px solid #a8cf0c;
 }
