@@ -4,6 +4,12 @@ body {
     scrollbar-highlight-color: #ffffff;
     scrollbar-darkshadow-color: #ffffff;
     padding: 0;
+    height: 100%;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
 }
 
 img {
@@ -39,9 +45,10 @@ select,
 textarea,
 .uneditable-input,
 .navbar-search .search-query {
-    font-family: Helvetica, Georgia, Arial, sans-serif, 宋体;
+    font-family: Microsoft YaHei, Georgia, Arial, sans-serif, 宋体;
     font-size: 13px;
     _font-size: 12px;
+    outline: none;
 }
 
 .input-append .add-on,
@@ -220,4 +227,199 @@ legend {
 #userControl>li>a:hover,
 #user #userControl>li.open>a {
     background: transparent;
+}
+
+.screen_bg {
+    position: fixed;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+}
+
+.screen_bg img {
+    width: 100%;
+    height: 100%;
+}
+
+.block_login {
+    margin: 0px auto;
+    width: 804px;
+}
+
+.block_login .title {
+    font-size: 24px;
+    margin: 38px 0;
+    padding-left: 90px;
+}
+
+.block_login .content {
+    position: relative;
+    overflow: hidden;
+    background: url(../images/block_content.png) repeat-y;
+    width: 804px;
+    padding-bottom: 40px;
+}
+.block_login .content .book{
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    background: url(../images/book.png) 0 0 no-repeat;
+    width: 122px;
+    height: 72px;
+}
+
+.block_login .top {
+    background: url(../images/block_top.png) no-repeat;
+    width: 804px;
+    height: 17px;
+}
+
+.block_login .bottom {
+    background: url(../images/block_bottom.png) no-repeat;
+    width: 804px;
+    height: 20px;
+}
+
+.form_row {
+    display: table;
+    width: 100%;
+    margin: 24px 0px;
+}
+
+.form_row .flabel {
+    display: table-cell;
+    width: 20%;
+    text-align: right;
+    font-size: 18px;
+    vertical-align: middle;
+}
+
+.form_row .ftext {
+    position: relative;
+    display: table-cell;
+    width: 60%;
+
+}
+
+.form_row .ftext input {
+    width: 380px;
+    border-top: 1px solid #ede7e4;
+    border-bottom: 1px solid #ede7e4;
+    border-right: 1px solid #ede7e4;
+    border-left: 4px solid #ff8b0c;
+    border-radius: 4px;
+    height: 50px;
+    padding-left: 18px;
+    margin-left: 25px;
+    font-size: 18px;
+}
+
+.form_row .ftext input.min {
+    width: 214px;
+    border-top: 1px solid #ede7e4;
+    border-bottom: 1px solid #ede7e4;
+    border-right: 1px solid #ede7e4;
+    border-left: 4px solid #ff8b0c;
+    border-radius: 4px;
+    height: 50px;
+    padding-left: 18px;
+    margin-left: 25px;
+    font-size: 18px;
+}
+
+.form_row .ftext .fradio {
+    margin-left: 25px;
+}
+
+.form_row .ftext .fradio li {
+    float: left;
+    list-style: none;
+    background: url(../images/radio_0.png) 0% 50% no-repeat;
+    padding-left: 20px;
+    font-size: 18px;
+    margin: 0 38px;
+}
+
+.form_row .ftext .fradio li.checked {
+    background: url(../images/radio_1.png) 0% 50% no-repeat;
+}
+
+.form_row .ftext .protocol {
+    margin-left: 25px;
+    background: url(../images/check_0.png) 0 50% no-repeat;
+    padding-left: 20px;
+    font-size: 16px;
+}
+
+.form_row .ftext .protocol.checked {
+    background: url(../images/check_1.png) 0 50% no-repeat;
+}
+
+.form_row .ftext .protocol a {
+    color: #ff8b0c;
+}
+
+.form_row .ftext .yzm {
+    position: absolute;
+    left: 208px;
+    top: 0px;
+    width: 200px;
+}
+.form_row .ftext .yzm img {
+   
+    width: 100%;
+}
+.form_row .ftext .yzm .refresh{
+    position: absolute;
+    bottom: -24px;
+    right: 2px;
+    color: #159fff;
+}
+.form_row .link{
+    margin-right: 46px;
+    color: #fd6d0d;
+    text-decoration: none;
+}
+.right{
+    text-align: right;
+}
+
+
+.btn {
+    width: 156px;
+    height: 52px;
+    text-align: center;
+    background: #ff8b0c;
+    color: #fff;
+    display: inline-block;
+    line-height: 52px;
+    font-size: 18px;
+    border-radius: 4px;
+    margin: 0px 4px;
+}
+
+.reg_btn {
+    width: 380px;
+    height: 52px;
+    text-align: center;
+    background: #ff8b0c;
+    color: #000;
+    display: inline-block;
+    line-height: 52px;
+    font-size: 18px;
+    border-radius: 4px;
+    margin-left: 25px;
+    font-size: 20px;
+}
+
+.logo {
+    overflow: hidden;
+}
+
+.logo img {
+    display: block;
+    margin: 20px auto;
+}
+.my-placeholder{
+    color: #A9A9A9;
 }
