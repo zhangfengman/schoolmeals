@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>熟饭系统</title>
+    <title>熟饭后台管理系统</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="Keywords" content="">
@@ -10,135 +10,97 @@
     <meta name="format-detection" content="telephone=no, address=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="stylesheet" type="text/css" href="../../css/bootstrap_h.css">
-    <link rel="stylesheet" type="text/css" href="../../css/font-awesome.css?11">
     <link rel="stylesheet" type="text/css" href="../../css/common.css">
-    <script type="text/javascript" src="../../js/libs/jquery.js"></script>
-    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <!-- -->
 </head>
 
 <body>
-    <div id="main">
-        <div id="header" class="navbar navbar-fixed-top">
+    <div class="header">
+        <div class="l_logo">
+            <img src="../../images/logo_min.png" />
         </div>
-        <div class="container-fluid">
-            <div id="content" class="row-fluid">
-                <div id="left">
-                    <div class="accordion" id="accordion1">
-                        <div class="accordion-group">
-                            <div class="accordion-heading">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse1">
-                                    <i class="icon-chevron-right"></i> &nbsp;教师系统
-                                </a>
-                            </div>
-                            <div id="collapse1" class="accordion-body collapse">
-                                <div class="accordion-inner">
-                                    <ul class="nav nav-list">
-                                        <li class="">
-                                            <a href="../teacher/myclass.html" target="mainFrame" jerichotabindex="0"><i class="icon-circle-arrow-right icon-white"></i>&nbsp;我的班级</a>
-                                            <ul class="nav nav-list hide" style="margin:0;padding-right:0;">
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="../teacher/myclassroom.html" target="mainFrame" jerichotabindex="0"><i class="icon-circle-arrow-right icon-white"></i>&nbsp;我的课堂</a>
-                                            <ul class="nav nav-list hide" style="margin:0;padding-right:0;">
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-group">
-                            <div class="accordion-heading">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse2">
-                                    <i class="icon-chevron-right"></i>&nbsp;学生系统</a>
-                            </div>
-                            <div id="collapse2" class="accordion-body collapse">
-                                <div class="accordion-inner">
-                                    <ul class="nav nav-list">
-                                        <li class="">
-                                            <a href="../teacher/myclass.html" target="mainFrame" jerichotabindex="0"><i class="icon-circle-arrow-right icon-white"></i>&nbsp;我的班级</a>
-                                            <ul class="nav nav-list hide" style="margin:0;padding-right:0;">
-
-                                            </ul>
-                                        </li>
-                                        <li><a href="../student/lessonindex.html" target="mainFrame" jerichotabindex="0"><i class="icon-circle-arrow-right icon-white"></i>&nbsp;课程主页</a></li>
-                                        <li>
-                                            <a href="../teacher/myclassroom.html" target="mainFrame" jerichotabindex="0"><i class="icon-circle-arrow-right icon-white"></i>&nbsp;我的考试</a>
-                                            <ul class="nav nav-list hide" style="margin:0;padding-right:0;">
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="openClose" class="close">&nbsp;</div>
-                <div id="right">
-                    <iframe id="mainFrame" name="mainFrame" src="../teacher/myclass.html" scrolling="yes" frameborder="no" width="100%"></iframe>
-                </div>
+        <div class="r_menu">
+            <div class="username">
+                <span>王老师</span>
+            </div>
+            <div class="exit">
+                <span>退出</span>
             </div>
         </div>
-        <div id="footer" class="row-fluid">
-            Copyright © 2016 熟饭教育 - Powered By <a href="#" target="_blank">zfm</a> V1.0
+    </div>
+    <div id="content" class="content">
+        <div id="left" class="left">
+            <div class="menu active">
+                <div class="menu_t icon_account">教师系统
+                    <div class="arrow"></div>
+                </div>
+                
+            </div>
+            <div class="menu">
+                <div class="menu_t icon_home">学生系统
+                    <div class="arrow"></div>
+                </div>
+                <ul>
+                    <li class="current">
+                        <a href="../student/lessonindex.html" target="maintarget">我的课程</a>
+                    </li>                   
+                </ul>
+            </div>
+        </div>
+        <div id="right" class="right">
+            <div class="title">标题</div>
+            <div class="iframec">
+                <iframe id="maintarget" name="maintarget" src="../student/lessonindex.html" scrolling="yes" frameborder="no"></iframe>
+            </div>
         </div>
     </div>
+    <script type="text/javascript" src="../../js/libs/jquery.js"></script>
     <script type="text/javascript">
-    var leftWidth = 160; // 左侧窗口大小
-    var tabTitleHeight = 33; // 页签的高度
-    var htmlObj = $("html"),
-        mainObj = $("#main");
-    var headerObj = $("#header"),
-        footerObj = $("#footer");
-    var frameObj = $("#left, #openClose, #right, #right iframe");
+    $(function() {
+        function getWindowSize() {
+            return ["Height", "Width"].map(function(name) {
+                return window["inner" + name] ||
+                    document.compatMode === "CSS1Compat" && document.documentElement["client" + name] || document.body["client" + name];
+            });
+        }
 
-    function wSize() {
-        var minHeight = 500,
-            minWidth = 980;
-        var strs = getWindowSize().toString().split(",");
-        htmlObj.css({
-            "overflow-x": strs[1] < minWidth ? "auto" : "hidden",
-            "overflow-y": strs[0] < minHeight ? "auto" : "hidden"
+        function wSize() {
+            var screen = getWindowSize();
+
+            var contentH = screen[0] - 84;
+            $("#content").css("height", contentH + "px");
+            $("#right").css("width", (screen[1] - 222) + "px");
+            $("#maintarget").css("height", (contentH - 115) + "px");
+        }
+        wSize();
+        $(window).resize(function() {
+            wSize();
         });
-        mainObj.css("width", strs[1] < minWidth ? minWidth - 10 : "auto");
-        frameObj.height((strs[0] < minHeight ? minHeight : strs[0]) - headerObj.height() - footerObj.height() - (strs[1] < minWidth ? 42 : 28));
-        $("#openClose").height($("#openClose").height() - 5); // <c:if test="${tabmode eq '1'}"> 
-        $(".jericho_tab iframe").height($("#right").height() - tabTitleHeight); // </c:if>
-        wSizeWidth();
-    }
 
-    function wSizeWidth() {
-        if (!$("#openClose").is(":hidden")) {
-            var leftWidth = ($("#left").width() < 0 ? 0 : $("#left").width());
-            $("#right").width($("#content").width() - leftWidth - $("#openClose").width() - 5);
-        } else {
-            $("#right").width("100%");
+        function bindEvent() {
+            $("#left").on("click", ".menu", function() {
+                var omenu = $(this);
+                if (!omenu.hasClass("active")) {
+                    omenu.addClass("active unfold").siblings().removeClass("active unfold");
+                } else if(omenu.hasClass("unfold")) {
+                	 omenu.removeClass("unfold");
+                } else if(!omenu.hasClass("unfold")){
+                	omenu.addClass("unfold");
+                }                
+            })
+            $("#left").on("click", ".menu li", function() {
+                var omenu = $(this);
+                //移除其他子菜单选中效果
+                $(".menu li").removeClass("current");
+                if (!omenu.hasClass("current")) {
+                    omenu.addClass("current");
+                }
+                //防止冒泡
+                return false;
+            })
         }
-    }
-    </script>
-    <script type="text/javascript" src="../../js/core/wsize.js"></script>
-    <script type="text/javascript">
-    // 二级标题
-    $(".accordion-heading a").click(function() {        
-        var oi = $(this).find("i");
-        if(oi.hasClass("icon-chevron-right")){
-            oi.addClass('icon-chevron-down').removeClass('icon-chevron-right');
-        }else{
-            oi.removeClass('icon-chevron-down').addClass('icon-chevron-right');    
-        }
-    });
-    // 二级内容
-    $(" .accordion-body li").click(function() {
-         $(this).addClass("active").siblings().removeClass("active");
-    });
-    // 展现三级
-    $(" .accordion-inner a").click(function() {
-        var href = $(this).attr("data-href");
-        if ($(href).length > 0) {
-            $(href).toggle().parent().toggle();
-            return false;
-        }
+        bindEvent();
+
     });
     </script>
 </body>
