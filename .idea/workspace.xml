@@ -384,15 +384,15 @@
       <workItem from="1479031915125" duration="8387000" />
       <workItem from="1479041373845" duration="5144000" />
       <workItem from="1479046856818" duration="3753000" />
-      <workItem from="1479050964145" duration="691000" />
+      <workItem from="1479050964145" duration="1288000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19604000" />
+    <option name="totallyTimeSpent" value="20201000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-11" y="0" width="1934" height="1042" extended-state="0" />
+    <frame x="-11" y="0" width="1934" height="1042" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
@@ -582,7 +582,7 @@
         <state relative-caret-position="-4554">
           <caret line="33" column="1" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
           <folding>
-            <marker date="1479031864707" expanded="true" signature="368:392" ph="{...}" />
+            <marker date="1479051690211" expanded="true" signature="368:392" ph="{...}" />
           </folding>
         </state>
       </provider>
