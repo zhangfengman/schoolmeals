@@ -1,0 +1,377 @@
+body{
+    background: #f9f7f3;
+    font-family: "微软雅黑";
+    font-size: 14px;
+}
+*{
+    box-sizing: border-box;
+}
+ul,li{
+    list-style: none;
+}
+a:link,a:visited{
+    text-decoration: none;
+    color: #333;
+}
+.lesson_main{
+    width: 1060px;
+
+}
+.main_title{
+    color: #000;
+    font-size: 30px;
+    line-height: 108px;
+    height: 108px;
+    font-weight: normal;
+    padding-left: 30px;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+}
+.main_content{
+    padding:32px 40px 0 30px;
+}
+.lesson_intro{
+    width: 330px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-top:9px solid #f86a00;
+    border-radius: 3px;
+    padding: 32px 29px 0;
+    position: relative;
+    float: left;
+}
+.lesson_intro_group{
+    padding-bottom: 30px;
+}
+.lesson_intro h3{
+    font-weight: normal;
+    color: #333;
+    padding-bottom: 16px;
+}
+.lesson_intro p{
+    color: #999;
+    padding-left: 7px;
+}
+.lesson_intro .edit{
+    position: absolute;
+    bottom: 30px;
+    right:29px;
+    width: 34px;
+    height: 34px;
+    background: url("../images/lesson/icon_edit.png") no-repeat center;
+    cursor: pointer;
+}
+.lesson_chapter{
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 642px;
+    background: #fff;
+    margin-left: 14px;
+    padding: 20px 18px;
+    float: left;
+}
+.lesson_chapter li .chapter_first{
+    width: 607px;
+    height: 48px;
+    padding-left: 19px;
+    background: #fff5e9;
+    display: block;
+    margin-bottom: 4px;
+    border-radius: 3px;
+}
+.lesson_chapter li .current{
+    background: #ffc499;
+}
+.lesson_chapter li i{
+    float: left;
+    width: 16px;
+    height: 48px;
+    margin-right: 27px;
+    background: url("../images/lesson/icon_chapter_up.png") no-repeat center;
+}
+.lesson_chapter .icon_chapter_open{
+    background-image: url("../images/lesson/icon_chapter_open.png");
+}
+.lesson_chapter li span{
+    line-height: 48px;
+    float: left;
+}
+.lesson_chapter .chapter_second{
+    color: #999;
+    width: 607px;
+    padding-left: 62px;
+    height: 48px;
+    display: block;
+    line-height: 48px;
+}
+.lesson_chapter .active{
+    color: #f66a03;
+}
+/*课程内容*/
+.lesson_step{
+    width: 998px;
+    background-color: #fff;
+    padding: 16px 18px 0;
+}
+.lesson_step_tab{
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    overflow: hidden;
+    position: relative;
+}
+.lesson_step_tab li{
+    height: 62px;
+    line-height: 62px;
+    width: 240px;
+    text-align: center;
+    float: left;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background: #f9f7f3;
+}
+.lesson_step_tab li.active{
+    background: #fff;
+    border-bottom:0;
+    border-top: 5px solid #f86a00;
+    background: url("../images/lesson/icon_tab_active.png") no-repeat center top;
+}
+.lesson_step_tab li:last-child{
+    border-right: 0;
+}
+.lesson_step_tab .questions_count{
+    background: #eb2f3b;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    text-align: center;
+    line-height: 20px;
+    position: absolute;
+    right: 75px;
+    top:10px;
+    color: #fff;
+    font-style: normal;
+}
+.lesson_step_list li{
+    width: 100%;
+    height:144px;
+    background: #f9f7f3;
+    margin-top: 8px;
+    padding: 10px 10px 30px 13px;
+}
+.lesson_step_list .lesson_step_icon{
+    float: left;
+    width: 34px;
+    height: 26px;
+    background: url("../images/lesson/icon_book.png") no-repeat center;
+}
+.lesson_step_row{
+    width: 100%;
+    overflow: hidden;
+    padding: 0 14px 9px 13px;
+    border-bottom: 1px solid #eaeaea;
+    margin-bottom: 42px;
+}
+.lesson_step_list h4{
+    float: left;
+}
+.lesson_step_list h4 a{
+    line-height: 26px;
+    padding-left: 29px;
+}
+.lesson_step_list .lesson_state{
+    float: right;
+    height: 20px;
+    width: 54px;
+    text-align: center;
+    line-height: 18px;
+    border: 1px solid #eb2f3b;
+    border-radius: 2px;
+    color: #eb2f3b;
+}
+.lesson_step_list  .underway{
+    color: #27bfa9;
+    border-color: #27cfa9;
+}
+.lesson_step_list .ended{
+    color: #999;
+    border-color: #999;
+}
+.lesson_start_time span,.lesson_end_time span{
+    color: #999;;
+}
+.lesson_step_operate{
+    padding-left: 26px;
+    padding-right: 23px;
+}
+.lesson_start_time,.lesson_end_time{
+    float: left;
+    color: #f86a00;
+}
+.lesson_step_operate .divider{
+    padding: 0 35px;
+    color: #999;
+    float: left;
+}
+.lesson_step_operate_buttons{
+    float: right;
+}
+.lesson_step_operate_buttons button{
+    width:120px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    color: #fff;
+    background: #27bfa9;
+    border: 0;
+    cursor: pointer;
+    float: left;
+}
+.lesson_step_operate_buttons .lesson_step_operate_score{
+    background:#f86a00;
+    margin-right: 23px;
+}
+.lesson_step_operate_buttons .key i{
+    width: 26px;
+    height: 26px;
+    border-radius: 26px;
+    float: left;
+    vertical-align: middle;
+    margin-right: 6px;
+    margin-top: 4px;
+}
+.lesson_step_operate_buttons .key{
+    float: left;
+    margin-right: 55px;
+    line-height: 34px;
+}
+.lesson_step_operate_buttons .locked i{
+    background: url("../images/lesson/lesson_locked.png") no-repeat center #eb2f3b;
+}
+.lesson_step_operate_buttons .unlocked i{
+    background: url("../images/lesson/lesson_start.png") no-repeat center #27bfa9;
+}
+/*问题总结*/
+.questions_wrap{
+    padding-top: 40px;
+}
+.questions_wrap .question_tab span{
+    width: 96px;
+    text-align: center;
+    display: inline-block;
+}
+.questions_wrap .question_tab{
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 12px;
+}
+.questions_wrap .question_tab span.active{
+    color: #f86a00;
+}
+.question_search_box{
+    padding-top: 28px;
+    overflow: hidden;
+    margin-bottom: 56px;
+}
+.question_search_box input{
+    width: 602px;
+    height: 38px;
+    line-height: 36px;
+    padding-left: 13px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    float: left;
+    margin-right: 21px;
+}
+.question_search_box button{
+   background: #f86a00;
+    border: 0;
+    width: 134px;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    color: #fff;
+    border-radius: 3px;
+    float: left;
+    font-size: 18px;
+}
+.question_list{
+    overflow: hidden;
+}
+.question_list li{
+    padding: 16px 42px;
+    background: #fafafa;
+    border-radius: 3px;
+    box-shadow: 0 0 5px #f9f7f3;
+    margin-bottom: 10px;
+}
+.question_ask_con{
+    background: #ffae6a;
+    padding: 0 22px;
+    line-height: 40px;
+    display: inline-block;
+    border-radius: 3px;
+    margin:0 15px;
+    max-width: 500px;
+    position: relative;
+}
+.question_student_ask .question_ask_con .question_arr{
+    width: 8px;
+    height: 14px;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    margin-top: -7px;
+    background: url("../images/lesson/icon_student_ask.png") no-repeat left center ;
+}
+.question_ask_time{
+    height: 40px;
+    line-height: 40px;
+    color: #999;
+}
+.question_student_ask{
+    margin-bottom: 34px;
+}
+.question_teacher_answer{
+    float: right;
+}
+.question_teacher_answer .question_ask_con{
+    background: #eaeaea;
+    position: relative;
+}
+.question_teacher_answer .question_ask_con .question_arr{
+    left: auto;
+    right: -8px;
+    background: url("../images/lesson/icon_teacher_answer.png") no-repeat left center ;
+}
+.question_answer_box{
+    overflow: hidden;
+}
+.question_answer_box input,.question_answer_box .question_answer_avatar,.question_answer_box button{
+    float: left;
+}
+.question_answer_box input{
+    margin-left: 70px;
+    border: 1px solid #eaeaea;
+    height: 40px;
+    width: 597px;
+    line-height: 38px;
+    border-radius: 3px;
+    padding-left: 24px;
+}
+.question_answer_box .question_answer_avatar{
+    margin: 5px 10px 0;
+}
+.question_answer_box button{
+    width: 78px;
+    height: 36px;
+    border: 1px solid #f86a00;
+    color: #f86a00;
+    text-align: center;
+    line-height: 34px;
+    border-radius: 2px;
+    background: none;
+    margin-top: 2px;
+}
+.talk_content{
+    overflow: hidden;
+}
