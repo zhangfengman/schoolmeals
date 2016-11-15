@@ -34,6 +34,11 @@
                 <div class="menu_t icon_account">教师系统
                     <div class="arrow"></div>
                 </div>
+                 <ul>
+                    <li class="current">
+                        <a href="../teacher/myclass.html" target="maintarget">我的班级</a>
+                    </li>                   
+                </ul>
                 
             </div>
             <div class="menu">
@@ -48,9 +53,9 @@
             </div>
         </div>
         <div id="right" class="right">
-            <div class="title">标题</div>
+            
             <div class="iframec">
-                <iframe id="maintarget" name="maintarget" src="../student/lessonindex.html" scrolling="yes" frameborder="no"></iframe>
+                <iframe id="maintarget" name="maintarget" src="../teacher/myclass.html" scrolling="yes" frameborder="no"></iframe>
             </div>
         </div>
     </div>
@@ -70,7 +75,7 @@
             var contentH = screen[0] - 84;
             $("#content").css("height", contentH + "px");
             $("#right").css("width", (screen[1] - 222) + "px");
-            $("#maintarget").css("height", (contentH - 115) + "px");
+            $("#maintarget").css("height", contentH + "px");
         }
         wSize();
         $(window).resize(function() {
@@ -88,15 +93,16 @@
                 	omenu.addClass("unfold");
                 }                
             })
-            $("#left").on("click", ".menu li", function() {
+            $("#left").on("click", ".menu li", function(e) {
                 var omenu = $(this);
                 //移除其他子菜单选中效果
                 $(".menu li").removeClass("current");
                 if (!omenu.hasClass("current")) {
                     omenu.addClass("current");
                 }
-                //防止冒泡
-                return false;
+                 
+                e.stopPropagation(); 
+                e.cancelBubble = true;//IE
             })
         }
         bindEvent();

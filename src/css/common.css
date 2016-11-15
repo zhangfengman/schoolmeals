@@ -5,6 +5,19 @@ body {
     scrollbar-darkshadow-color: #ffffff;
     padding: 0;
     height: 100%;
+     background: #f9f7f3;
+    font-family: "微软雅黑";
+    font-size: 14px;
+}
+*{
+    box-sizing: border-box;
+}
+ul,li{
+    list-style: none;
+}
+a:link,a:visited{
+    text-decoration: none;
+    color: #333;
 }
 
 * {
@@ -518,7 +531,7 @@ legend {
     bottom: 0px;
 }
 
-.right .title {
+.title {
     font-size: 30px;
     height: 110px;
     border-top: 1px solid #e6dfd8;
@@ -599,4 +612,36 @@ legend {
     background: #fff;
     color: #f66a03;
     border-left: 6px solid #a8cf0c;
+}
+
+.lesson_step{
+    
+    background-color: #fff;
+    padding: 16px 18px 0;
+}
+.lesson_step_tab{
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    overflow: hidden;
+    position: relative;
+}
+.lesson_step_tab li{
+    height: 62px;
+    line-height: 62px;
+    width: 25%;
+    text-align: center;
+    float: left;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background: #f9f7f3;
+}
+.lesson_step_tab li.active{
+    background: #fff;
+    border-bottom:0;
+    border-top: 5px solid #f86a00;
+    background: url("../images/lesson/icon_tab_active.png") no-repeat center top;
+}
+.lesson_step_tab li:last-child{
+    border-right: 0;
 }
