@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>课程详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/student-lesson.css">
+    <link rel="stylesheet" type="text/css" href="../../css/exam-detail.css">
+</head>
+
+<body style="background: #f9f6f3;display: none;" ms-controller="courseDetailStudent">
+    <div class="lesson_main">
+        <h2 class="main_title">{{@mycourse.courseName}}</h2>
+        <div class="course_detail_head">
+            <div class="course_detail_head_l">
+                <div class="course_detail_head_row">
+                    <div class="course_detail_head_dt">授课老师：</div>
+                    <div class="course_detail_head_dd">{{@detail.userName}}</div>
+                </div>
+                <div class="course_detail_head_row">
+                    <div class="course_detail_head_dt">授课时间：</div>
+                    <div class="course_detail_head_dd">{{@detail.startTime}} - - {{@detail.endTime}}</div>
+                </div>
+                <div class="course_detail_head_row">
+                    <div class="course_detail_head_dt">授课要求：</div>
+                    <div class="course_detail_head_dd">{{@detail.request}}</div>
+                </div>
+            </div>
+            <div class="course_detail_head_r">
+                距离结束时间还有 :<span>{{@detail.viewTime}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="course_detail_body">
+        <div id="uploadAudio"></div>
+        <div id="uploadAudioContainer"></div>
+        <div ms-for="($index,el) in @detail.contentList">
+            <div class="video_box" ms-if="el.contentType == 2">
+                <dl class="video_wrap">
+                    <dd>
+                        <h3>{{el.video.name}}</h3>
+                        <div class="cvideo">
+                            <!--div class="play_wrap">点击播放视频<img src="../../images/lesson/video_play_icon.png"></div-->
+                            <video ms-attr="{src:el.video.path}" controls="controls">
+                                您的浏览器不支持 video 标签。
+                            </video>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <div class="course_con" ms-if="el.contentType == 1">
+                <ul>
+                    <li class="course_con_list">
+                        <!--选择题-->
+                        <div class="query_item" ms-attr="{qid:el.question.choiceQuestion.choiceQuestionId,type:el.question.type,id:'query_item_'+el.question.choiceQuestion.choiceQuestionId+'_'+el.question.type}" ms-if="el.question.type == 1">
+                            <h4 class="course_title_num">题号:{{$index+1}}</h4>
+                            <div class="course_subject_con">
+                                <h4 class="course_subject_title">
+                                
+                                 <wbr ms-widget="[{is:'ms-content'},{content_:el.question.choiceQuestion.mainContent}]" />
+                                </h4>
+                                <ul class="course_subject_options">
+                                    <li ms-for="($num,opt) in el.question.choiceQuestion.optionsContent">
+                                        <label>
+                                            <input type="radio" ms-attr="{value:opt.option,name:el.question.choiceQuestion.choiceQuestionId}" ms-if="el.question.choiceQuestion.choiceQuestionType == 1" />
+                                            <input type="checkbox" ms-attr="{value:opt.option}" ms-if="el.question.choiceQuestion.choiceQuestionType == 2" /> {{opt.option}}.
+                                            <wbr ms-widget="[{is:'ms-content'},{content_:opt.content}]" />
+                                        </label>
+                                    </li>
+                                </ul>
+                                <button class="sub_btn btn_angly" ms-click="@analysis(el.question)" ms-visible="el.question.studentAnswer.answerContent" ms-attr="{id:'btn_angly_'+el.question.choiceQuestion.choiceQuestionId}">分析</button>
+                                <button class="sub_btn btn_look" ms-click="@look(el)" ms-visible="el.question.studentAnswer.answerContent">查看答案</button>
+                                <button class="sub_btn q_submit" ms-if="!el.question.studentAnswer">提交</button>
+                            </div>
+                            <div class="result" ms-visible="el.toggle">
+                                <p>正确答案：<span class="resultc">{{el.question.studentAnswer.answerContent}}</span></p>
+                            </div>
+                        </div>
+                        <!--填空题-->
+                        <div class="query_item" ms-attr="{qid:el.question.fillingQuestion.fillingQuestionId,type:el.question.type,id:'query_item_'+el.question.fillingQuestion.fillingQuestionId+'_'+el.question.type}" ms-if="el.question.type == 2">
+                            <h4 class="course_title_num">题号:{{$index+1}}</h4>
+                            <div class="course_subject_con">
+                                <h4 class="course_subject_title">
+                                <wbr ms-widget="[{is:'ms-content'},{content_:el.question.fillingQuestion.mainContent}]" />
+
+                                </h4>
+                                <ul class="course_subject_options">
+                                    <li ms-for="($num,opt) in el.question.fillingQuestion.fillingOpts">
+                                        空{{$num+1}}:
+                                        <input class="filling_text" type="text" />
+                                    </li>
+                                </ul>
+                                <button class="sub_btn btn_angly" ms-click="@analysis(el.question)" ms-visible="el.question.studentAnswer.answerContent"  ms-attr="{id:'btn_angly_'+el.question.fillingQuestion.fillingQuestionId}">分析</button>
+                                <button class="sub_btn btn_look" ms-click="@look(el)" ms-visible="el.question.studentAnswer.answerContent">查看答案</button>
+                                <button class="sub_btn q_submit" ms-if="!el.question.studentAnswer">提交</button>
+                            </div>
+                            <div class="result" ms-visible="el.toggle">
+                                <p>正确答案：<span class="resultc">{{el.question.studentAnswer.answerContent}}</span></p>
+                            </div>
+                        </div>
+                        <!--主观题-->
+                        <div class="query_item" ms-attr="{qid:el.question.subjectiveQuestion.subjectiveQuestionId,type:el.question.type,id:'query_item_'+el.question.subjectiveQuestion.subjectiveQuestionId+'_'+el.question.type}" ms-if="el.question.type == 3">
+                            <h4 class="course_title_num">题号:{{$index+1}}</h4>
+                            <div class="course_subject_con">
+                                <h4 class="course_subject_title">                               
+                                 <wbr ms-widget="[{is:'ms-content'},{content_:el.question.subjectiveQuestion.mainContent}]" />
+                                </h4>
+                                <ul class="course_subject_options">
+                                    <li>
+                                        <img class="stduent_ans_w" ms-if="el.question.studentAnswer.answerContent !=''" ms-attr="{src:el.question.studentAnswer.answerContent}" />
+                                        <input class="subject_text" ms-attr="{id:'uploadAudio_'+el.question.subjectiveQuestion.subjectiveQuestionId}" type="text" />
+                                    </li>
+                                </ul>
+                                <!--
+                                <button class="sub_btn btn_angly" ms-click="@analysis(el.question)" ms-visible="el.question.studentAnswer.answerContent" ms-attr="{id:'btn_angly_'+el.question.subjectiveQuestion.subjectiveQuestionId}">分析</button>-->
+                                <button class="sub_btn btn_look" ms-click="@look(el)" ms-visible="el.question.studentAnswer.answerContent">查看答案</button>
+                                <button class="sub_btn q_submit" ms-if="!el.question.studentAnswer">提交</button>
+                            </div>
+                            <div class="result" ms-visible="el.toggle">
+                                <p>正确答案：<span class="resultc">
+                                
+                                 <wbr ms-widget="[{is:'ms-content'},{content_:el.question.subjectiveQuestion.rightContent}]" />
+                                </span></p>
+                            </div>
+                        </div>
+                        <!--组合题-->
+                        <div class="query_item" ms-attr="{qid:el.question.subjectiveQuestion.subjectiveQuestionId,type:el.question.type}" ms-if="el.question.type == 4">
+                            <h4 class="course_title_num">题号:{{$index+1}}</h4>
+                            <div class="course_subject_con">
+                                <h4 class="course_subject_title">
+                                
+                                <wbr ms-widget="[{is:'ms-content'},{content_:el.question.unionQuestion.mainContent}]" />
+                                </h4>
+                            </div>
+                            <div ms-for="($count,unionEl) in el.question.unionQuestion.questionList" style="margin-top: 40px;">
+                                <!--选择题 -->
+                                <div class="query_item" ms-attr="{qid:unionEl.choiceQuestion.choiceQuestionId,type:unionEl.type,id:'query_item_'+unionEl.choiceQuestion.choiceQuestionId+'_'+unionEl.questionType}" ms-if="unionEl.type == 1">
+                                    <h4 class="course_title_num">题号:{{$count+1}}</h4>
+                                    <div class="course_subject_con">
+                                        <h4 class="course_subject_title">
+                                        
+                                         <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.choiceQuestion.mainContent}]" />
+                                        </h4>
+                                        <ul class="course_subject_options">
+                                            <li ms-for="($num,opt) in unionEl.choiceQuestion.optionsContent">
+                                                <label>
+                                                    <input type="radio" ms-attr="{value:opt.option,name:unionEl.choiceQuestion.choiceQuestionId}" ms-if="unionEl.choiceQuestion.choiceQuestionType == 1" />
+                                                    <input type="checkbox" ms-attr="{value:opt.option}" ms-if="unionEl.choiceQuestion.choiceQuestionType == 2" /> {{opt.option}}.
+                                                    <wbr ms-widget="[{is:'ms-content'},{content_:opt.content}]" />
+                                                </label>
+                                            </li>
+                                        </ul>
+                                        <button class="sub_btn btn_angly" ms-click="@analysis(unionEl)" ms-visible="unionEl.studentAnswer.answerContent"   ms-attr="{id:'btn_angly_'+unionEl.choiceQuestion.choiceQuestionId}" >分析</button>
+                                        <button class="sub_btn btn_look" ms-click="@look(unionEl)" ms-visible="unionEl.studentAnswer.answerContent">查看答案</button>
+                                        <button class="sub_btn q_submit" ms-if="!unionEl.studentAnswer">提交</button>
+                                    </div>
+                                    <div class="result" ms-visible="unionEl.toggle">
+                                        <p>正确答案：<span class="resultc">{{unionEl.studentAnswer.answerContent}}</span></p>
+                                    </div>
+                                </div>
+                                <!--填空题-->
+                                <div class="query_item" ms-attr="{qid:unionEl.fillingQuestion.fillingQuestionId,type:unionEl.type,id:'query_item_'+unionEl.fillingQuestion.fillingQuestionId+'_'+unionEl.questionType}" ms-if="unionEl.type == 2">
+                                    <h4 class="course_title_num">题号:{{$count+1}}</h4>
+                                    <div class="course_subject_con">
+                                        <h4 class="course_subject_title">
+                                        
+                                        <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.fillingQuestion.mainContent}]" />
+                                        </h4>
+                                        <ul class="course_subject_options">
+                                            <li ms-for="($num,opt) in unionEl.fillingQuestion.fillingOpts">
+                                                空{{$num+1}}:
+                                                <input class="filling_text" type="text" />
+                                            </li>
+                                        </ul>
+                                        <button class="sub_btn btn_angly" ms-click="@analysis(unionEl)" ms-visible="unionEl.studentAnswer.answerContent"   ms-attr="{id:'btn_angly_'+unionEl.fillingQuestion.fillingQuestionId}">分析</button>
+                                        <button class="sub_btn btn_look" ms-click="@look(unionEl)" ms-visible="unionEl.studentAnswer.answerContent">查看答案</button>
+                                        <button class="sub_btn q_submit" ms-if="!unionEl.studentAnswer">提交</button>
+                                    </div>
+                                    <div class="result" ms-visible="unionEl.toggle">
+                                        <p>正确答案：<span class="resultc">{{unionEl.studentAnswer.answerContent}}</span></p>
+                                    </div>
+                                </div>
+                                <!--主观题-->
+                                <div class="query_item" ms-attr="{qid:unionEl.subjectiveQuestion.subjectiveQuestionId,type:unionEl.type,id:'query_item_'+unionEl.subjectiveQuestion.subjectiveQuestionId+'_'+unionEl.questionType}" ms-if="unionEl.type == 3">
+                                    <h4 class="course_title_num">题号:{{$count+1}}</h4>
+                                    <div class="course_subject_con">
+                                        <h4 class="course_subject_title">
+                                        
+                                         <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.subjectiveQuestion.mainContent}]" />
+                                        </h4>
+                                        <ul class="course_subject_options">
+                                            <li>
+                                                <img class="stduent_ans_w" ms-if="unionEl.studentAnswer.answerContent !=''" ms-attr="{src:unionEl.studentAnswer.answerContent}" />
+                                                <input class="subject_text" ms-attr="{id:'uploadAudio_'+unionEl.subjectiveQuestion.subjectiveQuestionId}" type="text" />
+                                            </li>
+                                        </ul>
+                                        <!--
+                                        <button class="sub_btn btn_angly" ms-click="@analysis(unionEl)" ms-visible="unionEl.studentAnswer.answerContent"   ms-attr="{id:'btn_angly_'+subjectiveQuestion.subjectiveQuestionId}">分析</button>-->
+                                        <button class="sub_btn btn_look" ms-click="@look(unionEl)" ms-visible="unionEl.studentAnswer.answerContent">查看答案</button>
+                                        <button class="sub_btn q_submit" ms-if="!unionEl.studentAnswer">提交</button>
+                                    </div>
+                                    <div class="result" ms-visible="unionEl.toggle">
+                                        <p>正确答案：<span class="resultc">
+
+                                         <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.subjectiveQuestion.rightContent}]" /></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="my_ask_wrap" ms-click="@ask();">我要提问</div>
+    </div>
+    <span class="slide_down" style="display: none;">
+    完成度：{{@analyzeList.answerPercent*100}}%（{{@analyzeList.answerCount}}/{{@analyzeList.studentCount}}）<br>
+    正确率：{{@analyzeList.rightPercent*100}}%（{{@analyzeList.rightCount}}/{{@analyzeList.studentCount}}）<br>
+    错误率：{{@analyzeList.errorPercent*100}}%（{{@analyzeList.errorCount}}/{{@analyzeList.studentCount}}）<br>
+    做对的学生：<i ms-visible="@analyzeList.rightStudentNameList.length==0" style="font-style: normal;">无</i>{{@analyzeList.rightStudentNameList}}<br>
+    做错的学生：<i ms-visible="@analyzeList.errorStudentNameList.length==0" style="font-style: normal;">无</i>{{@analyzeList.errorStudentNameList}}<br>
+    未做的学生：<i ms-visible="@analyzeList.unAnswerStudentNameList.length==0" style="font-style: normal;">无</i>{{@analyzeList.unAnswerStudentNameList}}<br>
+    <span ms-visible="@analyzeList.answerContentStudentNameList.length>0" ms-for="e in @analyzeList.answerContentStudentNameList">
+选{{e.content}}的学生：<span ms-for="p in e.studentNameList">{{p}}</span><i ms-visible="e.studentNameList.length==0" style="font-style: normal;">无</i>
+    <br>
+    </span>
+    </span>
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/libs/qiniu.js"></script>
+    <script type="text/javascript" src="../../js/libs/layer/layer.js"></script><!--ignore-->
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/chapter.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/upload.js"></script>
+    <script type="text/javascript" src="../../js/app/student/courseDetailStudent.js"></script>
+</body>
+
+</html>

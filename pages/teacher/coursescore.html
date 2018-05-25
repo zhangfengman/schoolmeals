@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>评分</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/coursescore.css">
+</head>
+
+<body class="jcms" style="background: #f9f6f3;" ms-controller="coursescore">
+    <div class="title" ms-if="@sourceType == 1">课程评分</div>
+    <div class="title" ms-if="@sourceType == 2">测试评分</div>
+    <div class="main_content">
+        <div class="search_block">
+            <!--课程评分 -->
+            <div class="ctable noborder" ms-if="@sourceType == 1">
+                <div class="crow">
+                    <div class="ccol ccol-4">
+                        <div class="jrow">
+                            <div class="jlabel">课程</div>
+                            <div class="jinput">
+                                <div class="jselect">
+                                    <select id="courseselect" ms-duplex="@query.courseId" data-msg="学校" data-verify="require">
+                                        <option value="">选择课程</option>
+                                        <option ms-for="($index, el) in @courseList" ms-attr={value:el.courseId}>{{el.courseName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ccol ccol-4">
+                        <div class="jrow">
+                            <div class="jlabel">章</div>
+                            <div class="jinput">
+                                <div class="jselect">
+                                    <select id="chapter" ms-duplex="@query.chapterId">
+                                        <option value="">选择章</option>
+                                        <option ms-for="($index, el) in @chapterList" ms-attr={value:el.courseChapterId}>{{el.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ccol ccol-2">
+                    </div>
+                </div>
+                <div class="crow">
+                    <div class="ccol ccol-4">
+                        <div class="jrow">
+                            <div class="jlabel">节</div>
+                            <div class="jinput">
+                                <div id="courseChapterS" class="jselect">
+                                    <select ms-duplex="@query.sourceId">
+                                        <option value="">选择节</option>
+                                        <option ms-for="($index, el) in @children" ms-attr={value:el.courseChapterId}>{{el.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ccol ccol-4">
+                        <div class="jrow">
+                            <div class="jlabel">属性</div>
+                            <div class="jinput">
+                                <div id="segmentTypeS" class="jselect">
+                                    <select ms-duplex="@query.segmentType">
+                                        <option value="">选择属性</option>
+                                        <option value="1">课前</option>
+                                        <option value="2">课中</option>
+                                        <option value="3">课后</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ccol ccol-2">
+                       
+                    </div>
+                </div>
+
+                <div class="crow">
+                    <div class="ccol ccol-4">
+                        <div class="jrow">
+                            <div class="jlabel">任务</div>
+                            <div class="jinput">
+                                <div class="jselect">
+                                    <select ms-duplex="@query.segmentId">
+                                        <option value="">选择任务</option>
+                                        <option ms-for="($index, el) in @taskList" ms-attr={value:el.segmentId}>{{el.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="ccol ccol-4">
+                         <a class="sbtn" ms-click="@queryCourse();">确定</a>
+                    </div>
+                    <div class="ccol ccol-2">
+                       
+                    </div>
+                   
+                </div>
+            </div>
+            <!--测试评分 -->
+            <div class="ctable noborder" ms-if="@sourceType == 2">
+                <div class="crow">
+                    <div class="ccol ccol-4">
+                        <div class="jrow">
+                            <div class="jlabel">测试列表</div>
+                            <div class="jinput">
+                                <div class="jselect">
+                                    <select id="courseselect" ms-duplex="@query.testPaperId" data-msg="学校" data-verify="require">
+                                        
+                                        <option ms-for="($index, el) in @examinationList" ms-attr={value:el.classTestPaperId}>{{el.testPaperTitle}} &nbsp;&nbsp;[{{el.className}}]</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ccol ccol-2">
+                        <a class="sbtn" ms-click="@queryExam();">确定</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scorepadding">
+            <div class="scoreprogress">
+                判分进度：<span>未完成</span>
+            </div>
+            <div class="ctable score_table">
+                <div ms-for="($index,row) in @rows">
+                    <div class="crow studentname">
+                        <div class="ccol cclol-1 query_stu" ms-for="($index1,el1) in row.data" ms-attr="{sid:el1.studentUserId}">{{el1.studentUserName}} </div>
+                    </div>
+                    <div class="crow">
+                        <div class="ccol cclol-1" ms-for="($index2,el2) in row.data">
+                            <div ms-visible="el2.makeScoreCount==el2.questionCount">
+                                <img src="../../images/right.png">
+                            </div>
+                            <div ms-visible="el2.makeScoreCount!=el2.questionCount">
+                                <span class="number">{{el2.makeScoreCount}}/{{el2.questionCount}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <div class="score_box score_left">
+                    <div class="topcolor"></div>
+                    <div class="score_content">
+                        <div class="ctable noborder">
+                            <div class="crow" ms-for="{$index,el} in @answerList">
+                                <div class="ccol ccol-1 vtop">题目{{$index+1}}</div>
+                                <div class="ccol ccol-6 aleft clearfix">
+                                    <div class="score2">
+                                        <div class="linespace">满&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分：<span class="num">{{el.questionTotalScore}}</span></div>
+                                        <div class="linespace">本次得分：
+                                            <input type="text" readonly ms-duplex="@answerList[$index].answerScore" ms-if="el.isMarkScore == '1'" />
+                                            
+                                            <input type="text" ms-duplex="@answerList[$index].answerScore" ms-if="el.isMarkScore != '1'" />
+                                        </div>
+                                    </div>
+                                    <div class="score-question">
+                                        <div class="fold"></div>
+                                        <div class="question">
+                                             <wbr ms-widget="[{is:'ms-content'},{content_:el.mainContent}]" />
+                                            
+                                        </div>
+                                        <div class="img">
+                                            <!--img src="../../images/question-1.png"-->
+                                        </div>
+                                        <div class="clearfix answer vtop">
+                                            <span style="margin-bottom: 10px;">解答：</span>
+                                            <!--img src="../../images/question-answer.png" -->
+
+                                            <div class="score_img_view">
+                                                <wbr ms-widget="[{is:'ms-content'},{content_:el.answerContent}]" />
+                                                <div style="display: none;" class="enlarge" ms-click="@enlarge(el.answerContent)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="score" ms-attr="{aid:el.studentQuestionAnswerId}">
+                                        此题满分：{{el.questionTotalScore}}分 本次得分：
+                                        <ul>
+                                            <li ms-for="{$index,val} in el.scores" ms-attr="{score:val}">{{val}}分</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="score_right">
+                    <div class="score_box score_name">
+                        <div class="topcolor"></div>
+                        <div class="score_content">
+                            <div>{{@studentUserName}}</div>
+                            <div>{{@studentUserId}}</div>
+                        </div>
+                    </div>
+                    <div class="score-btns">
+                        <div class="pre-btn">上一学生</div>
+                        <div class="next-btn border">下一学生</div>
+                    </div>
+                    <div class="score-top">
+                        回到顶部
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <img id="tttt"/>
+</body>
+<script type="text/javascript" src="../../js/libs/html2canvas.js"></script>
+<!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+
+<script type="text/javascript" src="../../js/libs/avalon.js"></script>
+<script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+<script type="text/javascript" src="../../js/libs/store.min.js"></script>
+<script type="text/javascript" src="../../js/libs/layer/layer.js"></script><!--ignore-->
+
+
+<script type="text/javascript" src="../../js/libs/fabric.js"></script>
+<script type="text/javascript" src="../../js/core/jx.js"></script>
+<script type="text/javascript" src="../../js/app/teacher/coursescore.js"></script>
+</body>
+
+</html>

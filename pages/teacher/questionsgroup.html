@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>熟饭系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" href="../../js/libs/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../../js/libs/laydate/need/laydate.css"><!--ignore-->
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/questions.css">
+</head>
+
+<body class="jcms" style="background: #f9f6f3;display: block;">
+    <div class="title">组合题添加</div>
+    <div class="class-body question_add" ms-controller="questiongroup">
+        <div class="edit-question-layout">
+        <ul id="treeDemo" class="ztree"></ul>
+        <div class="edit-question">
+            <div class="crow">
+                <div class="ccol aright">
+                <!--
+                    <div class="res_type pos2" id="uploadAudio">
+                        <div class="res_item">音频</div>
+                        <div class="res_item">视频</div>
+                        <div class="res_item">图片</div>
+                    </div>
+                    <div id="uploadAudioContainer"></div>
+                    -->
+                </div>
+            </div>
+            <div class="jrow">
+                <div class="jlabel"><span class="jstar">*</span>主题面:</div>
+                <div class="jinput">
+                    <!--textarea class="jtext videoInput" data-verify="require" ms-duplex="@mainContent" id="mainContent"></textarea-->
+                    <script id="container_main" name="container_main"  type="text/plain"></script>
+                </div>
+            </div>
+            <div class="line"></div>
+            <div class="questionlist">
+                <div class="question_item" ms-for="($index,el) in @questionList" ms-attr="{itemid:$index}">
+                    <div class="jrow">
+                        <div class="jlabel vmiddle">
+                            <div class="question_delete"></div>题目:{{$index+1}}</div>
+                        <div class="jinput">
+                            <ul class="ccheckbox clearfix question_type_checkbox">
+                                <li class="checked" data-questiontype="1">
+                                    选择题
+                                </li>
+                                <li  data-questiontype="2">
+                                    多择题
+                                </li>                          
+                                <li data-questiontype="3">
+                                    填空题
+                                </li>
+                                <li data-questiontype="4">
+                                    主观题
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="jrow">
+                        <div class="jlabel vmiddle">难度:</div>
+                        <div class="jinput">
+                            <ul class="ccheckbox clearfix question_level_checkbox">
+                                <li class="checked" data-questionlevel="1">
+                                    1级
+                                </li>
+                                <li data-questionlevel="2">
+                                    2级
+                                </li>
+                                <li data-questionlevel="3">
+                                    3级
+                                </li>
+                                <li data-questionlevel="4">
+                                    4级
+                                </li>
+                                <li data-questionlevel="5">
+                                    5级
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="jrow">
+                        <div class="jlabel"><span class="jstar">*</span>题面:</div>
+                        <div class="jinput">
+                            <textarea ms-visible="el.questionType =='3'"  class="jtext videoInput" data-verify="require" ms-duplex="el.question.mainContent" ms-attr="{id:$index+'_mainContent',placeholder:@questionList[$index].question.placemainContent}"></textarea>
+                            <script ms-visible="el.questionType !='3'" ms-attr="{id:'container_'+$index,name:'content_'+$index}"  type="text/plain">
+                               
+                            </script>
+                        </div>
+                    </div>
+                    <div class="jrow" ms-visible="!el.toggle">
+                        <div class="jlabel"><span class="jstar">*</span>答案:</div>
+                        <div class="jinput">
+                            <textarea  ms-visible="el.questionType =='3'" class="jtext videoInput" data-verify="require" ms-duplex="el.question.rightContent" ms-attr="{id:$index+'_rightContent'}"></textarea>
+
+                            <script ms-visible="el.questionType =='4'" ms-attr="{id:'container_answer_'+$index,name:'content_answer_'+$index}"  type="text/plain">
+                               
+                            </script>
+                        </div>
+                    </div>
+                    <div class="jrow" ms-visible="el.toggle">
+                        <div class="jlabel"><span class="jstar">*</span>选项内容:</div>
+                        <div class="jinput">
+                            <table>
+                                <tr>
+                                    <td style="width:30%;">
+                                        <select multiple="multiple" class="mulselect">
+                                            <option ms-for="($index2, item) in el.question.optionsContent" ms-attr={value:item.option}>{{item.content}}</option>
+                                        </select>
+                                    </td>
+                                    <td style="width:70%;">
+                                        <div class="jrow">
+                                            <div class="jlabel" style="width:20%"><span class="jstar">*</span>选项:</div>
+                                            <div class="jinput" style="width:80%">
+                                                <input type="text" ms-duplex="el.question.option"  placeholder="如A" />
+                                            </div>
+                                        </div>
+                                        <div class="jrow">
+                                            <div class="jlabel" style="width:20%"> <span class="jstar">*</span>选项内容:</div>
+                                            <div class="jinput" style="width:80%">
+                                                <input class="videoInput" type="text" ms-duplex="el.question.content" ms-attr="{id:$index+'_content'}"/>
+                                            </div>
+                                        </div>
+                                        <div class="jrow">
+                                            <div class="jlabel" style="width:18%">&nbsp;</div>
+                                            <div class="jinput">
+                                                <div class="btn-mini select_confirm">确定</div>
+                                                <div class="btn-mini select_del mleft">删除</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="jrow" ms-visible="el.toggle">
+                        <div class="jlabel"><span class="jstar">*</span>正确答案:</div>
+                        <div class="jinput">
+                            <textarea class="jtext videoInput" data-verify="require" ms-duplex="el.question.rightContent" ms-attr="{id:$index+'_rightContent',placeholder:@questionList[$index].question.placerightContent}"  ></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="crow">
+                <div class="ccol aright">
+                    <div class="add_question_btn">添加题目</div>
+                </div>
+            </div>
+            <div class="crow">
+                <div class="ccol">
+                    <div class="btn" id="savebtn">完成</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+   
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/layer/layer.js"></script><!--ignore-->
+    <script type="text/javascript" src="../../js/libs/ztree/js/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="../../js/libs/ztree/js/jquery.ztree.excheck.js"></script>
+    <script type="text/javascript" src="../../js/libs/ztree/js/jquery.ztree.exedit.js"></script>
+
+    <script type="text/javascript" src="../../js/libs/qiniu.js"></script>
+    <script type="text/javascript" src="../../js/libs/laydate/laydate.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/libs/template.js"></script>
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/upload.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/tree.js"></script>
+
+
+    <script type="text/javascript" charset="utf-8" src="../../js/libs/ueditor1.4.3/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../js/libs/ueditor1.4.3/ueditor.all.min.js"> </script>
+   
+    <script type="text/javascript" charset="utf-8" src="../../js/libs/ueditor1.4.3/lang/zh-cn/zh-cn.js"></script>
+
+    <script type="text/javascript" src="../../js/app/teacher/questionsgroup.js"></script>
+</body>
+
+</html>

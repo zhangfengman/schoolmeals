@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>熟饭系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" href="../../js/libs/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/audio.css">
+    <link rel="stylesheet" type="text/css" href="../../css/exampager.css">
+</head>
+
+<body style="background: #f9f6f3;display:block;" ms-controller="exampager">
+    <div class="title">
+        <span ms-if="!@isChoose">试卷管理</span>
+        <span ms-if="@isChoose">试卷选择</span>
+    </div>
+    <div class="choose-body jcms">
+        <div class="choose-left exam-search">
+            <div class="choose-box clearfix">
+                <div class="topcolor"></div>
+                <ul id="treeDemo" class="ztree"></ul>
+            </div>
+        </div>
+        <div class="choose-center">
+            <div>
+                <div href="" class="btn-border" ms-if="!@isChoose">添加试卷</div>
+            </div>
+            <div class="ctable noborder choose-table">
+                <div class="crow" ms-for="($index,el) in @testPaperList">
+                    <div class="ccol ccol-5 aleft">
+                        <div class="exam-name">{{el.title}}</div>
+                    </div>
+                    <div class="ccol ccol-5 aright">
+                        <a href="javascript:void(0);" class="btn-text " ms-if="!@isChoose" ms-click="@detail(el.testPaperId);">详情</a>
+                        <a href="javascript:void(0);" class="btn-text " ms-if="!@isChoose" ms-click="@copy(el.testPaperId);">复制</a>
+                        <a href="javascript:void(0);" class="btn-text " ms-if="!@isChoose" ms-click="@edit(el.testPaperId)">编辑</a>
+                        <a href="javascript:void(0);" class="btn-text " ms-if="!@isChoose" ms-click="@del(el.testPaperId)">删除</a>
+                        <a href="javascript:void(0);" ms-if="@isChoose" class="btn-text" ms-click="@add($index)">添加</a>
+                    </div>
+                </div>
+            </div>
+            <div id="paging"></div>
+        </div>
+    </div>
+    <div class="cdialog modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="newclass_form">
+                    <div class="modal-header">
+                        创建标签
+                        <div class="cclose" data-dismiss="modal"></div>
+                    </div>
+                    <div class="modal-body jcms">
+                        <div class="jrow">
+                            <div class="jlabel"><span class="jstar">*</span>名称</div>
+                            <div class="jinput">
+                                <input class="" ms-duplex="@tag.name" data-msg="名称" data-verify="require" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="cbtn addTag">确定</div>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+
+     <script type="text/javascript" src="../../js/libs/ztree/js/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="../../js/libs/ztree/js/jquery.ztree.excheck.js"></script>
+    <script type="text/javascript" src="../../js/libs/ztree/js/jquery.ztree.exedit.js"></script>
+
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/page.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/tag.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/tree.js"></script>
+    <script type="text/javascript" src="../../js/app/teacher/exampager.js"></script>
+</body>
+
+</html>

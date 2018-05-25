@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>课程中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/student-lesson.css">
+    <style type="text/css">
+      .lesson_intro {
+        width: 100%;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-top: 9px solid #f86a00;
+        border-radius: 3px;
+        padding: 32px 29px 0;
+        position: relative;
+        float: none;
+        margin:0;
+    }
+    </style>
+</head>
+
+<body style="display: none;" ms-controller="lessonIndex">
+    <div class="lesson_main">
+        <h2 class="main_title">{{@mycourse.courseName}}</h2>
+        <div class="main_content ctable">
+            <div class="crow">
+                <div class="ccol aleft">
+                    <div class="lesson_intro">
+                        <div class="lesson_intro_group">
+                            <h3>【简介内容】</h3>
+                            <p>{{@data.intro}}</p>
+                        </div>
+                        <div class="lesson_intro_group">
+                            <h3>【创建日期】</h3>
+                            <p>{{@data.createTime | date("yyyy.MM.dd HH:mm")}}</p>
+                        </div>
+                        <div class="lesson_intro_group">
+                            <h3>【创建人】</h3>
+                            <p>{{@data.userName}}</p>
+                        </div>
+                        <div class="edit"></div>
+                    </div>
+                </div>
+                <div class="ccol vtop">
+                    <div class="lesson_chapter float" style="margin: 0px;">
+                        <ul>
+                            <li class="chapter" ms-for="($index,el) in @courseChapterList">
+                                <a href="#" class="chapter-head" ms-attr="{id:el.courseChapterId,name:el.name,pid:0}">
+                                    <i class="icon_chapter"></i><span>{{el.name}}</span>
+                                </a>
+                                <ul style="display: none;">
+                                    <li class="section" ms-for="($index,sub) in el.childList" ms-attr="{id:sub.courseChapterId,pid:el.courseChapterId,name:sub.name}">
+                                        <span>{{sub.name}}</span>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/chapter.js"></script>
+    <script type="text/javascript" src="../../js/app/teacher/lessonindex.js"></script>
+</body>
+
+</html>

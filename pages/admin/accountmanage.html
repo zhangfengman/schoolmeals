@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>熟饭系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+</head>
+
+<body style="background: #f9f6f3;display: none;" ms-controller="accountController">
+    <div class="title">账号管理</div>
+    <div class="admin-search">
+        <div class="ctable noborder">
+            <div class="crow">
+                <div class="ccol ccol-1 aright">账号</div>
+                <div class="ccol  ccol-1 my_group">
+                    <input class="my_text" ms-duplex="@query.account" type="text" placeholder="" />
+                </div>
+                <div class="ccol ccol-1 aright">姓名</div>
+                <div class="ccol  ccol-1 my_group">
+                    <input class="my_text" ms-duplex="@query.name" type="text" placeholder="" />
+                </div>
+                <div class="ccol ccol-4"></div>
+            </div>
+            <div class="crow">
+                <div class="ccol ccol-1 aright">所属学校</div>
+                <div class="ccol  ccol-1 my_group">
+                    <div class="jselect">
+                        <select ms-duplex="@query.schoolId">
+                            <option value="">请选择</option>
+                            <option ms-for="($index, el) in @schools" ms-attr={value:el.id}>{{el.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="ccol ccol-1 aright">选择权限</div>
+                <div class="ccol  ccol-1 my_group">
+                     <div class="jselect">
+                        <select ms-duplex="@query.roleId" >
+                            <option value="">请选择</option>
+                            <option ms-for="($index, el) in @roleList" ms-attr={value:el.roleId}>{{el.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="ccol ccol-4">
+                    <div class="btn-border" ms-click="@searchFunc();">搜索</div>
+                    <div class="btn-border exp" ms-click="@exportFunc();">导出</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="admin-body">
+        <div class="ctable admin-table">
+            <div class="crow admin-opt">
+                <div class="ccol ccol-1 aright">
+                    <div class="icon_add_1" ms-click="@show();">添加账号</div>
+                    <div class="icon_imp dropz" >批量导入</div>
+                </div>
+            </div>
+            <div class="crow admin-header">
+                <div class="ccol ccol-1">ID</div>
+                <div class="ccol ccol-1">账号</div>
+                <div class="ccol ccol-1">真实姓名</div>
+                <div class="ccol ccol-1">学校</div>
+                <div class="ccol ccol-1">操作人</div>
+                <div class="ccol ccol-1">操作时间</div>
+                <div class="ccol ccol-1">所属权限</div>
+                <div class="ccol ccol-1">操作</div>
+            </div>
+            <div class="crow admin-odd" ms-for="($index,el) in @list">
+                <div class="ccol ccol-1">{{el.userId}}</div>
+                <div class="ccol ccol-1">{{el.account}}</div>
+                <div class="ccol ccol-1">{{el.name}}</div>
+                <div class="ccol ccol-1">{{el.schoolName}}</div>
+                <div class="ccol ccol-1">{{el.createUserName}}</div>
+                <div class="ccol ccol-1">{{el.createTime}}</div>
+                <div class="ccol ccol-1">{{el.roleName}}</div>
+                <div class="ccol ccol-1">
+                    <a class="icon_letter_lock unlock" ms-if="el.status == '2'" ms-click="@update(el,'1');"></a>
+                    <a class="icon_letter_lock" ms-if="el.status == '1'" ms-click="@update(el,'2');"></a>
+                    <a class="icon_letter_edit" ms-click="@edit(el);"></a>
+                    <a class="icon_letter_del" ms-click="@update(el,'-1');"></a>
+                </div>
+            </div>
+            <div class=" crow admin-footer">
+                <div class="ccol ccol-1">
+                    <div id="paging">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cdialog modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="newaccount_form">
+                    <div class="modal-header">
+                        添加账号
+                        <div class="cclose" data-dismiss="modal"></div>
+                    </div>
+                    <div class="modal-body jcms">
+                        <div class="jrow">
+                            <div class="jlabel"><span class="jstar">*</span>账号:</div>
+                            <div class="jinput">
+                                <input class="" id="studentAccount" ms-if="@type =='1'" ms-duplex="@account.account" data-msg="学生账号" placeholder="输入手机号或1开头的11位数字" data-verify="mphone" type="text" />
+                                 <input class="" id="studentAccount" ms-if="@type =='2'" readonly="" ms-duplex="@account.account"  placeholder="输入手机号或1开头的11位数字"  type="text" />
+                            </div>
+                        </div>
+                        <div class="jrow">
+                            <div class="jlabel"><span class="jstar">*</span>密码:</div>
+                            <div class="jinput">
+                                <input class="jtext" id="studentPassword" ms-if="@type =='1'" ms-duplex="@account.password" data-msg="密码" placeholder="输入6位密码" data-verify="pwd" type="password" />
+                                 <input class="jtext" id="studentPassword" ms-if="@type =='2'" ms-duplex="@account.password" type="password" />
+                            </div>
+                        </div>
+                        <div class="jrow">
+                            <div class="jlabel"><span class="jstar">*</span>姓名:</div>
+                            <div class="jinput">
+                                <input class="" ms-duplex="@account.name" data-msg="姓名" placeholder="输入真实姓名" data-verify="require" type="text" />
+                            </div>
+                        </div>
+                        <div class="jrow">
+                            <div class="jlabel"><span class="jstar">*</span>注册身份</div>
+                            <div class="jinput">
+                                <div class="jselect">
+                                    <select ms-duplex="@account.roleId" data-msg="注册身份" data-verify="require">
+                                        <option ms-attr="{value:el.roleId}" ms-for="el in @roleList">{{el.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="cbtn" id="confirmBtn" ms-click="@add();">确定</div>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/libs/dropzone.min.js"></script>
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/page.js"></script>
+    <script type="text/javascript" src="../../js/app/admin/accountmanage.js"></script>
+</body>
+
+</html>

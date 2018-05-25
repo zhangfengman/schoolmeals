@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>课程详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/student-lesson.css">
+    <link rel="stylesheet" type="text/css" href="../../css/exam-detail.css">
+</head>
+
+<body style="background: #f9f6f3;" ms-controller="courseDetailStudent">
+    <div class="lesson_main">
+        <h2 class="main_title">{{@courseInfo.name}}</h2>
+        <div class="ctable">
+         
+            <div class="crow">
+                <div class="ccol ccol-1">章</div>
+                <div class="ccol ccol-2">
+                    <div class="jselect">
+                        <select id="chapter" ms-duplex="@query.chapterId">
+                            <option value="">选择章</option>
+                            <option ms-for="($index, el) in @chapterList" ms-attr={value:el.courseChapterId}>{{el.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="ccol ccol-1">节</div>
+                <div class="ccol ccol-2">
+                    <div class="jselect">
+                        <select id="courseChapterS" ms-duplex="@query.sourceId">
+                            <option value="">选择节</option>
+                            <option ms-for="($index, el) in @children" ms-attr={value:el.courseChapterId}>{{el.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="ccol ccol-2">
+                 
+                </div>
+            </div>
+            <div class="crow">
+                <div class="ccol ccol-1">属性</div>
+                <div class="ccol ccol-2">
+                    <div class="jselect">
+                        <select id="segmentTypeS" ms-duplex="@query.segmentType">
+                            <option value="1">课前</option>
+                            <option value="2">课中</option>
+                            <option value="3">课后</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="ccol ccol-1">任务</div>
+                <div class="ccol ccol-2">
+                    <div class="jselect">
+                        <select  ms-duplex="@query.segmentId">
+                            <option value="">选择任务</option>
+                            <option ms-for="($index, el) in @taskList" ms-attr={value:el.segmentId}>{{el.name}}</option>
+                        </select>
+                    </div>
+                    
+                </div>
+                <div class="ccol ccol-2">
+                 <a class="sbtn" ms-click="@queryData()">确定</a>
+                </div>
+            </div>
+        </div>
+        <div class="course_detail_head">
+            <div class="course_detail_head_l">
+                <div class="course_detail_head_row">
+                    <div class="course_detail_head_dt">授课老师：</div>
+                    <div class="course_detail_head_dd">{{@detail.teacherName}}</div>
+                </div>
+                <div class="course_detail_head_row">
+                    <div class="course_detail_head_dt">授课时间：</div>
+                    <div class="course_detail_head_dd">{{@detail.startTime}} - - {{@detail.endTime}}</div>
+                </div>
+                <div class="course_detail_head_row">
+                    <div class="course_detail_head_dt">授课要求：</div>
+                    <div class="course_detail_head_dd">{{@detail.request}}</div>
+                </div>
+            </div>
+            <div class="course_detail_head_r" style="display: none;">
+                距离结束时间还有 :<span>{{@detail.timeBound}}</span>分钟
+            </div>
+        </div>
+    </div>
+    <div class="course_detail_body">
+        <div id="uploadAudioContainer"></div>
+        <div ms-for="($rindex,rootel) in @chooseList">
+        
+            <p>{{rootel.title}}</p>
+            <div ms-for="($index,el) in rootel.contentList">
+                <div class="video_box" ms-if="el.contentType == 2">
+                    <dl class="video_wrap">
+                        <dd>
+                            <h3>{{el.video.name}}</h3>
+                            <div class="cvideo">
+                                <!--div class="play_wrap">点击播放视频<img src="../../images/lesson/video_play_icon.png"></div-->
+                                <!--
+                                <video ms-attr="{src:el.video.path}" controls="controls">
+                                    您的浏览器不支持 video 标签。
+                                </video>-->
+                                <wbr ms-widget="[{is:'ms-content'},{content_:el.video.path}]" />
+                            </div>
+                        </dd>
+                    </dl>
+                  
+                </div>
+                <div class="course_con" ms-if="el.contentType == 1">
+                    <ul>
+                        <li class="course_con_list">
+                            <!--选择题-->
+                            <div class="query_item" ms-attr="{qid:el.question.choiceQuestion.choiceQuestionId,type:el.question.type}" ms-if="el.question.type == 1">
+                                <h4 class="course_title_num">题目:{{el.no}}</h4>
+                                <div class="course_subject_con">
+                                    <h4 class="course_subject_title">
+                                    
+                                     <wbr ms-widget="[{is:'ms-content'},{content_:el.question.choiceQuestion.mainContent}]" />
+                                    </h4>
+                                    <ul class="course_subject_options">
+                                        <li ms-for="($num,opt) in el.question.choiceQuestion.optionsContent">
+                                            <label>
+                                                <input type="radio" ms-attr="{value:opt.option,name:el.question.choiceQuestion.choiceQuestionId}" ms-if="el.question.choiceQuestion.choiceQuestionType == 1" />
+                                                <input type="checkbox" ms-attr="{value:opt.option}" ms-if="el.question.choiceQuestion.choiceQuestionType == 2" /> {{opt.option}}.
+                                                <wbr ms-widget="[{is:'ms-content'},{content_:opt.content}]" />
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                            </div>
+                            <!--填空题-->
+                            <div class="query_item" ms-attr="{qid:el.question.fillingQuestion.fillingQuestionId,type:el.question.type}" ms-if="el.question.type == 2">
+                                <h4 class="course_title_num">题号:{{el.no}}</h4>
+                                <div class="course_subject_con">
+                                    <h4 class="course_subject_title">
+                                    <wbr ms-widget="[{is:'ms-content'},{content_:el.question.fillingQuestion.mainContent}]" />
+
+                                    </h4>
+                                </div>
+                                <ul class="course_subject_options">
+                                    <li ms-for="($num,opt) in el.question.fillingQuestion.fillingOpts">
+                                        空{{$num+1}}:
+                                        <input class="filling_text" type="text" />
+                                    </li>
+                                </ul>
+                                
+                            </div>
+                            <!--主观题-->
+                            <div class="query_item" ms-attr="{qid:el.question.subjectiveQuestion.subjectiveQuestionId,type:el.question.type}" ms-if="el.question.type == 3">
+                                <h4 class="course_title_num">题号:{{el.no}}</h4>
+                                <div class="course_subject_con">
+                                    <h4 class="course_subject_title">                               
+                                     <wbr ms-widget="[{is:'ms-content'},{content_:el.question.subjectiveQuestion.mainContent}]" />
+                                    </h4>
+                                </div>
+                                <ul class="course_subject_options">
+                                    <li>
+                                        <input class="subject_text" ms-attr="{id:'uploadAudio_'+el.question.subjectiveQuestion.subjectiveQuestionId}" type="text" />
+                                    </li>
+                                </ul>
+                                
+                            </div>
+                            <!--组合题-->
+                            <div class="query_item" ms-attr="{qid:el.question.subjectiveQuestion.subjectiveQuestionId,type:el.question.type}" ms-if="el.question.type == 4">
+                                <h4 class="course_title_num">题号:{{el.no}}</h4>
+                                <div class="course_subject_con">
+                                    <h4 class="course_subject_title">
+                                    
+                                    <wbr ms-widget="[{is:'ms-content'},{content_:el.question.unionQuestion.mainContent}]" />
+                                    </h4>
+                                </div>
+                                <div ms-for="($count,unionEl) in el.question.unionQuestion.questionList">
+                                    <!--选择题 -->
+                                    <div class="query_item" ms-attr="{qid:unionEl.choiceQuestion.choiceQuestionId,type:unionEl.type}" ms-if="unionEl.type == 1">
+                                        <h4 class="course_title_num">（{{$count+1}}）</h4>
+                                        <div class="course_subject_con">
+                                            <h4 class="course_subject_title">
+                                            
+                                             <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.choiceQuestion.mainContent}]" />
+                                            </h4>
+                                            <ul class="course_subject_options">
+                                                <li ms-for="($num,opt) in unionEl.choiceQuestion.optionsContent">
+                                                    <label>
+                                                        <input type="radio" ms-attr="{value:opt.option,name:el.question.choiceQuestion.choiceQuestionId}" ms-if="el.question.choiceQuestion.choiceQuestionType == 1" />
+                                                        <input type="checkbox" ms-attr="{value:opt.option}" ms-if="el.question.choiceQuestion.choiceQuestionType == 2" /> {{opt.option}}.
+                                                        <wbr ms-widget="[{is:'ms-content'},{content_:opt.content}]" />
+                                                    </label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!--填空题-->
+                                    <div class="query_item" ms-attr="{qid:unionEl.fillingQuestion.fillingQuestionId,type:unionEl.type}" ms-if="unionEl.type == 2">
+                                        <h4 class="course_title_num">（{{$count+1}}）</h4>
+                                        <div class="course_subject_con">
+                                            <h4 class="course_subject_title">
+                                            
+                                            <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.fillingQuestion.mainContent}]" />
+                                            </h4>
+                                        </div>
+                                        <ul class="course_subject_options">
+                                            <li ms-for="($num,opt) in unionEl.fillingQuestion.fillingOpts">
+                                                空{{$num+1}}:
+                                                <input class="filling_text" type="text" />
+                                            </li>
+                                        </ul>
+                                        
+                                    </div>
+                                    <!--主观题-->
+                                    <div class="query_item" ms-attr="{qid:unionEl.subjectiveQuestion.subjectiveQuestionId,type:unionEl.type}" ms-if="unionEl.type == 3">
+                                        <h4 class="course_title_num">（{{$count+1}}）</h4>
+                                        <div class="course_subject_con">
+                                            <h4 class="course_subject_title">
+                                            
+                                             <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.subjectiveQuestion.mainContent}]" />
+                                            </h4>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="submit_exam_block"><div class="btn" id="submitBtn">返回</div></div>
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/libs/qiniu.js"></script>
+    <script type="text/javascript" src="../../js/libs/layer/layer.js"></script><!--ignore-->
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/chapter.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/upload.js"></script>
+    <script type="text/javascript" src="../../js/app/teacher/coursedetail.js"></script>
+</body>
+
+</html>

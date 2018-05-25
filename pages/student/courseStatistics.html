@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>课程统计</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/student-lesson.css">
+</head>
+
+<body style="background: #f9f6f3;" ms-controller="courseStatistics">
+    <div class="lesson_main">
+        <h2 class="main_title">课程统计</h2>
+        <div class="search">
+            <div class="ctable">
+                <div class="crow">
+                    <div class="ccol ccol-1">课程</div>
+                    <div class="ccol ccol-2">
+                        <div class="jselect">
+                            <select id="courseselect" ms-duplex="@query.courseId" data-msg="学校" data-verify="require">
+                               
+                                <option ms-for="($index, el) in @courseList" ms-attr={value:el.courseId}>{{el.courseName}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ccol ccol-1">章</div>
+                    <div class="ccol ccol-2">
+                        <div class="jselect">
+                            <select id="chapter" ms-duplex="@query.chapterId">
+                               
+                                <option ms-for="($index, el) in @chapterList" ms-attr={value:el.courseChapterId}>
+                                    {{el.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ccol ccol-1"><a class="sbtn-space">&nbsp;</a></div>
+                </div>
+                <div class="crow">
+                    <div class="ccol ccol-1">节</div>
+                    <div class="ccol ccol-2">
+                        <div class="jselect">
+                            <select id="courseChapterS" ms-duplex="@query.sourceId">
+                                
+                                <option ms-for="($index, el) in @children" ms-attr={value:el.courseChapterId}>{{el.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ccol ccol-1">属性</div>
+                    <div class="ccol ccol-2">
+                        <div class="jselect">
+                            <select id="segmentTypeS" ms-duplex="@query.segmentType">
+                                
+                                <option value="1">课前</option>
+                                <option value="2">课中</option>
+                                <option value="3">课后</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ccol ccol-1">
+                        &nbsp;
+                    </div>
+                </div>
+                <div class="crow">
+                    <div class="ccol ccol-1">任务</div>
+                    <div class="ccol ccol-2">
+                        <div class="jselect">
+                            <select ms-duplex="@query.segmentId">
+                                <option value="">选择任务</option>
+                                <option ms-for="($index, el) in @taskList" ms-attr={value:el.segmentId}>{{el.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ccol ccol-1">
+                        <a class="sbtn" id="queryBtn">确定</a>
+                    </div>
+                    <div class="ccol ccol-2"></div>
+                     <div class="ccol ccol-1">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="statistic_main">
+            <h3 class="score_sort">得分排名</h3>
+            <div class="score_sort_con">
+                <ul class="score_sort_list">
+                    <li ms-visible="@studentList.length == 0">暂无排名</li>
+                    <li ms-for="{$index,el} in @studentList" ms-attr="{studentUserId:el.studentUserId}">
+                        <i class="first_color" ms-visible="$index == 0">1</i>
+                        <i class="second_color" ms-visible="$index == 1">2</i>
+                        <i class="third_color" ms-visible="$index == 2">3</i>
+                        <i class="third_color" ms-visible="$index > 2">{{$index+1}}</i>
+                        <span class="score_active" ms-class="{highlight_color:el.studentUserId==@query.studentUserId}">{{el.studentUserName}}({{el.acquireScoreCount}})</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="exercises_info">
+                <span class="student_info">学生姓名：{{@name}}</span>
+                <span>课程总分：{{@scoreTotal}}分</span>
+                <span>课程得分：<i>{{@score}}分</i></span>
+            </div>
+            <ul class="exercises_list litoicon">
+                <li ms-for="($index,item) in @segmentModuleList" >
+                    
+                    <p>{{item.title}}</p>
+                    <div class="part">
+                        <div class="" ms-for="($num,el) in item.contentList">
+                            
+                                <div class="toicon" ms-if="el.type != '4'">
+                                <!-- 选择-->
+                                <div ms-attr="{qid:el.choiceQuestion.choiceQuestionId,type:el.type}" ms-if="el.type == 1">
+                                    <div class="exercises_title">
+                                        <h4>习题{{$index+1}}<i class="more more_down"></i></h4>
+                                        <button class="analyze_btn" ms-click="@func(el);" ms-attr="{id:'analyze_btn_'+el.choiceQuestion.choiceQuestionId}">分析</button>
+                                    </div>
+                                    <div class="exercises_con">
+                                        <div class="exercises_type_wrap">
+                                            <span class="highlight_color exercises_type" ms-visible="el.type==1">单选题</span>
+                                            <span class="exercises_difficulty">难度系数：<i class="icon_star" ms-css="{width:15*el.fillingQuestion.level+'px'}"></i></span>
+                                            <span class="highlight_color result_right">本题答案为：{{el.choiceQuestion.rightOptions}}</span>
+                                        </div>
+                                        <div class="exercises_subject">
+                                            <p>
+                                             <wbr ms-widget="[{is:'ms-content'},{content_:el.choiceQuestion.mainContent}]" />
+                                            </p>
+                                            <ul>
+                                                <li ms-for="($num,opt) in el.choiceQuestion.optionsContent">
+                                                    <label>
+                                                        <input type="radio" ms-attr="{value:opt.option,name:el.choiceQuestion.choiceQuestionId}" ms-if="el.choiceQuestion.choiceQuestionType == 2" />
+                                                        <input type="checkbox" ms-attr="{value:opt.option}" ms-if="el.choiceQuestion.choiceQuestionType == 1" /> {{opt.option}}.{{opt.content}}
+                                                    </label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="result">
+                                        <p>选择答案：<i class="highlight_color">{{el.studentAnswer.answerContent}}</i></p>
+                                        <p>最终得分：{{el.studentAnswer.questionAnswerScore}}分（分值{{el.studentAnswer.questionTotalScore}}分）</p>
+                                    </div>
+                                </div>
+                                <!-- 填空-->
+                                <div ms-attr="{qid:el.fillingQuestion.fillingQuestionId,type:el.type}" ms-if="el.type == 2">
+                                    <div class="exercises_title">
+                                        <h4>习题{{$index+1}}<i class="more more_down"></i></h4>
+                                        <button class="analyze_btn" ms-click="@func(el);" ms-attr="{id:'analyze_btn_'+el.fillingQuestion.fillingQuestionId}">分析</button>
+                                    </div>
+                                    <div class="exercises_con">
+                                        <div class="exercises_type_wrap">
+                                            <span class="highlight_color exercises_type" ms-visible="el.type==2">填空题</span>
+                                            <span class="exercises_difficulty">难度系数：<i class="icon_star" ms-css="{width:15*el.fillingQuestion.level+'px'}"></i></span>
+                                            <span class="highlight_color result_right">本题答案为：
+                                            
+                                            <span style="margin:0px 4px;display:inline-block;" ms-for="ans in el.fillingQuestion.rightFilingList">
+                                                &nbsp;&nbsp;{{ans.value}}
+                                            </span>
+                                            </span>
+                                        </div>
+                                        <div class="exercises_subject">
+                                            <p>{{el.fillingQuestion.mainContent}}</p>
+                                            <ul>
+                                                <li ms-for="($num,opt) in el.fillingQuestion.fillingOpts">
+                                                    空{{$num+1}}:
+                                                    <input class="filling_text" type="text" />
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="result">
+                                        <p>选择答案：<i class="highlight_color">
+                                        {{el.studentAnswer.answerContent}}</i></p>
+                                        <p>最终得分：{{el.studentAnswer.questionAnswerScore}}分（分值{{el.studentAnswer.questionTotalScore}}分）</p>
+                                    </div>
+                                </div>
+                                <!--主观题 -->
+                                <div ms-attr="{qid:el.subjectiveQuestion.subjectiveQuestionId,type:el.type}" ms-if="el.type == 3">
+                                    <div class="exercises_title">
+                                        <h4>习题{{$index+1}}<i class="more more_down"></i></h4>
+                                        <button class="analyze_btn" ms-click="@func(el);" ms-attr="{id:'analyze_btn_'+el.subjectiveQuestion.subjectiveQuestionId}">分析</button>
+                                    </div>
+                                    <div class="exercises_con">
+                                        <div class="exercises_type_wrap">
+                                            <span class="highlight_color exercises_type">主观题</span>
+                                            <span class="exercises_difficulty">难度系数：<i class="icon_star" ms-css="{width:15*el.subjectiveQuestion.level+'px'}"></i></span>
+                                            <span class="highlight_color result_right">本题答案为：
+                                             <wbr ms-widget="[{is:'ms-content'},{content_:el.subjectiveQuestion.rightContent}]" />
+                                            </span>
+                                        </div>
+                                        <div class="exercises_subject">                                
+                                            <wbr ms-widget="[{is:'ms-content'},{content_:el.subjectiveQuestion.mainContent}]" />
+                                        </div>
+                                    </div>
+                                    <div class="result">
+                                        <p>选择答案：<i class="highlight_color">
+                                         <wbr ms-widget="[{is:'ms-content'},{content_:el.studentAnswer.answerContent}]" />
+                                        </i></p>
+                                        <p>最终得分：{{el.studentAnswer.questionAnswerScore}}分（分值{{el.studentAnswer.questionTotalScore}}分）</p>
+                                    </div>
+                                </div>
+                                </div>
+                                <!--组合题 -->
+                            
+                        </div>
+                    </div>
+                   
+                </li>
+            </ul>
+        </div>
+    </div>
+    <span class="slide_down" style="display: none;">
+        完成度：{{@analyzeList.answerPercent*100}}%（{{@analyzeList.answerCount}}/{{@analyzeList.studentCount}}）<br>
+        正确率：{{@analyzeList.rightPercent*100}}%（{{@analyzeList.rightCount}}/{{@analyzeList.studentCount}}）<br>
+        错误率：{{@analyzeList.errorPercent*100}}%（{{@analyzeList.errorCount}}/{{@analyzeList.studentCount}}）<br>
+        做对的学生：
+        <i ms-visible="@analyzeList.rightStudentNameList.length==0" style="font-style: normal;">无</i>{{@analyzeList.rightStudentNameList}}<br>
+        
+        做错的学生：<i ms-visible="@analyzeList.errorStudentNameList.length==0" style="font-style: normal;">无</i>{{@analyzeList.errorStudentNameList}}<br>
+        未做的学生：<i ms-visible="@analyzeList.unAnswerStudentNameList.length==0" style="font-style: normal;">无</i>{{@analyzeList.unAnswerStudentNameList}}<br>
+        <span ms-visible="@analyzeList.answerContentStudentNameList.length>0" ms-for="e in @analyzeList.answerContentStudentNameList">
+        选{{e.content}}的学生：<span ms-for="p in e.studentNameList">{{p}}</span><i ms-visible="e.studentNameList.length==0" style="font-style: normal;">无</i>
+    <br>
+    </span>
+    </span>
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/libs/layer/layer.js"></script><!--ignore-->
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/page.js"></script>
+    <script type="text/javascript" src="../../js/app/student/courseStatistics.js"></script>
+</body>
+
+</html>

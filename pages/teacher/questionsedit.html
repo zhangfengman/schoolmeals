@@ -1,0 +1,178 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>熟饭系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" href="../../js/libs/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/audio.css">
+    <link rel="stylesheet" type="text/css" href="../../css/questions.css">
+</head>
+
+<body style="background: #f9f6f3;display:block;" ms-controller="questionmanage">
+    <div class="title">新建习题</div>
+    <div class="choose-body jcms question_add">
+        <div class="edit-question-layout">
+        <ul id="treeDemo" class="ztree"></ul>
+        <form id="newclass_form" class="edit-question">
+            <div class="jrow">
+                <div class="jlabel vmiddle">习题类型:</div>
+                <div class="jinput">
+                    <ul class="ccheckbox clearfix" id="question_type_checkbox">
+                        <li class="checked" data-questiontype="1">
+                            单选题
+                        </li>
+                        <li data-questiontype="2">
+                            多选题
+                        </li>
+                        <li data-questiontype="3">
+                            填空题
+                        </li>
+                        <li data-questiontype="4">
+                            主观题
+                        </li>
+                         <li data-questiontype="5">
+                            富文本
+                        </li>
+                    </ul>
+                    <!--
+                                <div class="res_type" id="uploadAudio">
+                                    <div class="res_item">音频</div>
+                                    <div class="res_item">视频</div>
+                                    <div class="res_item">图片</div>
+                                </div>
+                                <div id="uploadAudioContainer"></div>
+                                -->
+                </div>
+            </div>
+            <div class="line_dashed"></div>
+            <div class="jrow">
+                <div class="jlabel vmiddle">难度:</div>
+                <div class="jinput">
+                    <ul class="ccheckbox clearfix" id="question_level_checkbox">
+                        <li class="checked" data-questionlevel="1">
+                            1级
+                        </li>
+                        <li data-questionlevel="2">
+                            2级
+                        </li>
+                        <li data-questionlevel="3">
+                            3级
+                        </li>
+                        <li data-questionlevel="4">
+                            4级
+                        </li>
+                        <li data-questionlevel="5">
+                            5级
+                        </li>
+                    </ul>
+                    <div class="remarks">注：1级最简单，5级最难</div>
+                </div>
+            </div>
+            <div class="jrow" ms-visible="@question.questionType !='5'" >
+                <div class="jlabel"><span class="jstar">*</span>题面:</div>
+                <div class="jinput">
+                    <textarea ms-visible="@question.questionType =='3'" class="jtext videoInput" data-verify="require" ms-duplex="@question.mainContent" ms-attr="{placeholder:@question.placemainContent}"></textarea>
+                    <script ms-visible="@question.questionType !=='3'" id="container_main" name="container_main" class="ueditor" type="text/plain"></script>
+                </div>
+            </div>
+            <div class="jrow" ms-visible="@question.questionType =='3' || @question.questionType =='4'">
+                <div class="jlabel"><span class="jstar">*</span>答案:</div>
+                <div class="jinput">
+                    <textarea ms-visible="@question.questionType =='3'" class="jtext rightContent videoInput" data-verify="require" ms-duplex="@question.rightContent" ms-attr="{placeholder:question.placerightContent}"></textarea>
+                    <script ms-visible="@question.questionType =='4'" id="container_answer" name="container_answer" class="ueditor" type="text/plain"></script>
+                </div>
+            </div>
+            <div class="jrow" ms-visible="@question.questionType =='1' || @question.questionType =='2'">
+                <div class="jlabel"><span class="jstar">*</span>选项内容:</div>
+                <div class="jinput">
+                    <table>
+                        <tr>
+                            <td style="width:30%;">
+                                <select multiple="multiple" class="mulselect">
+                                    <option ms-for="($index, el) in @question.optionsContent" ms-attr={value:el.option}>{{el.content}}</option>
+                                </select>
+                            </td>
+                            <td style="width:70%;">
+                                <div class="jrow">
+                                    <div class="jlabel" style="width:20%;padding-left: 25px;"><span class="jstar">*</span>选项:</div>
+                                    <div class="jinput">
+                                        <input type="text" ms-duplex="@option.option" placeholder="如A" />
+                                    </div>
+                                </div>
+                                <div class="jrow">
+                                    <div class="jlabel" style="width:20%"> <span class="jstar">*</span>选项内容:</div>
+                                    <div class="jinput">
+                                        <input type="text" class="videoInput" ms-duplex="@option.content" />
+                                    </div>
+                                </div>
+                                <div class="jrow">
+                                    <div class="jlabel" style="width:18%">&nbsp;</div>
+                                    <div class="jinput">
+                                        <div class="btn-mini select_confirm">确定</div>
+                                        <div class="btn-mini select_del mleft">删除</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="jrow" ms-visible="@question.questionType =='1' || @question.questionType =='2'">
+                <div class="jlabel"><span class="jstar">*</span>正确答案:</div>
+                <div class="jinput">
+                    <textarea class="jtext videoInput" data-verify="require" ms-duplex="@question.rightContent" ms-attr="{placeholder:@question.placerightContent}"></textarea>
+                </div>
+            </div>
+            <div class="jrow" ms-visible="@question.questionType =='5'">
+                <div class="jlabel"></div>
+                <div class="jinput">
+                    <script id="container_richText" name="container_richText" class="ueditor" type="text/plain"></script>
+                </div>
+            </div>
+
+
+            <div class="crow">
+                <div class="ccol">
+                    <div id="addquestion" class="btn">完成</div>
+                </div>
+            </div>
+            
+            
+        </form>
+        </div>
+    </div>
+    <!-- /.modal -->
+    <!--SCRIPT_PLACEHOLDER-->
+    <script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/libs/qiniu.js"></script>
+    <script type="text/javascript" src="../../js/libs/layer/layer.js"></script>
+    <!--ignore-->
+    <script type="text/javascript" src="../../js/libs/ztree/js/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="../../js/libs/ztree/js/jquery.ztree.excheck.js"></script>
+    <script type="text/javascript" src="../../js/libs/ztree/js/jquery.ztree.exedit.js"></script>
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/tag.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/page.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/upload.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/tree.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../js/libs/ueditor1.4.3/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../js/libs/ueditor1.4.3/ueditor.all.min.js">
+    </script>
+    <script type="text/javascript" charset="utf-8" src="../../js/libs/ueditor1.4.3/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" src="../../js/app/teacher/questionsadd.js"></script>
+</body>
+
+</html>

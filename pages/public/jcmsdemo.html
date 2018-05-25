@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>jcmsdemo</title>
+    <!-- build:sjjCss -->
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <!-- endbuild -->
+</head>
+
+<body class="jcms">
+<div class="pie_radius"></div>
+
+    <br/>
+    <br/>
+    <div class="container" id="container">
+        <h2>表单验证</h2>
+        <form id="form1">
+            <div class="col-sm-12 jrow">
+                <div class="jlabel"> <span class="jstar">*</span><span>网站名称：</span></div>
+                <div class="jinput">
+                    <input name="web_name" data-msg="网站名称" data-verify="require" type="text">
+                    <div class="jtips"></div>
+                </div>
+            </div>
+            <div class="col-sm-12 jrow">
+                <div class="jlabel"> </div>
+                <div class="jinput">
+                    <div class="jbtn">申请提交</div>
+                </div>
+            </div>
+        </form>
+        <div>
+            data-verify:require(不为空)、mphone（手机号码）、num（带两位小数）、integer[0,100]（整型）、max[100](最大值)、mail（邮件）、url（网址）、pwd（密码6~20位）
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <div class="container">
+        <h2>下拉菜单</h2>
+        <div class="col-sm-4">
+            <div class="ddmenu" style="width:190px;">
+                <a class="menu">
+                    <span>登陆/注册</span>
+                    <img src="../../images/confirmed.png" />
+                    <i class="menu_arr"></i>
+                </a>
+                <ul class="menus">
+                    <li>
+                        <a>
+                            <span class="icon-persion">个人中心</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <span class="icon-logout">账号退出</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div id="searchdropmenu" class="ddmenu" style="width:90px;">
+                <a class="menu" data-val="">
+                    <span>效果图</span>
+                    <i class="menu_arr"></i>
+                </a>
+                <ul class="menus">
+                    <li>
+                        <a data-id="0">
+                        效果图
+                    </a>
+                    </li>
+                    <li>
+                        <a data-id="1">
+                        3D方案
+                    </a>
+                    </li>
+                    <li>
+                        <a data-id="2">
+                        设计师
+                    </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <div class="container">
+        <h2>loading</h2>
+        <div>
+            <button class="btn_loading">loading</button>
+            <button class="btn_loading_time">loading(3s)</button>
+        </div>
+    </div>
+    <br/><br/>
+    <div class="container">
+        <h2>alert、confirm</h2>
+        <div>
+        <br/><br/>
+            <button class="btn_alert">alert</button>
+            <button class="btn_confirm">confirm</button>
+            <button class="btn_success">成功</button>
+            <button class="btn_failed">失败</button>
+            <button class="btn_warning">警告</button>
+        </div>
+    </div>
+    </div>
+
+     <!--[if IE 8]>
+    <script type="text/javascript" src="../../libs/base/respond.js"></script>    
+    <![endif]-->
+    
+      <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>    
+   
+    <script type="text/javascript" src="../../js/core/jx.js"></script>  
+    
+    <script type="text/javascript">
+    var vform = new J.Vform({
+        id: "form1"
+    });
+    $(".jbtn").on("click", function() {
+        vform.validate();
+    });
+    </script>
+    <script type="text/javascript">
+    //
+    var menu = new J.DDmenu({
+        type: "select",
+        containerID: "searchdropmenu",
+        defaultval: "2"
+    });
+    </script>
+    <script type="text/javascript">
+    $(".btn_loading_time").on("click", function() {
+        J.Loading.show(3000);
+    });
+    $(".btn_loading").on("click", function() {
+        J.Loading.show();
+    });
+    </script>
+
+     <script type="text/javascript">
+    $(".btn_alert").on("click", function() {
+       var a= new J.alert("asdfasdf");
+    });
+    $(".btn_success").on("click", function() {
+       var a= new J.alert({type:"success",msg:"哈哈",title:"提交成功"});
+    });
+    $(".btn_failed").on("click", function() {
+       var a= new J.alert({type:"failed",msg:"加油",title:"提交成功"});
+    });
+    $(".btn_warning").on("click", function() {
+       var a= new J.alert({type:"warning",msg:"哈哈",title:"提交成功"});
+    });
+    $(".btn_confirm").on("click", function() {
+        new J.alert({
+            type:"confirm",
+            msg:"确定？",
+            confirmFn:function(){
+                new J.alert("ok");
+            }
+        });
+    });
+    </script>
+</body>
+
+</html>

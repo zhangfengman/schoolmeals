@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>课程内容</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/student-lesson.css">
+</head>
+
+<body style="background: #f9f6f3;display: none;" ms-controller="examcentermanage">
+    <div class="lesson_main">
+        <h2 class="main_title">我的测试</h2>
+        <div class="main_content">
+            <div class="lesson_step">
+                <div class="releaseexambtn">发布测试</div>
+                <ul class="lesson_step_list">
+                    <li ms-for="($index,el) in @examinationList">
+                        <div class="lesson_step_row">
+                            <h4><i class="lesson_step_icon"></i>
+                            <a href="#" ms-click="@detail(el)">【{{el.className}}】{{el.testPaperTitle}}</a></h4>
+                            <div class="lesson_state" ms-if="el.flag == 0">未开始</div>
+                            <div class="lesson_state" ms-if="el.flag == 1">进行中</div>
+                            <div class="lesson_state" ms-if="el.flag == 2">已结束</div>
+                        </div>
+                        <div class="lesson_step_operate">
+                            <div class="ctable noborder fit">
+                                <div class="crow">
+                                    <div class="ccol ccol-5 vtop">
+                                        <div class="clearfix">
+                                            <div class="lesson_start_time">开始时间：<span>{{el.startTime}}</span></div>
+                                            <div class="divider">|</div>
+                                            <div class="lesson_end_time">结束时间：<span>{{el.endTime}}</span></div>
+                                        </div>
+                                        <div class="clearfix">
+                                        <div class="lesson_start_time">
+                                            测试时长：<span>{{el.requireUseTime}}分钟</span>
+                                        </div>
+                                        </div>
+                                        <div class="clearfix">
+                                        <div class="lesson_start_time">
+                                            测试人数：<span>{{el.finishCount}}/{{el.totalCount}}</span>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="ccol ccol-5 vtop">
+                                        <div class="lesson_step_operate_buttons">
+                                            <button class="lesson_step_operate_score" ms-if="el.flag == 0" ms-click="@edit(el.classTestPaperId)">修改</button>
+                                            <button ms-if="el.flag == 0" ms-click="@del(el.classTestPaperId)">删除</button>
+                                            <button class="lesson_step_operate_score" ms-if="el.flag != 0" ms-click="@markscore(el.classTestPaperId)">评分</button>
+                                            <button ms-if="el.flag != 0" ms-click="@goToStatistics(el.classTestPaperId)">查看统计</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/libs/moment.js"></script>
+    <script type="text/javascript" src="../../js/app/teacher/examcentermanage.js"></script>
+</body>
+
+</html>

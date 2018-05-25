@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>熟饭系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+   
+   
+
+</head>
+<body>
+     hello 1
+     <div class="q_s"></div>
+     <div ms-controller="test">
+        <input ms-duplex="@name">
+        <p>Hello,{{@name}}!</p>
+        <ul>
+           <li ms-for="($index,el) in @array">{{$index}}--{{el}}</li>
+        </ul>
+    </div>
+      <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>    
+   
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script data-main="../../js/config/teacher_index.js" src="../../js/libs/require.js"></script>  
+    
+</body>
+</html>

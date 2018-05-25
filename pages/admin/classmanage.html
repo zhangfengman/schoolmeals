@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>熟饭系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+</head>
+
+<body style="background: #f9f6f3;display: none;">
+    <div ms-controller="classcontroller">
+        <div class="title">班级管理</div>
+        <div class="admin-search">
+            <div class="ctable noborder">
+                <div class="crow">
+                    <div class="ccol my_group">
+                        <div class="my_lable">班级
+                            <input class="my_text" ms-duplex="@searchkey" name="phoneNumber" type="text" placeholder="输入ID或名称搜索" />
+                        </div>
+                    </div>
+                    <div class="ccol">
+                        <div class="btn-border" ms-click="@searchFunc();">搜索</div>
+                        <div class="btn-border exp" ms-click="@exportFunc();">导出</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="admin-body">
+            <div class="ctable admin-table">
+                <div class="crow admin-header">
+                    <div class="ccol ccol-1">ID</div>
+                    <div class="ccol ccol-1">班级名称</div>
+                    <div class="ccol ccol-1">所属学校</div>
+                    <div class="ccol ccol-1">学段</div>
+                    <div class="ccol ccol-1">科目</div>
+                    <div class="ccol ccol-1">年级</div>
+                    <div class="ccol ccol-1">入学时间</div>
+                    <div class="ccol ccol-1">任课教师</div>
+                    <div class="ccol ccol-1">操作</div>
+                </div>
+                <div class="crow admin-odd" ms-for="($index,el) in @list">
+                    <div class="ccol ccol-1">{{el.classId}}</div>
+                    <div class="ccol ccol-1">{{el.className}}</div>
+                    <div class="ccol ccol-1">{{el.schoolName}}</div>
+                    <div class="ccol ccol-1"></div>
+                    <div class="ccol ccol-1">{{el.subjectName}}</div>
+                    <div class="ccol ccol-1">{{el.gradeName}}</div>
+                    <div class="ccol ccol-1">{{el.beginTime}}</div>
+                    <div class="ccol ccol-1">{{el.userName}}</div>
+                    <div class="ccol ccol-1">
+                        <a class="icon_letter_del"  ms-click="@del(el.classId)"></a>
+                    </div>
+                </div>
+                <div class=" crow admin-footer">
+                    <div class="ccol ccol-1">
+                        <div id="paging"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/page.js"></script>
+    <script type="text/javascript" src="../../js/app/admin/classmanage.js"></script>
+</body>
+
+</html>

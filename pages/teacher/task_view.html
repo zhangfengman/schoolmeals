@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>熟饭系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/audio.css">
+    <link rel="stylesheet" type="text/css" href="../../css/questions.css">
+    <link rel="stylesheet" type="text/css" href="../../css/exampager.css">
+</head>
+
+<body style="background: #fff;display: block;" ms-controller="taskAdd">
+    <div class="title">预览任务</div>
+    <div class="choose-body jcms">
+        <form id="exam_form" class="task-layout">
+            <div class="jrow">
+                <div class="jlabel"><span class="jstar">*</span>名称:</div>
+                <div class="jinput" style="vertical-align: middle;">
+                    
+                    {{@task.name}}
+                </div>
+            </div>
+            <div class="jrow">
+                <div class="jlabel"><span class="jstar">*</span>内容:</div>
+                <div class="jinput">
+                    <ul class="task-type clearfix">
+                        <li ms-if="@task.type == '1'">
+                           
+                            <label for="tasktype_1">纯视频</label>
+                        </li>
+                        <li ms-if="@task.type == '2'">
+                            
+                            <label for="tasktype_2">纯习题</label>
+                        </li>
+                        <li ms-if="@task.type == '3'">
+                           
+                            <label for="tasktype_3">混合型</label>
+                        </li>
+                    </ul>
+                    <div class="exam-content">
+                        <div class="exam-qlist" style="border-top: 0px solid #e6e1dd">
+                            <div class="exam-qtype">
+                                <div ms-for="($index,el) in @task.segmentModuleList">
+                                    <p>{{el.title}}</p>
+                                    <div class="" ms-for="($num,item) in el.contentList">
+                                        <div ms-if="item.contentType == '1' ">
+                                            <!-- 选择题-->
+                                            <div class="question" ms-if="item.question.type == 1">
+                                                <div class="clearfix" style="position: relative;">
+                                                    <div class="no fleft"><span>题号：</span>{{item.no}}</div>
+                                                </div>
+                                                <div class="examquestion">
+                                                    <wbr ms-widget="[{is:'ms-content'},{content_:item.question.choiceQuestion.mainContent}]" />
+                                                </div>
+                                                <ul class="theselection">
+                                                    <li ms-for="opt in item.question.choiceQuestion.optionsContent">
+                                                        {{opt.option}}.
+                                                        <wbr ms-widget="[{is:'ms-content'},{content_:opt.content}]" />
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <!-- 填空 -->
+                                            <div class="question" ms-if="item.question.type == 2">
+                                                <div class="clearfix">
+                                                    <div class="no fleft"><span>题号：</span>{{item.no}}</div>
+                                                </div>
+                                                <div class="examquestion">
+                                                    <wbr ms-widget="[{is:'ms-content'},{content_:item.question.fillingQuestion.mainContent}]" />
+                                                </div>
+                                            </div>
+                                            <!--主观题 -->
+                                            <div class="question" ms-if="item.question.type == 3">
+                                                <div class="clearfix">
+                                                    <div class="no fleft"><span>题号：</span>{{item.no}}</div>
+                                                </div>
+                                                <div class="examquestion">
+                                                    <wbr ms-widget="[{is:'ms-content'},{content_:item.question.subjectiveQuestion.mainContent}]" />
+                                                </div>
+                                            </div>
+                                            <!-- 组合-->
+                                            <div class="question"  ms-if="item.question.type == 4">
+                                                <div class="clearfix">
+                                                   <div class="no fleft"><span>题目：</span>{{item.no}}</div>
+                                                </div>
+                                                <div class="">
+                                                    <wbr ms-widget="[{is:'ms-content'},{content_:item.question.unionQuestion.mainContent}]" />
+                                                </div>
+                                                <div ms-for="($n,unionEl) in item.question.unionQuestion.questionList">
+                                                    <div class="question">
+                                                        <div ms-if="unionEl.questionType == 1">
+                                                            <div class="clearfix">
+                                                                <div class="no fleft">（{{$n+1}}）</div>
+                                                               
+                                                            </div>
+                                                            <div class="examquestion">
+                                                                <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.choiceQuestion.mainContent}]" />
+                                                            </div>
+                                                            <ul class="theselection">
+                                                                <li ms-for="opt in unionEl.choiceQuestion.optionsContent">
+                                                                    {{opt.option}}.
+                                                                    <wbr ms-widget="[{is:'ms-content'},{content_:opt.content}]" />
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div ms-if="unionEl.questionType == 2">
+                                                            <div class="clearfix">
+                                                                <div class="no">（{{$n+1}}）</div>
+                                                                
+                                                                    
+                                                                    
+                                                            </div>
+                                                            <div class="examquestion">
+                                                                <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.fillingQuestion.mainContent}]" />
+                                                            </div>
+                                                        </div>
+                                                        <div ms-if="unionEl.questionType == 3">
+                                                            <div class="clearfix">
+                                                                <div class="no">（{{$n+1}}）</div>
+                                                                
+                                                            </div>
+                                                            <div class="examquestion">
+                                                                <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.subjectiveQuestion.mainContent}]" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="lesson_audio" ms-if="item.contentType == '2' ">
+                                            <div class="audio_title" ms-click="@fullscreen(item.video);">{{item.video.name}}</div>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="jrow">
+                <div class="jlabel">&nbsp;</div>
+                <div class="jinput">
+                    <a href="javascript:void(0)" class="btn create_exam" ms-click="@back()" style="margin:0px">返回</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--SCRIPT_PLACEHOLDER-->
+    <script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/libs/layer/layer.js"></script>
+    <!--ignore-->
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/page.js"></script>
+    <script type="text/javascript" src="../../js/app/teacher/taskview.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>熟饭系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/class.css">
+</head>
+
+<body style="background: #f9f6f3;" ms-controller="statiticscontroller">
+    <div class="title">初中语文第一册（上）</div>
+    <div class="class-body">
+        <ul class="lesson_step_tab">
+            <li data-href="lessoncenterStudent.html">课程中心</li>
+            <li data-href="examcenterStudent.html">我的测试</li>
+            <li data-href="statisticsStudent.html" class="active">班级统计</li>
+            <li data-href="studentlist.html">学生名单</li>
+        </ul>
+        <ul class="tabs ">
+            <li class="active" data-type="1">学习统计</li>
+            <li data-type="2">测试统计</li>
+        </ul>
+        <div class="letter-title">总分排名：</div>
+        <div class="search">
+            <div class="ctable" ms-if="@type == 1">
+                <div class="crow">
+                    <div class="ccol ccol-1">课程</div>
+                    <div class="ccol ccol-2">
+                        <div class="jselect">
+                            <select id="courseselect" ms-duplex="@query.courseId" data-msg="学校" data-verify="require">
+                                <option value="">选择课程</option>
+                                <option ms-for="($index, el) in @courseList" ms-attr={value:el.courseId}>{{el.courseName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ccol ccol-1">章</div>
+                    <div class="ccol ccol-2">
+                        <div class="jselect">
+                            <select id="chapter" ms-duplex="@query.chapterId">
+                               
+                                <option ms-for="($index, el) in @chapterList" ms-attr={value:el.courseChapterId}>{{el.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ccol ccol-1"><a class="sbtn-space">&nbsp;</a></div>
+                </div>
+                <div class="crow">
+                    <div class="ccol ccol-1">节</div>
+                    <div class="ccol ccol-2">
+                        <div id="courseChapterS" class="jselect">
+                            <select ms-duplex="@query.sourceId">
+                               
+                                <option ms-for="($index, el) in @childList" ms-attr={value:el.courseChapterId}>{{el.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ccol ccol-1">属性</div>
+                    <div class="ccol ccol-2">
+                        <div class="jselect">
+                            <select id="segmentTypeS" ms-duplex="@query.segmentType">
+                               
+                                <option value="1">课前</option>
+                                <option value="2">课中</option>
+                                <option value="3">课后</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ccol ccol-1">
+                       
+                    </div>
+                </div>
+                 <div class="crow">
+                    <div class="ccol ccol-1">任务</div>
+                    <div class="ccol ccol-2">
+                        <div class="jselect">
+                             <select ms-duplex="@query.segmentId">
+                                <option value="">选择任务</option>
+                                <option ms-for="($index, el) in @taskList" ms-attr={value:el.segmentId}>{{el.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ccol ccol-1">
+                        
+                    </div>
+                    <div class="ccol ccol-2">
+                         <a class="sbtn" ms-click="@queryData('1')">确定</a>
+                    </div>
+                    <div class="ccol ccol-1">
+                        
+                    </div>
+                </div>
+            </div>
+            <!--测试统计 -->
+            <div class="ctable" ms-if="@type == 2">
+                <div class="crow">
+                    <div class="ccol ccol-1">测试列表</div>
+                    <div class="ccol ccol-2">
+                        <div class="jselect">
+                            <select id="testPaperId" ms-duplex="@query.testPaperId" data-msg="学校" data-verify="require">
+                              
+                                <option ms-for="($index, el) in @examinationList" ms-attr={value:el.classTestPaperId}>{{el.testPaperTitle}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ccol ccol-1">
+                        <a class="sbtn" ms-click="@queryData('2')">确定</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ctable oe">
+            <div class="crow chead">
+                <div class="ccol ccol-3">名次</div>
+                <div class="ccol ccol-4">姓名</div>
+                <div class="ccol ccol-3">总分</div>
+            </div>
+            <div class="crow" ms-for="{$index,el} in @studentList">
+                <div class="ccol ccol-3">
+                    <div class="first" ms-visible="$index == 0"></div>
+                    <div class="second" ms-visible="$index == 1"></div>
+                    <div class="third" ms-visible="$index == 2"></div>
+                    <div ms-visible="$index > 2">{{$index+1}}</div>
+                </div>
+                <div class="ccol ccol-4">{{el.studentUserName}}</div>
+                <div class="ccol ccol-3">{{el.acquireScoreCount}}</div>
+            </div>
+        </div>
+    </div>
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/app/student/statisticsStudent.js?11"></script>
+</body>
+
+</html>

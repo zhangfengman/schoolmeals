@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>uuid</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/class.css">
+</head>
+
+<body style="background: #f9f6f3; display: block;" ms-controller="bindstudent">
+    <div class="title">UID码</div>
+    <div class="class-body">
+        <div class="jcms">
+            <div class="jrow">
+                <div class="jlabel">UID码:</div>
+                <div class="jinput" style="vertical-align: middle">
+                   {{@user.token}}
+                </div>
+            </div>
+          
+        </div>
+       
+    </div>
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+     <script type="text/javascript">
+        var user = J.getUser();
+        $("#username").text(user.userName);
+        
+        var vm = avalon.define({
+            $id: "bindstudent",
+            user: user
+        })
+        avalon.scan();
+    </script>
+</body>

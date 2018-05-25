@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>熟饭后台管理系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+</head>
+
+<body>
+    <div class="header">
+        <div class="l_logo">
+            <img src="../../images/logo_min.png" />
+        </div>
+        <div class="r_menu">
+            <div class="username">
+                <span>王老师</span>
+            </div>
+            <div class="exit">
+                <span>退出</span>
+            </div>
+        </div>
+    </div>
+    <div id="content" class="content">
+        <div id="left" class="left">
+            <div class="menu active">
+                <div class="menu_t icon_account">账号管理
+                    <div class="arrow"></div>
+                </div>
+                <ul>
+                    <li class="current">
+                        <a href="../public/login.html" target="maintarget">学生列表</a>
+                    </li>
+                    <li>
+                        <a href="../public/login.html" target="maintarget">学生列表1</a>
+                    </li>
+                    <li>
+                        <a href="../public/login.html" target="maintarget">学生列表2</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="menu">
+                <div class="menu_t icon_home">账号管理
+                    <div class="arrow"></div>
+                </div>
+                <ul>
+                    <li class="current">
+                        <a href="../public/login.html" target="maintarget">学生列表</a>
+                    </li>
+                    <li>
+                        <a href="../public/login.html" target="maintarget">学生列表1</a>
+                    </li>
+                    <li>
+                        <a href="../public/login.html" target="maintarget">学生列表2</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="right" class="right">
+            <div class="title">标题</div>
+            <div class="iframec">
+                <iframe id="maintarget" name="maintarget" src="../public/login.html" scrolling="yes" frameborder="no"></iframe>
+            </div>
+        </div>
+    </div>
+      <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>    
+   
+    <script type="text/javascript">
+    $(function() {
+        function getWindowSize() {
+            return ["Height", "Width"].map(function(name) {
+                return window["inner" + name] ||
+                    document.compatMode === "CSS1Compat" && document.documentElement["client" + name] || document.body["client" + name];
+            });
+        }
+
+        function wSize() {
+            var screen = getWindowSize();
+
+            var contentH = screen[0] - 84;
+            $("#content").css("height", contentH + "px");
+            $("#right").css("width", (screen[1] - 222) + "px");
+            $("#maintarget").css("height", (contentH - 115) + "px");
+        }
+        wSize();
+        $(window).resize(function() {
+            wSize();
+        });
+
+        function bindEvent() {
+            $("#left").on("click", ".menu", function() {
+                var omenu = $(this);
+                if (!omenu.hasClass("active")) {
+                    omenu.addClass("active unfold").siblings().removeClass("active unfold");
+                } else if(omenu.hasClass("unfold")) {
+                	 omenu.removeClass("unfold");
+                } else if(!omenu.hasClass("unfold")){
+                	omenu.addClass("unfold");
+                }                
+            })
+            $("#left").on("click", ".menu li", function() {
+                var omenu = $(this);
+                //移除其他子菜单选中效果
+                $(".menu li").removeClass("current");
+                if (!omenu.hasClass("current")) {
+                    omenu.addClass("current");
+                }
+                //防止冒泡
+                return false;
+            })
+        }
+        bindEvent();
+
+    });
+    </script>
+</body>
+
+</html>

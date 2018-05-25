@@ -1,0 +1,120 @@
+.choose-body {
+    padding: 10px;
+    max-width: 1312px;
+    margin: 0 auto;
+}
+.left-block{
+    float: left;
+    
+}
+.choose-left {
+    width: 320px;
+    float: left;
+    margin-left: 10px;
+}
+.choose-left.mw{
+    width: 20%;
+}
+
+.choose-center {
+    float: left;
+    margin-left: 10px;
+    border: 1px solid #f0ebe6;
+    background: #fff;
+    padding: 10px;
+    width: 640px;
+}
+.choose-center.mw{
+     width: 50%;
+}
+
+.choose-list {
+    border: 1px solid #f0ebe6;
+    background: #fff;
+    float: left;
+    border-radius: 4px;
+    
+    width: 290px;
+    margin-left: 10px;
+}
+.choose-list.mw{
+    width: 25%;
+}
+.choose-list .list-t {
+    background: #f66a03;
+    /* height: 58px; */
+    color: #fff;
+    padding: 14px 20px;
+    font-size: 16px;
+}
+
+.choose-box {
+    border: 1px solid #f0ebe6;
+    border-radius: 4px;
+    background: #fff;
+    width: 100%;
+}
+
+.choose-box .topcolor {
+    height: 9px;
+    background: #f66a03;
+}
+
+.choose-list-box {}
+
+.choose-table .crow {
+    background: #fff3ea;
+    margin: 4px 0px;
+}
+
+.choose-table .crow {
+    background: #fff3ea;
+}
+
+.choose-table .crow .ccol {
+    padding: 5px 0px;
+}
+
+.choose-list .ctable {
+    margin: 0px 10px;
+}
+
+.choose-list .ctable .crow {
+    border-bottom: 1px dashed #f0ebe6;
+}
+.choose-list .ctable .crow .ccol.left-top{
+        text-align: left;
+    vertical-align: top;
+}
+.choose-list .count{
+    font-size: 14px;
+    margin: 0px 10px;
+    border-bottom: 1px solid #dedad5;
+    padding: 15px 0px;
+}
+.choose-list .count span{
+    color: #f66a03;
+}
+.choose-list .btn-block{
+    text-align: center;
+    padding: 10px 0px;
+}
+.icon-audio{
+    background: url(../images/audio.png) 0 0 no-repeat;
+    width: 24px;
+    height: 24px;
+}
+
+@media (max-width: 769px) {
+    .left-block ,.choose-left,.choose-center,.choose-list{
+        float: none;
+        width: 100%;
+        margin: 10px auto;
+    }
+    .left-block ,.choose-left.mw,.choose-center.mw,.choose-list.mw{
+        float: none;
+        width: 100%;
+        margin: 10px auto;
+    }
+
+}

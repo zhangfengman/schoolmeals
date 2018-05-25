@@ -1,0 +1,329 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>熟饭系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" href="../../js/libs/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/audio.css">
+    <link rel="stylesheet" type="text/css" href="../../css/questions.css">
+</head>
+
+<body style="background: #f9f6f3;display:block;" ms-controller="questionchoose">
+    <div class="choose-body jcms">
+         <div class="choose-left mw">
+            <div class="choose-box clearfix">
+                <div class="topcolor"></div>
+                <ul id="treeDemo" class="ztree"></ul>
+            </div>
+        </div>
+        <div class="choose-center mw">
+            <div class="question-query ctable">
+                <div class="crow">
+                    <div class="ccol ccol-2">全部试题：</div>
+                    <ul id="question_type" class="ccol ccol-8 aleft">
+                        <li class="current" data-questiontype="1">单选题</li>
+                        <li data-questiontype="2">填空题</li>
+                        <li data-questiontype="3">主观题</li>
+                        <li data-questiontype="4">组合题</li>
+                        <li data-questiontype="5">富文本</li>
+                    </ul>
+                </div>
+                <div class="crow" ms-visible="@query.questionType != '4'">
+                    <div class="ccol ccol-2">全部难度：</div>
+                    <ul id="question_level" class="ccol ccol-8 aleft">
+                        <li class="current" data-questionlevel="">全部</li>
+                        <li data-questionlevel="1">1级</li>
+                        <li data-questionlevel="2">2级</li>
+                        <li data-questionlevel="3">3级</li>
+                        <li data-questionlevel="4">4级</li>
+                        <li data-questionlevel="5">5级</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="question-list">
+                <div class="question" ms-for="($index,el) in @questionList">
+                    <!-- 选择题-->
+                    <div ms-if="el.type == 1">
+                        <div class="no"><span>题号：</span>{{el.choiceQuestion.choiceQuestionId}}</div>
+                        <div class="examquestion">
+                            <wbr ms-widget="[{is:'ms-content'},{content_:el.choiceQuestion.mainContent,id:'choice_'+el.choiceQuestion.choiceQuestionId+$index}]" />
+                        </div>
+                        <ul class="theselection">
+                            <li ms-for="($num,opt) in el.choiceQuestion.optionsContent">
+                                {{opt.option}}.
+                                <wbr ms-widget="[{is:'ms-content'},{content_:opt.content,id:'choice_opt_'+el.choiceQuestion.choiceQuestionId+$num+1}]" />
+                            </li>
+                        </ul>
+                        <div class="ctable noborder choose-question">
+                            <div class="crow">
+                                <div class="ccol ccol-2 aleft">
+                                    <a href="javascript:void(0);" class="answerbtn">查看答案</a>
+                                </div>
+                                <div class="ccol ccol-2 aright">
+                                    <a href="javascript:void(0);" class="btn-mini add_question" ms-attr="{qid:el.choiceQuestion.choiceQuestionId,qtype:el.type}">添加</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="answer">
+                            <wbr ms-widget="[{is:'ms-content'},{content_:el.choiceQuestion.rightOptions,id:'choice_answer_'+el.choiceQuestion.choiceQuestionId+$index+1}]" />
+                        </div>
+                    </div>
+                    <!-- 选择题-->
+                    <!-- 填空题-->
+                    <div ms-if="el.type == 2" ms-attr={qid:el.fillingQuestion.fillingQuestionId}>
+                        <div class="no"><span>题号：</span>{{el.fillingQuestion.fillingQuestionId}}</div>
+                        <div class="examquestion">
+                            <wbr ms-widget="[{is:'ms-content'},{content_:el.fillingQuestion.mainContent,id:'filling_'+el.fillingQuestion.fillingQuestionId+$index}]" />
+                        </div>
+                        <div class="ctable noborder choose-question">
+                            <div class="crow">
+                                <div class="ccol ccol-2 aleft">
+                                    <a href="javascript:void(0);" class="answerbtn">查看答案</a>
+                                </div>
+                                <div class="ccol ccol-2 aright">
+                                    <a href="javascript:void(0);" class="btn-mini add_question" ms-attr="{qid:el.fillingQuestion.fillingQuestionId,qtype:el.type}">添加</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="answer">
+                            <span ms-for="key in el.fillingQuestion.rightFilingList">
+                                <div>{{key.value}}</div>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- 填空题-->
+                    <!-- 主观题-->
+                    <div ms-if="el.type == 3" ms-attr={qid:el.subjectiveQuestion.subjectiveQuestionId}>
+                        <div class="no"><span>题号：</span>{{el.subjectiveQuestion.subjectiveQuestionId}}</div>
+                        <div class="examquestion">
+                            <wbr ms-widget="[{is:'ms-content'},{content_:el.subjectiveQuestion.mainContent,id:'subjective'+el.subjectiveQuestion.subjectiveQuestionId+$index+1}]" />
+                        </div>
+                        <div class="ctable noborder choose-question">
+                            <div class="crow">
+                                <div class="ccol ccol-2 aleft">
+                                    <a href="javascript:void(0)" class="answerbtn">查看答案</a>
+                                </div>
+                                <div class="ccol ccol-2 aright">
+                                    <a href="javascript:void(0)" class="btn-mini add_question" ms-attr="{qid:el.subjectiveQuestion.subjectiveQuestionId,qtype:el.type}">添加</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="answer">
+                            <wbr ms-widget="[{is:'ms-content'},{content_:el.subjectiveQuestion.rightContent,id:'subjective_answer'+$index+1}]" />
+                        </div>
+                    </div>
+                    <!-- 主观题-->
+                    <!-- 组合题-->
+                    <div ms-if="el.type == 4" ms-attr="{qid: '0'}">
+                        <!--div class="no"><span>题号：</span></div-->
+                        <div class="examquestion">
+                            <wbr ms-widget="[{is:'ms-content'},{content_:el.unionQuestion.mainContent}]" />
+                        </div>
+                        <div style="text-align: right;">
+                            <a href="javascript:void(0);" class="btn-mini add_question" ms-attr="{qid:el.unionQuestion.unionMainQuestionId,qtype:el.type}">添加</a>
+                        </div>
+                        <div class="question" ms-for="($num,unionEl) in el.unionQuestion.questionList">
+                            <!-- 选择题-->
+                            <div ms-if="unionEl.questionType == 1" ms-attr={qid:unionEl.choiceQuestion.choiceQuestionId}>
+                                <div class="no"><span>题号：</span>{{unionEl.choiceQuestion.choiceQuestionId}}</div>
+                                <div class="examquestion">
+                                    <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.choiceQuestion.mainContent,id:'union_choice'+unionEl.choiceQuestion.choiceQuestionId+$index+1}]" />
+                                </div>
+                                <ul class="theselection">
+                                    <li ms-for="($num,opt) in unionEl.choiceQuestion.optionsContent">
+                                        {{opt.option}}.
+                                        <wbr ms-widget="[{is:'ms-content'},{content_:opt.content,id:'union_choice'+unionEl.choiceQuestion.choiceQuestionId+$index+$num+1}]" />
+                                    </li>
+                                </ul>
+                                <div class="ctable noborder choose-question">
+                                    <div class="crow">
+                                        <div class="ccol ccol-2 aleft">
+                                            <a href="javascript:void(0);" class="answerbtn">查看答案</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="answer">
+                                    {{unionEl.choiceQuestion.rightOptions}}
+                                </div>
+                            </div>
+                            <!-- 选择题-->
+                            <!-- 填空题-->
+                            <div ms-if="unionEl.questionType == 2" ms-attr={qid:unionEl.fillingQuestion.fillingQuestionId}>
+                                <div class="no"><span>题号：</span>{{unionEl.fillingQuestion.fillingQuestionId}}</div>
+                                <div class="examquestion">
+                                    <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.fillingQuestion.mainContent,id:'union_filling'+unionEl.fillingQuestion.fillingQuestionId+$index+1}]" />
+                                </div>
+                                <div class="ctable noborder choose-question">
+                                    <div class="crow">
+                                        <div class="ccol ccol-2 aleft">
+                                            <a href="javascript:void(0);" class="answerbtn">查看答案</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="answer">
+                                    <span ms-for="key in unionEl.fillingQuestion.rightFilingList">
+                                    {{key.value}}
+                                </span>
+                                </div>
+                            </div>
+                            <!-- 填空题-->
+                            <!-- 主观题-->
+                            <div ms-if="unionEl.questionType == 3" ms-attr={qid:unionEl.subjectiveQuestion.subjectiveQuestionId}>
+                                <div class="no"><span>题号：</span>{{unionEl.subjectiveQuestion.subjectiveQuestionId}}</div>
+                                <div class="examquestion">
+                                    <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.subjectiveQuestion.mainContent,id:'union_subjective'+unionEl.subjectiveQuestion.subjectiveQuestionId+$index+1}]" />
+                                </div>
+                                <div class="ctable noborder choose-question">
+                                    <div class="crow">
+                                        <div class="ccol ccol-2 aleft">
+                                            <a href="javascript:void(0);" class="answerbtn">查看答案</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="answer">
+                                    <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.subjectiveQuestion.rightContent,id:'union_subjective_answer'+unionEl.subjectiveQuestion.subjectiveQuestionId+$index+1}]" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 组合题-->
+                </div>
+            </div>
+            <div id="paging" class="clearfix"></div>
+        </div>
+        <div class="choose-list mw">
+            <div class="list-t">习题清单</div>
+            <div class="ctable noborder choose-question" ms-for="($index,el) in @chooseList">
+                <!-- 选择题 -->
+                <div ms-if="el.type == 1">
+                    <div class="crow">
+                        <div class="ccol ccol-2 aleft">
+                            题号：{{el.choiceQuestion.choiceQuestionId}}
+                        </div>
+                        <div class="ccol ccol-2 aright">
+                            <a href="javascript:void(0);" class="del_question" ms-attr="{unique:el.unique}">删除</a>
+                        </div>
+                    </div>
+                    <div class="crow">
+                        <div class="ccol ccol-10 aleft">
+                            <wbr ms-widget="[{is:'ms-content'},{content_:el.choiceQuestion.mainContent}]" />
+                        </div>
+                    </div>
+                    <div class="crow gray">
+                        <div class="ccol ccol-2 aleft">
+                            题型：选择题
+                        </div>
+                        <div class="ccol ccol-2 aleft">
+                            难度：{{el.choiceQuestion.level}}
+                        </div>
+                    </div>
+                </div>
+                <!-- 选择题 -->
+                <!-- 填空题 -->
+                <div ms-if="el.type == 2">
+                    <div class="crow">
+                        <div class="ccol ccol-2 aleft">
+                            题号：{{el.fillingQuestion.fillingQuestionId}}
+                        </div>
+                        <div class="ccol ccol-2 aright">
+                            <a href="javascript:void(0);" class="del_question" ms-attr="{unique:el.unique}">删除</a>
+                        </div>
+                    </div>
+                    <div class="crow">
+                        <div class="ccol ccol-10 aleft">
+                            <wbr ms-widget="[{is:'ms-content'},{content_:el.fillingQuestion.mainContent}]" />
+                        </div>
+                    </div>
+                    <div class="crow gray">
+                        <div class="ccol ccol-2 aleft">
+                            题型：填空题
+                        </div>
+                        <div class="ccol ccol-2 aleft">
+                            难度：{{el.fillingQuestion.level}}
+                        </div>
+                    </div>
+                </div>
+                <!-- 填空题 -->
+                <!-- 主观题 -->
+                <div ms-if="el.type == 3">
+                    <div class="crow">
+                        <div class="ccol ccol-2 aleft">
+                            题号：{{el.subjectiveQuestion.subjectiveQuestionId}}
+                        </div>
+                        <div class="ccol ccol-2 aright">
+                            <a href="javascript:void(0);" class="del_question" ms-attr="{unique:el.unique}">删除</a>
+                        </div>
+                    </div>
+                    <div class="crow">
+                        <div class="ccol ccol-10 aleft">
+                            <wbr ms-widget="[{is:'ms-content'},{content_:el.subjectiveQuestion.mainContent}]" />
+                        </div>
+                    </div>
+                    <div class="crow gray">
+                        <div class="ccol ccol-2 aleft">
+                            题型：主观题
+                        </div>
+                        <div class="ccol ccol-2 aleft">
+                            难度：{{el.subjectiveQuestion.level}}
+                        </div>
+                    </div>
+                </div>
+                <!-- 主观题 -->
+                <!-- 组合题 -->
+                <div ms-if="el.type == 4">
+                    <div class="crow">
+                        <div class="ccol ccol-2 aleft">
+                            题号：{{el.unionQuestion.unionMainQuestionId}}
+                        </div>
+                        <div class="ccol ccol-2 aright">
+                            <a href="javascript:void(0);" class="del_question" ms-attr="{unique:el.unique}">删除</a>
+                        </div>
+                    </div>
+                    <div class="crow">
+                        <div class="ccol ccol-10 aleft">
+                            <wbr ms-widget="[{is:'ms-content'},{content_:el.unionQuestion.mainContent}]" />
+                        </div>
+                    </div>
+                    <div class="crow gray">
+                        <div class="ccol ccol-2 aleft">
+                            题型：组合题
+                        </div>
+                    </div>
+                </div>
+                <!-- 组合题 -->
+            </div>
+            <div class="count">共<span>{{@chooseList.length}}</span>道题</div>
+            <div class="btn-block">
+                <a href="javascript:void(0)" class="btn add_confirm">确定添加</a>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!--SCRIPT_PLACEHOLDER-->
+    <script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/libs/layer/layer.js"></script>
+    <!--ignore-->
+    <script type="text/javascript" src="../../js/libs/ztree/js/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="../../js/libs/ztree/js/jquery.ztree.excheck.js"></script>
+    <script type="text/javascript" src="../../js/libs/ztree/js/jquery.ztree.exedit.js"></script>
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/tag.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/page.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/tree.js"></script>
+    <script type="text/javascript" src="../../js/app/teacher/questionschoose.js"></script>
+</body>
+
+</html>

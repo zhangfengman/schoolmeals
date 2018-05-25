@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>熟饭系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../js/libs/laydate/need/laydate.css"><!--ignore-->
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">    
+    <link rel="stylesheet" type="text/css" href="../../css/student-lesson.css">
+</head>
+
+<body class="jcms" style="background: #f9f6f3;display: block;" ms-controller="updatepwd">
+    <div class="title">修改密码</div>
+    <div class="class-body" style="padding: 20px">
+        <form id="form">
+            
+            <div class="jrow">
+                <div class="jlabel"><span class="jstar">*</span>原密码:</div>
+                <div class="jinput">
+                    <input class="" style="width: 50%;" ms-duplex="@data.oldPassword" data-msg="原密码" data-verify="require" type="password"  />
+                </div>
+            </div>
+            <div class="jrow">
+                <div class="jlabel"><span class="jstar">*</span>新密码:</div>
+                <div class="jinput">
+                    <input class="" style="width: 50%;" ms-duplex="@data.newPassword" data-msg="新密码" data-verify="require" type="password"  />
+                </div>
+            </div>
+            <div class="jrow">
+                <div class="jlabel"><span class="jstar">*</span>再次录入新密码:</div>
+                <div class="jinput">
+                    <input class="" style="width: 50%;" ms-duplex="@data.newPassword2" data-msg="再次密码" data-verify="require" type="password"  />
+                </div>
+            </div>
+            
+            
+            <div class="jrow">
+                <div class="jlabel">&nbsp;</div>
+                <div class="jinput">
+                    <div class="btn" id="releaseBtn" ms-click="@update();">确认</div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/layer/layer.js"></script><!--ignore-->
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/laydate/laydate.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/app/teacher/updatepwd.js"></script>
+</body>
+
+</html>

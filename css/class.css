@@ -1,0 +1,248 @@
+.box-float {
+    float: left;
+    margin: 10px;
+}
+
+.box {
+    width: 260px;
+}
+
+.box .box-top {
+    background: url(../images/class/class_top.png) 0 0 no-repeat;
+    width: 100%;
+    height: 18px;
+}
+
+.box .box-content {
+    background: url(../images/class/class_c.png) 0 0 repeat-y;
+    width: 100%;
+}
+
+.box .box-bottom {
+    background: url(../images/class/class_bottom.png) 0 0 no-repeat;
+    width: 100%;
+    height: 12px;
+}
+
+.box-min {
+    width: 224px;
+    height: 224px;
+}
+
+.box-min .box-top {
+    background: url(../images/class/lesson_top.png) 0 0 no-repeat;
+    width: 100%;
+    height: 15px;
+}
+
+.box-min .box-content {
+    background: url(../images/class/lesson_c.png) 0 0 repeat-y;
+    width: 100%;
+    padding: 15px 0px;
+    height: 190px;
+}
+
+.box-min .box-bottom {
+    background: url(../images/class/lesson_bottom.png) 0 0 no-repeat;
+    width: 100%;
+    height: 12px;
+}
+
+.box-add {
+    width: 260px;
+    border: 2px dashed #f66a03;
+    padding: 10px;
+    /* min-height: 275px; */
+}
+
+.box-add .block-c {
+    background: #fea361;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+}
+
+.box-add-min {
+    width: 224px;
+    border: 2px dashed #f66a03;
+    padding: 10px;
+    height: 214px;
+}
+
+.box-add-min .block-c {
+    background: #fea361;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+}
+
+.add-class {
+    background: url(../images/class/add_class.png) 0 50% no-repeat;
+    width: 121px;
+    height: 250px;
+    margin: 0px auto;
+}
+
+.class .ctitle {
+    color: #713000;
+    font-size: 20px;
+    text-align: center;
+    padding: 20px 0px;
+    border-bottom: 1px dashed #f3e9e1;
+    margin: 0 25px;
+    font-weight: bold;
+    height: 100px;
+}
+
+.class .ctable {
+    display: table;
+    width: 100%;
+}
+
+.class .ctable .col {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.class-icon {
+    background: url(../images/class/class-icon.png) 0 0 no-repeat;
+    width: 40px;
+    height: 48px;
+    margin: 0 auto;
+}
+
+.add-icon {
+    background: url(../images/class/add-icon.png) 0 50% no-repeat;
+    height: 14px;
+    padding-left: 20px;
+    margin: 20px;
+    color: #f66a03;
+    cursor: pointer;
+}
+
+.user-icon {
+    background: url(../images/class/user-icon.png) 0 50% no-repeat;
+    height: 14px;
+    padding-left: 20px;
+    margin: 20px;
+    color: #a1c709;
+    cursor: pointer;
+}
+
+.class .data {
+    margin: 20px auto;
+    color: #ef6601;
+}
+
+.class .data .d1 {
+    font-size: 14px;
+    margin: 4px auto;
+}
+
+.class .data span {
+    font-weight: bold;
+}
+
+.class-body {
+    background: #fff;
+    margin: 30px;
+    padding: 30px 62px;
+    overflow: hidden;
+}
+
+.class-body:after {
+    content: " ";
+    clear: both;
+}
+
+.lesson-icon {
+    background: url(../images/class/lesson-icon.png) 0 0 no-repeat;
+    width: 106px;
+    height: 98px;
+    margin: 0px auto;
+}
+
+.add-icon-max {
+    background: url(../images/class/add-icon-max.png) 0 100% no-repeat;
+    width: 50px;
+    height: 100px;
+    margin: 0 auto;
+}
+
+.lesson-name {
+    color: #713000;
+    font-size: 16px;
+    text-align: center;
+    margin: 20px auto 0px;
+}
+
+.lesson-add-name {
+    color: #713000;
+    text-align: center;
+    font-size: 26px;
+    padding-bottom: 36px;
+}
+
+.box-min .lesson-title {
+    font-size: 16px;
+    color: #713000;
+    text-align: center;
+    font-weight: bold;
+    /* margin: 30px auto; */
+    min-height: 84px;
+    vertical-align: middle;
+    padding: 0 15px;
+    display: table;
+    width: 100%;
+    /* vertical-align: middle; */
+}
+
+.box-min .lesson-title span {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.box-min .btn-group {
+    padding: 0px 28px;
+}
+
+.box-min .btn-group li {
+    float: left;
+    margin: 5px 14px;
+    color: #257cfe;
+    font-size: 14px;
+}
+
+.box-min .btn-group li.red {
+    color: #f66a03;
+}
+
+.student-panel {
+    padding: 10px;
+}
+
+.student-panel .class-name {
+    text-align: center;
+    margin: 5px auto;
+    color: #713000;
+    font-size: 14px;
+}
+
+.student-panel .teacher-info {
+    text-align: center;
+    margin: 10px auto;
+    color: #713000;
+    font-size: 14px;
+}
+
+.student-panel .unbind-btn {
+    text-align: center;
+    color: #257cfe;
+}
+.newlessonlist .crow{
+    border:1px solid #ede5dd;
+    margin: 10px auto;
+}
+.newlessonlist .btn-area{
+    margin: 5px auto;
+}

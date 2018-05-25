@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>课程内容</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/student-lesson.css">
+</head>
+
+<body ms-controller="examCenter" style="background: #f9f6f3; display: none;">
+<div class="lesson_main">
+    <h2 class="main_title">我的试卷</h2>
+    <div class="main_content">
+        <div class="lesson_step">
+            <div class="search">
+                <div class="ctable fit">
+                    <div class="crow">
+                        <div class="ccol ccol-1">类型：</div>
+                        <div class="ccol ccol-2">
+                            <div class="jselect">
+                                <select ms-duplex="@query.typeId">
+                                    <option value="">请选择</option>
+                                    <option ms-for="($index, el) in @types" ms-attr={value:el.testPaperTypeId}>{{el.testPaperTypeName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="ccol ccol-1">年级：</div>
+                        <div class="ccol ccol-2">
+                            <div class="jselect">
+                                <select  ms-duplex="@query.gradeId">
+                                    <option value="">请选择</option>
+                                    <option ms-for="($index, el) in @grades" ms-attr={value:el.id}>{{el.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="crow">
+                        <div class="ccol ccol-1">科目：</div>
+                        <div class="ccol ccol-2">
+                            <div class="jselect">
+                                <select id="subjectId" ms-duplex="@query.subjectId">
+                                    <option value="">请选择</option>
+                                    <option ms-for="($index, el) in @subjects" ms-attr={value:el.id}>{{el.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="ccol ccol-1">
+                            <a class="sbtn" id="queryBtn">确定</a>
+                        </div>
+                        <div class="ccol ccol-2">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="lesson_step_list">
+                <li ms-for="el in @data">
+                    <div class="lesson_step_row">
+                        <h4>
+                            <i class="lesson_step_icon"></i><a href="#" ms-click="@detail(el)">{{el.testPaperTitle?el.testPaperTitle:"无名"}}</a>
+                        </h4>
+                        <div class="lesson_state" ms-visible="el.flag == 0 ">未开始</div>
+                        <div class="lesson_state" ms-visible="el.flag == 1 ">进行中</div>
+                        <div class="lesson_state" ms-visible="el.flag == 2 ">已完成</div>
+                    </div>
+                    <div class="lesson_step_operate">
+                        <div class="lesson_row">
+                            <div class="lesson_start_time">开始时间：<span>{{el.startTime | date("yyyy.MM.dd HH:mm")}}</span></div>
+                            <div class="divider">|</div>
+                            <div class="lesson_end_time">结束时间：<span>{{el.endTime | date("yyyy.MM.dd HH:mm")}}</span></div>
+                        </div>
+                        <div class="lesson_row">
+                            <dl>
+                                <dt class="lesson_start_time" style="margin-top: 15px;">
+                                    测试时长：<span>{{el.requireUseTime}}分钟</span><br>
+                                    测试人数：<span>{{el.finishCount}}/{{el.totalCount}}</span>
+                                </dt>
+                                <dd class="lesson_step_operate_buttons">
+
+                                    <button class="lesson_step_operate_score exam_start" ms-click="@startExam(el.classTestPaperId)" ms-if="el.flag == 1">开始答卷</button>
+                                    <button class="lesson_statistics" ms-click="@goToStatistics(el.classTestPaperId)" ms-if="el.flag == 2">查看统计</button>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </li>
+                <!--<li>
+                    <div class="lesson_step_row">
+                        <h4>
+                            <i class="lesson_step_icon"></i><a href="#">【初中语文一班】-古诗词鉴赏 第一课-第一节阅读</a>
+                        </h4>
+                        <div class="lesson_state">未开始</div>
+                    </div>
+                    <div class="lesson_step_operate">
+                        <div class="lesson_row">
+                            <div class="lesson_start_time">开始时间：<span>2016.11.13 11:00</span></div>
+                            <div class="divider">|</div>
+                            <div class="lesson_end_time">结束时间：<span>2016.11.13 21:00</span></div>
+                        </div>
+                        <div class="lesson_row">
+                            <dl>
+                                <dt class="lesson_start_time" style="margin-top: 15px;">
+                                    测试时长：<span>45分钟</span><br>
+                                    测试人数：<span>55/100</span>
+                                </dt>
+                                <dd class="lesson_step_operate_buttons">
+                                    <div class="key unlocked"><i></i>已开启</div>
+                                    <button class="lesson_step_operate_score">评分</button>
+                                    <button class="lesson_statistics">查看统计</button>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </li>-->
+
+            </ul>
+        </div>
+    </div>
+</div>
+<!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+
+<script type="text/javascript" src="../../js/libs/avalon.js"></script>
+
+<script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+<script type="text/javascript" src="../../js/libs/store.min.js"></script>
+<script type="text/javascript" src="../../js/libs/moment.js"></script>
+<script type="text/javascript" src="../../js/core/jx.js"></script>
+<script type="text/javascript" src="../../js/app/student/myExamStudent.js"></script>
+</body>
+
+</html>

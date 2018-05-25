@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>课程内容</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/student-lesson.css">
+</head>
+
+<body ms-controller="lessonContent" style="background: #f9f6f3;display: block;">
+    <div id="uploadAudio"></div>
+    <div id="uploadAudioContainer"></div>
+    <div class="lesson_main">
+        <h2 class="main_title">{{@mycourse.courseName}}</h2>
+        <div class="main_content">
+            <div class="lesson_step">
+                <ul class="lesson_step_tab">
+                    <li class="active" data-tab="1">课前</li>
+                    <li data-tab="2">课中</li>
+                    <li data-tab="3">课后</li>
+                    <li data-tab="4">问题汇总<i class="questions_count">0</i>
+                    </li>
+                </ul>
+                <ul ms-visible="@curIndex==1||@curIndex==3 || @curIndex==2" class="lesson_step_list">
+                    <li ms-visible="@data.name !=''">
+                        <div class="clearfix">
+                            <div class="lesson_step_row">
+                                <h4><i class="lesson_step_icon"></i><a href="javascript:void(0);" ms-click="@detail();">{{@data.name}}</a></h4>
+                                <div class="lesson_state" ms-if="@data.flag == 0">未开始</div>
+                                <div class="lesson_state" ms-if="@data.flag == 1">进行中</div>
+                                <div class="lesson_state" ms-if="@data.flag == 2">已结束</div>
+                            </div>
+                            <div class="lesson_step_operate">
+                                <div class="lesson_start_time">开始时间：<span id="start_time">{{@data.startTime | date("yyyy.MM.dd HH:mm")}}</span>
+                                </div>
+                                <div class="divider">|</div>
+                                <div class="lesson_end_time">结束时间：<span id="end_time">{{@data.endTime | date("yyyy.MM.dd HH:mm")}}</span>
+                                </div>
+                                <div class="lesson_step_operate_buttons">
+                                    <div class="key unlocked" ms-click="@lock(@data,2)" ms-if="@data.flag != 2 && @data.status == '1'"><i></i>正常</div>
+                                    <div class="key locked" ms-click="@lock(@data,1)" ms-if="@data.flag != 2 && @data.status == '2'"><i></i>锁定</div>
+                                    <!--
+                                <button class="lesson_step_operate_score">评分</button>
+                                <button class="lesson_step_operate_report">查看统计</button>
+                                -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ctable noborder choose-table">
+                            <div class="crow" ms-for="($index el) in @segmentList">
+                                <div class="ccol ccol-5">{{el.name}}</div>
+                                <div class="ccol ccol-5">
+                                    <a href="javascript:void(0);" ms-click="@score(el.segmentId)" class="btn-mini">评分</a>
+                                    <a href="javascript:void(0);" ms-click="@report(el.segmentId)" class="btn-mini">查看统计</a>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!--<li>
+                    <div class="lesson_step_row">
+                        <h4><i class="lesson_step_icon"></i><a href="#">【初中语文一班】-古诗词鉴赏 第一课-第一节阅读</a></h4>
+                        <div class="lesson_state underway">进行中</div>
+                    </div>
+                    <div class="lesson_step_operate">
+                        <div class="lesson_start_time">开始时间：<span>2016.11.13 11:00</span></div>
+                        <div class="divider">|</div>
+                        <div class="lesson_end_time">结束时间：<span>2016.11.13 21:00</span></div>
+                        <div class="lesson_step_operate_buttons">
+                            <div class="key unlocked" ms-if="@tabBoxIndex==1"><i></i>已开启</div>
+                            <button class="lesson_step_operate_score">评分</button>
+                            <button>查看统计</button>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="lesson_step_row">
+                        <h4><i class="lesson_step_icon"></i><a href="#">【初中语文一班】-古诗词鉴赏 第一课-第一节阅读</a></h4>
+                        <div class="lesson_state ended">已结束</div>
+                    </div>
+                    <div class="lesson_step_operate">
+                        <div class="lesson_start_time">开始时间：<span>2016.11.13 11:00</span></div>
+                        <div class="divider">|</div>
+                        <div class="lesson_end_time">结束时间：<span>2016.11.13 21:00</span></div>
+                        <div class="lesson_step_operate_buttons">
+                            &lt;!&ndash;<div class="locked"><i></i>已锁定</div>&ndash;&gt;
+                            <button class="lesson_step_operate_score">评分</button>
+                            <button>查看统计</button>
+                        </div>
+                    </div>
+                </li>-->
+                </ul>
+                <div ms-visible="@curIndex==4" class="questions_wrap">
+                    <div class="question_tab">
+                        <span ms-class="[@query.isResponse == '-1' && 'active']" ms-click="@switch('-1')">未解答</span>
+                        <span class="divider">|</span>
+                        <span ms-class="[@query.isResponse == '1' && 'active']" ms-click="@switch('1')">已解答</span>
+                    </div>
+                    <div class="question_search_box">
+                        <div class="jselect">
+                            <select id="changeData" ms-duplex="@query.courseChapterSegmentId">
+                                <option ms-for="($index, el) in @segmentList" ms-attr={value:el.courseChapterSegmentId}>{{el.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <!--button type="button" ms-click="@queryQuestion()">确 定</button-->
+                    </div>
+                    <ul class="question_list">
+                        <li ms-for="($index,ans) in @askList">
+                            <div ms-for="($num,el) in ans.contentList">
+                                <div class="talk_content">
+                                    <div class="question_student_ask" ms-if="el.roleId == 2">
+                                        <span>{{el.userName}}</span>
+                                        <span class="question_ask_con">
+                                        <wbr ms-widget="[{is:'ms-content'},{content_:el.content,id:ans.courseChapterSegmentId+'_'+ans.askId+$num}]" />
+
+
+                                        <i class="question_arr"></i></span>
+                                        <span class="question_ask_time">{{el.createTime}}</span>
+                                    </div>
+                                    <div class="question_student_ask question_teacher_answer" ms-if="el.roleId == 1">
+                                        <span class="question_ask_time">{{el.createTime}}</span>
+                                        <span class="question_ask_con">
+                                           
+                                            <wbr ms-widget="[{is:'ms-content'},{content_:el.content,id:ans.courseChapterSegmentId+'_'+ans.askId+$num}]" />
+                                            <i class="question_arr"></i>
+                                        </span>
+                                        <span>{{el.userName}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="question_answer_box">
+                                <button ms-click="@answer(ans.courseChapterSegmentId,ans.askId);">确定</button>
+                                <span class="question_answer_avatar" ms-attr="{sid:ans.courseChapterSegmentId,askid:ans.askId}"><img src="../../images/lesson/icon_img.png"></span>
+                                <input type="text" ms-attr="{id:ans.courseChapterSegmentId+'_'+ans.askId}" class="question_answer_input" placeholder="我来回答......">
+                            </div>
+                        </li>
+                    </ul>
+                    <div id="paging"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--SCRIPT_PLACEHOLDER-->
+    <script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/qiniu.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/moment.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/libs/layer/layer.js"></script>
+    <!--ignore-->
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/page.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/upload.js"></script>
+    <script type="text/javascript" src="../../js/app/teacher/lessoncontent.js"></script>
+</body>
+
+</html>

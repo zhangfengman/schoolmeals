@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>消息中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/student-lesson.css">
+    <link rel="stylesheet" type="text/css" href="../../css/message.css">
+</head>
+
+<body style="display: none; background: #f9f6f3;" ms-controller="messagerelease">
+    <div class="lesson_main">
+        <h2 class="main_title">消息管理</h2>
+        <div class="main_content">
+            <div class="message-opt margin">
+                <div class="btn message-btn" ms-click="@publishType('1')">发布班级</div>
+                <div class="btn message-btn" ms-click="@publishType('2')">发布私信</div>
+            </div>
+            <div class="class-body">
+                <div ms-if="@message.type === '2'">收件人：
+                    <input class="ctext" type="text" ms-duplex="@message.names" />
+                </div>
+                <div class="message-class">
+                    <a ms-class="[$index == 0 && 'cur']" ms-for="($index,el) in @classList" ms-attr="{id:'class_'+el.classId}" ms-click="@getStudent(el.classId)">{{el.className}}</a>
+                </div>
+                <ul class="message-student" ms-if="@message.type === '2'">
+                    <li ms-for="el in @studentList">
+                        <input ms-attr="{value:el.studentUserId,id:el.studentUserId}" type="checkbox" ms-click="@check(el)" />
+                        <label ms-attr="{for:el.studentUserId}">{{el.studentName}}</label>
+                    </li>
+                </ul>
+                <div>
+                    <textarea class="ctexta" ms-duplex="@message.content" ms-keyup="@total()"></textarea>
+                </div>
+                <div class="message-opt">
+                    <div class="message-count">{{@count}}/300</div>
+                    <div class="btn message-btn" ms-click="@publish()">发布</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/app/teacher/messagerelease.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>熟饭系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    
+    <link rel="stylesheet" type="text/css" href="../../js/libs/laydate/need/laydate.css"><!--ignore-->
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/class.css">
+    <link rel="stylesheet" type="text/css" href="../../css/audio.css">
+    <link rel="stylesheet" type="text/css" href="../../css/questions.css">
+</head>
+
+<body class="jcms" style="background: #f9f6f3;display: none;">
+    <div class="title">我的课程</div>
+    <div class="class-body" ms-controller="editlesson">
+        <form id="editlesson">
+            <div class="jrow">
+                <div class="jlabel"><span class="jstar">*</span>章节:</div>
+                <div class="jinput">
+                    <div class="lesson_chapter noborder manage">
+                        <ul>
+                            <li class="chapter  " ms-for="($index,el) in @courseChapterList" ms-attr="{id:el.courseChapterId,name:el.name,pid:0}">
+                                <a href="#" class="chapter-head">
+                                    <i class="icon_chapter"></i>
+                                    <span>{{el.name}}</span>
+                                    <div class="operatebtns">
+                                        <div class="icon_btn addz">增加章</div>
+                                        <div class="icon_btn addj">增加节</div>
+                                        <div class="icon_btn edit" ms-if="el.courseChapterId != 0">编辑</div>
+                                        <div class="icon_btn delete" ms-if="el.courseChapterId != 0">删除</div>
+                                    </div>
+                                    <div class="editlist"></div>
+                                </a>
+                                <ul>
+                                    <li class="section" ms-for="($index,sub) in el.childList" ms-attr="{id:sub.courseChapterId,pid:el.parentsChapterId,name:sub.name}">
+                                        <span>{{sub.name}}</span>
+                                        <div class="operatebtns">
+                                            <div class="icon_btn edit">编辑</div>
+                                            <div class="icon_btn delete">删除</div>
+                                        </div>
+                                        <div class="editlist"></div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="jrow">
+                <div class="jlabel"><span class="jstar">*</span>属性:</div>
+                <div class="jinput">
+                    <div class="jselect">
+                        <select id="segmentType" ms-duplex="@content.courseChapterSegmentType" >
+                            <option value="1">课前</option>
+                            <option value="2">课中</option>
+                            <option value="3">课后</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="jrow">
+                <div class="jlabel"><span class="jstar">*</span>开始时间:</div>
+                <div class="jinput">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 15%;">
+                                <input class="" style="width: 90%;" ms-duplex="@content.startTime" data-msg="开始时间" data-verify="require" type="text" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
+                            </td>
+                            <td style="width: 10%; text-align: right;">结束时间:</td>
+                            <td style="width: 30%;padding-left: 10px;">
+                                <input class="" ms-duplex="@content.endTime" data-msg="结束时间" data-verify="require" type="text" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="jrow">
+                <div class="jlabel">限时:</div>
+                <div class="jinput">
+                    <input class="" ms-duplex="@content.timeBound" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" type="text" />
+                </div>
+            </div>
+            <div class="jrow">
+                <div class="jlabel"><span class="jstar">*</span>要求:</div>
+                <div class="jinput">
+                    <input class="" ms-duplex="@content.request" data-msg="要求" data-verify="require" type="text" />
+                </div>
+            </div>
+            <div class="jrow">
+                <div class="jlabel"><span class="jstar">*</span>名称:</div>
+                <div class="jinput">
+                    <input class="" ms-duplex="@content.name" data-msg="名称" data-verify="require" type="text" />
+                </div>
+            </div>
+            <div class="jrow">
+                <div class="jlabel"><span class="jstar">*</span>内容:</div>
+                <div class="jinput">
+                    <div class="btn-border" id="addvideo">添加媒体</div>
+                    <div class="btn-border" id="addquestion">添加练习题</div>
+                </div>
+            </div>
+            <div class="jrow">
+                <div class="jlabel">&nbsp;</div>
+                <div class="jinput chooselist">
+                    <div ms-for="($index,el) in @chooseList">
+                        <div class="lesson_audio" ms-if="el.contentType == 2">
+                            <div class="audio_title">{{el.video.name}}</div>
+                            <div class="enlarge_audio" ms-click="@fullscreen(el.video);"></div>
+                            <div class="del_audio del_question" ms-attr="{unique:$index}"></div>
+                        </div>
+                        <div class="lesson_question" ms-if="el.contentType == 1">
+                            <!--选择题 -->
+                            <div ms-if="el.question.type == 1">
+                                <div class="q_header">
+                                    题号：{{$index+1}}
+                                    <div class="del_question" ms-attr="{unique:$index}"></div>
+                                </div>
+                                <div>
+                                    <wbr ms-widget="[{is:'ms-content'},{content_:el.question.choiceQuestion.mainContent}]" />
+                                </div>
+                                <ul class="options">
+                                    <li ms-for="opt in el.question.choiceQuestion.optionsContent">
+                                        {{opt.option}}.
+                                        <wbr ms-widget="[{is:'ms-content'},{content_:opt.content}]" />
+                                    </li>
+                                </ul>
+                                <div class="question_score">
+                                    <div class="jrow">
+                                        <div class="jlabel">基础分值：</div>
+                                        <div class="jinput">
+                                            <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.choiceQuestion.questionBaseScore">
+                                        </div>
+                                    </div>
+                                    <div class="jrow">
+                                        <div class="jlabel">题面分值：</div>
+                                        <div class="jinput">
+                                            <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.choiceQuestion.questionTotalScore">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--选择题 -->
+                            <!--填空题 -->
+                            <div ms-if="el.question.type == 2">
+                                <div class="q_header">
+                                    题号：{{$index}}
+                                    <div class="del_question" ms-attr="{unique:$index}"></div>
+                                </div>
+                                <div>
+                                    <wbr ms-widget="[{is:'ms-content'},{content_:el.question.fillingQuestion.mainContent}]" />
+                                </div>
+                                <div class="question_score">
+                                    <div class="jrow">
+                                        <div class="jlabel">基础分值：</div>
+                                        <div class="jinput">
+                                            <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.fillingQuestion.questionBaseScore">
+                                        </div>
+                                    </div>
+                                    <div class="jrow">
+                                        <div class="jlabel">题面分值：</div>
+                                        <div class="jinput">
+                                            <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.fillingQuestion.questionTotalScore">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--填空题 -->
+                            <!--主观题 -->
+                            <div ms-if="el.question.type == 3">
+                                <div class="q_header">
+                                    题号：{{$index}}
+                                    <div class="del_question" ms-attr="{unique:$index}"></div>
+                                </div>
+                                <div class="mainContent">
+                                    <wbr ms-widget="[{is:'ms-content'},{content_:el.question.subjectiveQuestion.mainContent}]" />
+                                </div>
+                                <div class="question_score">
+                                    <div class="jrow">
+                                        <div class="jlabel">基础分值：</div>
+                                        <div class="jinput">
+                                            <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.subjectiveQuestion.questionBaseScore">
+                                        </div>
+                                    </div>
+                                    <div class="jrow">
+                                        <div class="jlabel">题面分值：</div>
+                                        <div class="jinput">
+                                            <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.subjectiveQuestion.questionTotalScore">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--主观题 -->
+                            <!--组合题 -->
+                            <div ms-if="el.question.type == 4">
+                                <div class="q_header">
+                                    题号：{{$index+1}}
+                                    <div class="del_question" ms-attr="{unique:$index}"></div>
+                                </div>
+                                <div>
+                                    <wbr ms-widget="[{is:'ms-content'},{content_:el.question.unionQuestion.mainContent}]" />
+                                </div>
+                                <div ms-for="($num,unionEl) in el.question.unionQuestion.questionList">
+                                    <!--选择题 -->
+                                    <div class="lesson_question" ms-if="unionEl.questionType == 1">
+                                        <div class="q_header">
+                                            题号：{{$num+1}}
+                                        </div>
+                                        <div>{{unionEl.choiceQuestion.mainContent}}</div>
+                                        <ul class="options">
+                                            <li ms-for="opt in unionEl.choiceQuestion.optionsContent">
+                                                {{opt.option}}.
+                                                <wbr ms-widget="[{is:'ms-content'},{content_:opt.content}]" />
+                                            </li>
+                                        </ul>
+                                        <div class="question_score">
+                                            <div class="jrow">
+                                                <div class="jlabel">基础分值：</div>
+                                                <div class="jinput">
+                                                    <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.unionQuestion.questionList[$num].choiceQuestion.questionBaseScore">
+                                                </div>
+                                            </div>
+                                            <div class="jrow">
+                                                <div class="jlabel">题面分值：</div>
+                                                <div class="jinput">
+                                                    <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.unionQuestion.questionList[$num].choiceQuestion.questionTotalScore">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--选择题 -->
+                                    <div class="lesson_question" ms-if="unionEl.questionType == 2">
+                                        <div class="q_header">
+                                            题号：{{$num+1}}
+                                        </div>
+                                        <div>
+                                            <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.fillingQuestion.mainContent}]" />
+                                        </div>
+                                        <div class="question_score">
+                                            <div class="jrow">
+                                                <div class="jlabel">基础分值：</div>
+                                                <div class="jinput">
+                                                    <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.unionQuestion.questionList[$num].fillingQuestion.questionBaseScore">
+                                                </div>
+                                            </div>
+                                            <div class="jrow">
+                                                <div class="jlabel">题面分值：</div>
+                                                <div class="jinput">
+                                                    <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.unionQuestion.questionList[$num].fillingQuestion.questionTotalScore">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--填空题 -->
+                                    <!--主观题 -->
+                                    <div class="lesson_question" ms-if="unionEl.questionType == 3">
+                                        <div class="q_header">
+                                            题号：{{$num+1}}
+                                        </div>
+                                        <div class="mainContent">
+                                            <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.subjectiveQuestion.mainContent}]" />
+                                        </div>
+                                        <div class="question_score">
+                                            <div class="jrow">
+                                                <div class="jlabel">基础分值：</div>
+                                                <div class="jinput">
+                                                    <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.unionQuestion.questionList[$num].subjectiveQuestion.questionBaseScore">
+                                                </div>
+                                            </div>
+                                            <div class="jrow">
+                                                <div class="jlabel">题面分值：</div>
+                                                <div class="jinput">
+                                                    <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.unionQuestion.questionList[$num].subjectiveQuestion.questionTotalScore">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--主观题 -->
+                                </div>
+                            </div>
+                            <!--组合题 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="jrow">
+                <div class="jlabel">&nbsp;</div>
+                <div class="jinput">
+                    <div class="btn" id="savebtn">保存</div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--SCRIPT_PLACEHOLDER-->
+    <!--SCRIPT_PLACEHOLDER-->
+    <script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/laydate/laydate.js"></script><!--ignore-->
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/libs/layer/layer.js"></script><!--ignore-->
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/chapter.js"></script>
+    <script type="text/javascript" src="../../js/app/teacher/editlesson.js"></script>
+</body>
+
+</html>

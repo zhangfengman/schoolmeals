@@ -1,0 +1,169 @@
+ <div class="question" ms-for="">
+
+                                    <!-- 选择题
+                                    <div ms-if="ques.type == 1">
+                                        <div class="clearfix" style="position: relative;">
+                                            <div class="question_delete" ms-click="@delquestion($index,$num)"></div>
+                                            <div class="no fleft"><span>题号：</span>{{$num+1}}</div>
+                                            <div class="question_score">
+                                                <div class="jrow">
+                                                    <div class="jlabel">基础分值：</div>
+                                                    <div class="jinput">
+                                                        <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.choiceQuestion.questionBaseScore">
+                                                    </div>
+                                                </div>
+                                                <div class="jrow">
+                                                    <div class="jlabel">题面分值：</div>
+                                                    <div class="jinput">
+                                                        <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.choiceQuestion.questionTotalScore">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="examquestion">
+                                            <wbr ms-widget="[{is:'ms-content'},{content_:ques.choiceQuestion.mainContent}]" />
+                                        </div>
+                                        <ul class="theselection">
+                                            <li ms-for="opt in ques.choiceQuestion.optionsContent">
+                                                {{opt.option}}.
+                                                <wbr ms-widget="[{is:'ms-content'},{content_:opt.content}]" />
+                                            </li>
+                                        </ul>
+                                    </div>-->
+                                    <!-- 选择题
+                                    <div ms-if="ques.type == 2">
+                                        <div class="clearfix">
+                                            <div class="question_delete" ms-click="@delquestion($index,$num)"></div>
+                                            <div class="no fleft"><span>题号：</span>{{$num+1}}</div>
+                                            <div class="question_score">
+                                                <div class="jrow">
+                                                    <div class="jlabel">基础分值：</div>
+                                                    <div class="jinput">
+                                                        <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.choiceQuestion.questionBaseScore">
+                                                    </div>
+                                                </div>
+                                                <div class="jrow">
+                                                    <div class="jlabel">题面分值：</div>
+                                                    <div class="jinput">
+                                                        <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.choiceQuestion.questionTotalScore">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="examquestion">
+                                            <wbr ms-widget="[{is:'ms-content'},{content_:ques.fillingQuestion.mainContent}]" />
+                                        </div>
+                                    </div>-->
+                                    <!-- 主观题
+                                    <div ms-if="ques.type == 3">
+                                        <div class="clearfix">
+                                            <div class="question_delete" ms-click="@delquestion($index,$num)"></div>
+                                            <div class="no fleft"><span>题号：</span>{{$num+1}}</div>
+                                            <div class="question_score">
+                                                <div class="jrow">
+                                                    <div class="jlabel">基础分值：</div>
+                                                    <div class="jinput">
+                                                        <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.choiceQuestion.questionBaseScore">
+                                                    </div>
+                                                </div>
+                                                <div class="jrow">
+                                                    <div class="jlabel">题面分值：</div>
+                                                    <div class="jinput">
+                                                        <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.choiceQuestion.questionTotalScore">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="examquestion">
+                                            <wbr ms-widget="[{is:'ms-content'},{content_:ques.subjectiveQuestion.mainContent}]" />
+                                        </div>
+                                    </div>-->
+                                    <!--组合题 
+                                    <div ms-if="ques.type == 4">
+                                        <div class="clearfix">
+                                            <div class="question_delete" ms-click="@delquestion($index,$num)" style="height: 38px;"></div>
+                                            <div class="no fleft">
+                                                <wbr ms-widget="[{is:'ms-content'},{content_:ques.unionQuestion.mainContent}]" />
+                                            </div>
+                                        </div>
+                                        <div ms-for="($num,unionEl) in ques.unionQuestion.questionList">
+                                            <div class="question">
+                                                
+                                                <div ms-if="unionEl.questionType == 1">
+                                                    <div class="clearfix">
+                                                        <div class="no fleft"><span>题号：</span>{{$num+1}}</div>
+                                                        <div class="question_score">
+                                                            <div class="jrow">
+                                                                <div class="jlabel">基础分值：</div>
+                                                                <div class="jinput">
+                                                                    <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.choiceQuestion.questionBaseScore">
+                                                                </div>
+                                                            </div>
+                                                            <div class="jrow">
+                                                                <div class="jlabel">题面分值：</div>
+                                                                <div class="jinput">
+                                                                    <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.choiceQuestion.questionTotalScore">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="examquestion">
+                                                        <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.choiceQuestion.mainContent}]" />
+                                                    </div>
+                                                    <ul class="theselection">
+                                                        <li ms-for="opt in unionEl.choiceQuestion.optionsContent">
+                                                            {{opt.option}}.
+                                                            <wbr ms-widget="[{is:'ms-content'},{content_:opt.content}]" />
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                
+                                                <div ms-if="unionEl.questionType == 2">
+                                                    <div class="clearfix">
+                                                        <div class="no"><span>题号：</span>{{$num+1}}</div>
+                                                        <div class="question_score">
+                                                            <div class="jrow">
+                                                                <div class="jlabel">基础分值：</div>
+                                                                <div class="jinput">
+                                                                    <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.choiceQuestion.questionBaseScore">
+                                                                </div>
+                                                            </div>
+                                                            <div class="jrow">
+                                                                <div class="jlabel">题面分值：</div>
+                                                                <div class="jinput">
+                                                                    <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.choiceQuestion.questionTotalScore">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="examquestion">
+                                                        <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.fillingQuestion.mainContent}]" />
+                                                    </div>
+                                                </div>
+                                                
+                                                <div ms-if="unionEl.questionType == 3">
+                                                    <div class="clearfix">
+                                                        <div class="no"><span>题号：</span>{{$num+1}}</div>
+                                                        <div class="question_score">
+                                                            <div class="jrow">
+                                                                <div class="jlabel">基础分值：</div>
+                                                                <div class="jinput">
+                                                                    <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.choiceQuestion.questionBaseScore">
+                                                                </div>
+                                                            </div>
+                                                            <div class="jrow">
+                                                                <div class="jlabel">题面分值：</div>
+                                                                <div class="jinput">
+                                                                    <input class="q_score" type="text" ms-duplex="@chooseList[$index].question.choiceQuestion.questionTotalScore">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="examquestion">
+                                                        <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.subjectiveQuestion.mainContent}]" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                </div>

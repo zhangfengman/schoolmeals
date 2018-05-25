@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>课程中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/student-lesson.css">
+</head>
+<body ms-controller="lessonIndex" style="display: none; background: #f9f6f3;" class="jcms">
+<div class="lesson_main">
+    <h2 class="main_title">{{@mycourse.courseName}}</h2>
+    <div class="main_content">
+        <div class="lesson_intro">
+           <div class="lesson_intro_group">
+                <h3>【简介内容】</h3>
+                <p>{{@data.intro}}</p>
+            </div>
+            <div class="lesson_intro_group">
+                <h3>【创建日期】</h3>
+                <p>{{@data.createTime | date("yyyy.MM.dd HH:mm")}}</p>
+            </div>
+            <div class="lesson_intro_group">
+                <h3>【创建人】</h3>
+                <p>{{@data.userName}}</p>
+            </div>
+            
+        </div>
+        <div class="jrow" style="float: left;width: 55%; overflow:hidden;">
+           <div class="jinput">
+                <div class="lesson_chapter noborder" style="min-height: 280px; padding: 20px;">
+                    <ul>
+                        <li class="chapter" ms-for="($index,el) in @courseChapterList">
+                            <a href="#" class="chapter-head" data-id="1" ms-attr="{id:el.courseChapterId,name:el.name,pid:0}">
+                                <i class="icon_chapter"></i><span>{{el.name}}</span>
+                            </a>
+                            <ul>
+                                <li class="section"  ms-for="($index,sub) in el.childList" ms-attr="{id:sub.courseChapterId,pid:el.courseChapterId,name:sub.name}">{{sub.name}}</li>
+                            </ul>
+                        </li>
+                       
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>    
+   
+
+<script type="text/javascript" src="../../js/libs/avalon.js"></script>
+<script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+<script type="text/javascript" src="../../js/libs/store.min.js"></script>
+<script type="text/javascript" src="../../js/core/jx.js"></script>
+<script type="text/javascript" src="../../js/core/jx/chapter.js"></script>
+<script type="text/javascript" src="../../js/app/student/lessonindex.js"></script>
+</body>
+</html>

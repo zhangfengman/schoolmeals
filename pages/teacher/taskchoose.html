@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>熟饭系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../js/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="../../js/libs/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/audio.css">
+    <link rel="stylesheet" type="text/css" href="../../css/questions.css">
+</head>
+
+<body style="background: #f9f6f3;" ms-controller="taskc">
+    <div class="title">任务管理</div>
+    <div class="choose-body jcms ">
+        <div class="choose-left mw">
+            <div class="choose-box clearfix">
+                <div class="topcolor"></div>
+                <ul id="treeDemo" class="ztree"></ul>
+            </div>
+        </div>
+        <div class="choose-center mw">
+            <div class="ctable">
+                <div class="crow">
+                    <div class="ccol ccol-6">
+                        <div class="question-query ctable noborder">
+                            <div class="crow">
+                                <div class="ccol ccol-2">全部任务：</div>
+                                <ul id="question_type" class="ccol ccol-8 aleft">
+                                    <li class="current" data-questiontype="1">纯视频</li>
+                                    <li data-questiontype="2">纯习题</li>
+                                    <li data-questiontype="3">混排型</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ccol ccol-4 vmiddle">
+                        <div class="btn-border" ms-click="@addq();">添加任务</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ctable noborder choose-table">
+                <div class="crow" ms-for="el in @segmentList">
+                    <div class="ccol ccol-5">{{el.name}}</div>
+                    <div class="ccol ccol-5">
+                        <a href="javascript:void(0);" ms-click="@add(el.segmentId)" class="btn-mini">添加</a>
+                    </div>
+                </div>
+                
+            </div>
+            <div id="paging" class="clearfix"></div>
+        </div>
+        <div class="choose-list mw">
+            <div class="list-t">任务清单</div>
+            <div class="ctable noborder choose-question" ms-for="($index,el) in @chooseList">
+               
+                <div>
+                    <div class="crow">
+                        <div class="ccol ccol-2 aleft">
+                            任务名称：{{el.name}}
+                        </div>
+                        <div class="ccol ccol-2 aright">
+                            <a href="javascript:void(0);" class="del_question" ms-click="@del(el.segmentId);">删除</a>
+                        </div>
+                    </div>
+                </div>
+         
+            </div>
+            <div class="count">共<span>{{@chooseList.length}}</span>道题</div>
+            <div class="btn-block">
+                <a href="javascript:void(0)" class="btn add_confirm" ms-click="@confirm();">确定添加</a>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- /.modal -->
+    <!--SCRIPT_PLACEHOLDER-->
+    <script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/qiniu.js"></script>
+    <script type="text/javascript" src="../../js/libs/layui/lay/dest/layui.all.js"></script>
+    <!--ignore-->
+    <script type="text/javascript" src="../../js/libs/ztree/js/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="../../js/libs/ztree/js/jquery.ztree.excheck.js"></script>
+    <script type="text/javascript" src="../../js/libs/ztree/js/jquery.ztree.exedit.js"></script>
+
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/tag.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/tree.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/page.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/upload.js"></script>
+    <script type="text/javascript" src="../../js/app/teacher/taskchoose.js"></script>
+</body>
+
+</html>

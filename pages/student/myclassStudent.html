@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>熟饭系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/class.css">
+</head>
+
+<body style="background: #f9f6f3;display:none;" ms-controller="class-body">
+    <div class="title">我的班级</div>
+    <div class="class-body">
+        <div class="box box-float class" ms-for="($index, el) in @list">
+            <div class="box-top"></div>
+            <div class="box-content">
+                <div class="ctitle">{{el.className}}({{el.classId}})</div>
+                <div class="ctable noborder data">
+                    <div class="col" style="width: 40%;">
+                        <div class="class-icon"></div>
+                    </div>
+                    <div class="col" style="width: 50%;">
+                        <div class="d1">课程数：<span>{{el.courseCount}}</span></div>
+                        <div class="d1">新课程：<span>{{el.newCourseCount}}</span></div>
+                    </div>
+                </div>
+                <div class="ctable noborder">
+                    <div class="col" style="width: 40%;">
+                        <div class="user-icon" ms-attr="{classid:el.classId}" style="text-align: center;background-position: 35%;">进入班级</div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-bottom"></div>
+        </div>
+        <div class="box-add-min box-float" style="width: 260px;height: 272px;" data-toggle="modal" data-target="#myModal">
+            <div class="block-c">
+                <div class="add-icon-max" style="height: 124px;"></div>
+                <div class="lesson-add-name">加入班级</div>
+            </div>
+        </div>
+    </div>
+
+      <div class="cdialog modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="newlesson_form">
+                    <div class="modal-header">
+                        加入班级
+                        <div class="cclose" data-dismiss="modal"></div>
+                    </div>
+                    <div class="modal-body jcms">
+                        <div class="jrow">
+                            <div class="jlabel"><span class="jstar">*</span>请输入班级ID</div>
+                            <div class="jinput">
+                                <input class="" ms-duplex="@classID" data-msg="课程名称" data-verify="require" type="text" />
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <div class="cbtn" ms-click="@addClass();">确定</div>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+   
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/app/student/myclassStudent.js"></script>
+</body>
+
+</html>

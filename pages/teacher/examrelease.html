@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>熟饭系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../js/libs/laydate/need/laydate.css"><!--ignore-->
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">    
+    <link rel="stylesheet" type="text/css" href="../../css/student-lesson.css">
+</head>
+
+<body class="jcms" style="background: #f9f6f3;display: none;" ms-controller="examrelease">
+    <div class="title">发布测试</div>
+    <div class="class-body" style="padding: 20px">
+        <form id="form">
+            <div class="jrow" ms-if="@classList.length > 0">
+                <div class="jlabel"><span class="jstar">*</span>发布班级:</div>
+                <div class="jinput">
+                    <div class="ctable noborder">
+                        <div class="crow">
+                            <div class="ccol col-10 aleft">
+                                <input type="checkbox" id="all" ms-duplex-checked="@allchecked" data-duplex-changed="@checkAll" />
+                                <label for="all">全部</label>
+                            </div>
+                        </div>
+                        <div class="crow">
+                            <div class="floatleft" ms-for="($index,el) in @classList">
+                                <input type="checkbox" ms-attr="{id:el.classId}" ms-duplex-checked="el.checked" data-duplex-changed="@checkOne" />
+                                <label ms-attr="{for:el.classId}">{{el.className}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="jrow">
+                <div class="jlabel"><span class="jstar">*</span>开始时间:</div>
+                <div class="jinput">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 15%;">
+                                <input class="" style="width: 90%;" ms-duplex="@release.startTime" data-msg="开始时间" data-verify="require" type="text" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
+                            </td>
+                            <td style="width: 10%; text-align: right;">结束时间:</td>
+                            <td style="width: 15%;padding-left: 10px;">
+                                <input class="" ms-duplex="@release.endTime" data-msg="结束时间" data-verify="require" type="text" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="jrow">
+                <div class="jlabel" style="vertical-align: middle;"><span class="jstar">*</span>试卷:</div>
+                <div class="jinput">
+                    <div class="btn-border examchoose" style="margin-leftexamchoose: 0px">选择试卷</div>
+                </div>
+            </div>
+            <div class="jrow" ms-if="@exampager.title != ''">
+                <div class="jlabel">&nbsp;</div>
+                <div class="jinput">
+                    <ul class="lesson_step_list">
+                        <li>
+                            <div class="lesson_step_row" style="position: relative;">
+                                <h4><i class="lesson_step_icon"></i><a href="#">【{{@exampager.className}}】{{@exampager.title}}</a></h4>
+                                <div class="del_icon" ms-click="@del()"></div>
+                            </div>
+                            <div class="lesson_step_operate">
+                                <div class="ctable noborder">
+                                    <div class="crow" ms-if="@exampager.startTime != ''">
+                                        <div class="ccol ccol-1 vtop">
+                                            <div class="lesson_start_time">开始时间：<span>{{@exampager.startTime}}</span></div>
+                                        </div>
+                                        <div class="ccol ccol-1 vtop">
+                                            <div class="divider">|</div>
+                                        </div>
+                                        <div class="ccol ccol-1 vtop">
+                                            <div class="lesson_end_time">结束时间：<span>{{@exampager.endTime}}</span></div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="crow" ms-if="@exampager.startTime != ''">
+                                        <div class="ccol">
+                                             <div class="lesson_start_time">测试时长：<span>{{@exampager.requireUseTime}}分钟</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="jrow">
+                <div class="jlabel">&nbsp;</div>
+                <div class="jinput">
+                    <div class="btn" id="releaseBtn">确认发布</div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/layer/layer.js"></script><!--ignore-->
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/laydate/laydate.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/app/teacher/examrelease.js"></script>
+</body>
+
+</html>

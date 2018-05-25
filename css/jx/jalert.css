@@ -1,0 +1,143 @@
+.jmask {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    background-color: #000;
+    opacity: 0.3;
+}
+
+.jmsg {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-top: -86px;
+    margin-left: -271px;
+    width: 542px;
+    _position: absolute;
+    _margin-top: 0;
+    _top: expression(documentElement.scrollTop+(documentElement.clientHeight-this.offsetHeight)/2);
+    border-radius: 5px;
+    background: #fff;
+    padding: 30px 0 24px 0px;
+    z-index: 10001;
+}
+
+.jmsg .jicons {
+    background-image: url(../../images/Icons.png);
+}
+
+.jmsg .close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 17px;
+    height: 17px;
+    background-position: 0 -70px;
+}
+
+.jmsg .close:hover,
+.jmsg .close.current {
+    background-position: -20px -70px;
+}
+
+.jmsg .content {
+    text-align: center;
+    min-height: 64px;
+    color: #7b7b7b;
+    display: table;
+    width: 100%;
+}
+
+.jmsg .content .jtitle {
+    margin: 5px 0 0 20px;
+    font-size: 18px;
+}
+
+.jmsg .content .jtext {
+    margin: 5px 0 0 20px;
+}
+
+.jmsg .content .cell {
+    display: table-cell;
+    vertical-align: top;
+    text-align: left;
+}
+
+.jmsg .content .first-cell {
+    width: 18%;
+}
+
+.jmsg .content .cell:after,
+.jmsg .jbtn-group:after {
+    content: "";
+    clear: both;
+}
+
+.jmsg .jbtn-group .cancle,
+.jmsg .jbtn-group .confirm {
+    width: 98px;
+    height: 34px;
+    line-height: 34px;
+    margin-right: 30px;
+    color: #666;
+    float: right;
+    border: 1px solid #ededed;
+    text-align: center;
+    vertical-align: center;
+    cursor: pointer;
+    margin-left: -15px;
+    border-radius: 2px;
+}
+
+.jmsg .jbtn-group .cancle:hover,
+.jmsg .jbtn-group .confirm:hover {
+    background: #0084ff;
+    color: #fff;
+}
+
+.jmsg_success .jicon_type {
+    width: 60px;
+    height: 60px;
+    background-position: 0 0;
+    float: right;
+}
+
+.jmsg_success .content .jtitle {
+    color: #82c65e;
+}
+
+.jmsg_failed .jicon_type {
+    width: 60px;
+    height: 60px;
+    background-position: -70px 0;
+    float: right;
+}
+
+.jmsg_failed .content .jtitle {
+    color: #f24713;
+}
+
+.jmsg_warning .jicon_type {
+    width: 60px;
+    height: 60px;
+    background-position: -140px 0;
+    float: right;
+}
+
+.jmsg_warning .content .jtitle {
+    color: #ff9a01;
+}
+
+.jmsg.jmsg_msg .first-cell,
+.jmsg.jmsg_confirm .first-cell {
+    display: none;
+}
+
+.jmsg.jmsg_msg .second-cell,
+.jmsg.jmsg_confirm .second-cell,
+{
+    width: 100%;
+}

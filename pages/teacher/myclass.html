@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>熟饭系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/class.css">
+</head>
+
+<body style="background: #f9f6f3;display:none;" ms-controller="class-body">
+    <div class="title">我的班级</div>
+    <div class="class-body">
+        <div ms-for="($index, el) in @list" class="box box-float class">
+            <div class="box-top"></div>
+            <div class="box-content">
+                <div class="ctitle" ms-attr={classid:el.classId}>{{el.className}}({{el.classId}})</div>
+                <div class="ctable noborder data">
+                    <div class="col" style="width: 40%;">
+                        <div class="class-icon"></div>
+                    </div>
+                    <div class="col" style="width: 50%;">
+                        <div class="d1">学员数：<span>{{el.studentCount}}</span></div>
+                        <div class="d1">问题汇总：<span>{{el.problemCount}}</span></div>
+                    </div>
+                </div>
+                <div class="ctable noborder">
+                    <div class="col" style="width: 40%;">
+                        <div class="add-icon" ms-attr="{classid:el.classId}">添加学生</div>
+                    </div>
+                    <div class="col" style="width: 40%;">
+                        <div class="user-icon" ms-attr="{classid:el.classId}">进入班级</div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-bottom"></div>
+        </div>
+        <div class="box-add box-float">
+            <div class="block-c">
+                <div class="add-class" data-toggle="modal" data-target="#myModal"></div>
+            </div>
+        </div>
+    </div>
+    <div class="cdialog modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="newclass_form">
+                    <div class="modal-header">
+                        创建班级
+                        <div class="cclose" data-dismiss="modal"></div>
+                    </div>
+                    <div class="modal-body jcms">
+                        <div class="jrow">
+                            <div class="jlabel"><span class="jstar">*</span>班级名称</div>
+                            <div class="jinput">
+                                <input class="" ms-duplex="@newclass.className" data-msg="班级名称" data-verify="require" type="text" />
+                            </div>
+                        </div>
+                        <div class="jrow">
+                            <div class="jlabel"><span class="jstar">*</span>学校</div>
+                            <div class="jinput">
+                                <div class="jselect">
+                                    <select ms-duplex="@newclass.schoolId" data-msg="学校" data-verify="require">
+                                        <option value="">请选择</option>
+                                        <option ms-for="($index, el) in @schools" ms-attr={value:el.id}>{{el.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="bz">没有学校？联系　wsy_website@163.com　添加！</div>
+                            </div>
+                        </div>
+                        <div class="jrow">
+                            <div class="jlabel"><span class="jstar">*</span>学段</div>
+                            <div class="jinput">
+                                <div class="jselect">
+                                    <select ms-duplex="@newclass.gradeId" data-msg="学段" data-verify="require">
+                                        <option value="">请选择</option>
+                                        <option ms-for="($index, el) in @grades" ms-attr={value:el.id}>{{el.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="jrow">
+                            <div class="jlabel"><span class="jstar">*</span>科目</div>
+                            <div class="jinput">
+                                <div class="jselect">
+                                    <select ms-duplex="@newclass.subjectId" data-msg="科目" data-verify="require">
+                                        <option value="">请选择</option>
+                                        <option ms-for="($index, el) in @subjects" ms-attr={value:el.id}>{{el.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="jrow">
+                            <div class="jlabel"><span class="jstar">*</span>入学时间</div>
+                            <div class="jinput">
+                                <div class="jselect">
+                                    <select ms-duplex="@newclass.beginTime" data-msg="选择入学时间" data-verify="require">
+                                        <option value="">选择入学时间</option>
+                                        <option ms-attr="{value:el.key}" ms-for="el in @years">{{el.key}}</option>
+                                       
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="cbtn addcbtn">确定</div>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <div class="cdialog modal fade" id="myModal2" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="updateform">
+                    <div class="modal-header">
+                        修改班级
+                        <div class="cclose" data-dismiss="modal"></div>
+                    </div>
+                    <div class="modal-body jcms">
+                        <div class="jrow">
+                            <div class="jlabel"><span class="jstar">*</span>班级名称</div>
+                            <div class="jinput">
+                                <input class="" ms-duplex="@newclass.className" data-msg="班级名称" data-verify="require" type="text" />
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <div class="cbtn updatecbtn">确定</div>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/app/teacher/myclass.js"></script>
+</body>
+
+</html>

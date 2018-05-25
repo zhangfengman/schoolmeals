@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>我的提问</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/student-lesson.css">
+</head>
+
+<body style="display: none;" ms-controller="myquestion">
+   
+    <div id="uploadAudio"></div>
+    <div id="uploadAudioContainer"></div>
+
+    <div class="lesson_main">
+        <h2 class="main_title">我的提问</h2>
+        <div class="main_content">
+            <div class="lesson_step">
+                <div class="questions_wrap">
+                    <div class="question_tab">
+                        <span  ms-class="[@query.isResponse == '-1' && 'active']" ms-click="@switch('-1')">未解答</span>
+                        <span class="divider">|</span>
+                        <span  ms-class="[@query.isResponse == '1' && 'active']" ms-click="@switch('1')">已解答</span>
+                    </div>
+                    <div class="search">
+                        <div class="ctable">
+                            <div class="crow">
+                                <div class="ccol ccol-2">
+                                    <div class="jselect" style="width:100%;">
+                                        <select id="classList_select" ms-duplex="@query.classId">
+                                            <option value="">请选择</option>
+                                            <option ms-for="($index, el) in @classList" ms-attr={value:el.classId}>
+                                                {{el.className}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="ccol ccol-3">
+                                    <div class="jselect" style="width:100%;">
+                                        <select ms-duplex="@query.courseChapterSegmentId">
+                                            <option value="">请选择</option>
+                                            <option ms-for="($index, el) in @segmentList" ms-attr={value:el.courseChapterSegmentId}>{{el.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="ccol ccol-1">
+                                    <a class="sbtn" ms-click="@search();">确定</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="question_list">
+                        <li ms-for="($index,ans) in @askList">
+                            <div ms-for="($num,el) in ans.contentList">
+                                <div class="talk_content">
+                                    <div class="question_student_ask" ms-if="el.roleId == 2">
+                                        <span>{{el.userName}}</span>
+                                        <span class="question_ask_con">
+                                        <wbr ms-widget="[{is:'ms-content'},{content_:el.content}]" />
+                                        <i class="question_arr"></i></span>
+                                        <span class="question_ask_time">{{el.createTime}}</span>
+                                    </div>
+                                    <div class="question_student_ask question_teacher_answer" ms-if="el.roleId == 1">
+                                        <span class="question_ask_time">{{el.createTime}}</span>
+                                        <span class="question_ask_con">
+                                         <wbr ms-widget="[{is:'ms-content'},{content_:el.content}]" />
+                                           
+                                            <i class="question_arr"></i>
+                                        </span>
+                                        <span>{{el.userName}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="question_answer_box">
+                                <button ms-click="@answer(ans.courseChapterSegmentId,ans.askId);" >确定</button>
+                               
+                                <span class="question_answer_avatar" ms-attr="{sid:ans.courseChapterSegmentId,askid:ans.askId}" ><img src="../../images/lesson/icon_img.png"></span>
+                                <input type="text"  class="question_answer_input" ms-attr="{id:ans.courseChapterSegmentId+'_'+ans.askId}" placeholder="我来回答......">
+                            </div>
+
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/qiniu.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/libs/layer/layer.js"></script><!--ignore-->
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/page.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/upload.js"></script>
+    <script type="text/javascript" src="../../js/app/student/myquestion.js"></script>
+</body>
+
+</html>

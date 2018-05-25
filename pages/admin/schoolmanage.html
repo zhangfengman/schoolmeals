@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>熟饭系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+</head>
+
+<body style="background: #f9f6f3;display: none;" ms-controller="schoolController">
+    <div class="title">学校管理</div>
+    <div class="admin-search">
+        <div class="ctable noborder">
+            <div class="crow">
+                <div class="ccol ccol-1">学校ID</div>
+                <div class="ccol  ccol-1 my_group">
+                    <input class="my_text" ms-duplex="@query.schoolId" type="text" placeholder="" />
+                </div>
+                <div class="ccol ccol-1">学校名称</div>
+                <div class="ccol  ccol-1 my_group">
+                    <input class="my_text" ms-duplex="@query.name" type="text" placeholder="" />
+                </div>
+                <div class="ccol  ccol-4">
+                    <div class="btn-border" ms-click="@searchFunc()">搜索</div>
+                    <div class="btn-border exp" ms-click="@exportFunc();">导出</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="admin-body">
+        <div class="ctable admin-table">
+            <div class="crow admin-opt">
+                <div class="ccol ccol-1 aright">
+                    <div class="icon_add_1" ms-click="@show();">添加学校</div>
+                </div>
+            </div>
+            <div class="crow admin-header">
+                <div class="ccol ccol-1">ID</div>
+                <div class="ccol ccol-1">学校名称</div>
+                <div class="ccol ccol-1">所在地区</div>
+                <div class="ccol ccol-1">添加时间</div>
+                <div class="ccol ccol-1">操作</div>
+            </div>
+            <div class="crow admin-odd" ms-for="($index,el) in @list">
+                <div class="ccol ccol-1">{{el.schoolId}}</div>
+                <div class="ccol ccol-1">{{el.name}}</div>
+                <div class="ccol ccol-1">{{el.areaName}}</div>
+                <div class="ccol ccol-1">{{el.createTime}}</div>
+                <div class="ccol ccol-1">
+                    <a class="icon_letter_edit" ms-click="@edit(el)"></a>
+                    <a class="icon_letter_del" ms-click="@del(el.schoolId)"></a>
+                </div>
+            </div>
+            <div class=" crow admin-footer">
+                <div class="ccol ccol-1">
+                    <div id="paging"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cdialog modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="newschool_form">
+                    <div class="modal-header">
+                        添加账号
+                        <div class="cclose" data-dismiss="modal"></div>
+                    </div>
+                    <div class="modal-body jcms">
+                        <div class="jrow">
+                            <div class="jlabel"><span class="jstar">*</span>学校名称:</div>
+                            <div class="jinput">
+                                <input class="" id="studentAccount" ms-duplex="@data.name" data-msg="学校名称" placeholder="" data-verify="require" type="text" />
+                            </div>
+                        </div>
+                        <div class="jrow">
+                            <div class="jlabel"><span class="jstar">*</span>学校地址</div>
+                            <div class="jinput">
+                                <div class="cascading">
+                                    <div class="jselect">
+                                        <select id="province" ms-duplex="@data.provinceId">
+                                            <option value="0">省</option>
+                                            <option ms-attr="{value:el.areaId}" ms-for="el in @provinceList">{{el.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="cascading">
+                                    <div class="jselect ">
+                                        <select id="city" ms-duplex="@data.cityId">
+                                             <option value="0">市</option>
+                                            <option ms-attr="{value:el.areaId}" ms-for="el in @cityList">{{el.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="cascading">
+                                    <div class="jselect">
+                                        <select id="district" ms-duplex="@data.areaId">
+                                             <option value="0">区</option>
+                                            <option ms-attr="{value:el.areaId}" ms-for="el in @districtList">{{el.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="cbtn" id="confirmBtn" ms-click="@add();">确定</div>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!--SCRIPT_PLACEHOLDER-->
+    <script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/page.js"></script>
+    <script type="text/javascript" src="../../js/app/admin/schoolmanage.js"></script>
+</body>
+
+</html>

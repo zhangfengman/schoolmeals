@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>熟饭系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/class.css">
+</head>
+
+<body style="background: #f9f6f3;display:none;" ms-controller="mylesson">
+    <div class="title">我的课程</div>
+    <div class="class-body">
+        
+        <div class="ctable noborder">
+            <div class="crow">
+                <div class="ccol ccol-1">年级</div>
+                <div class="ccol ccol-3 ">
+                    <div class="jselect">
+                        <select ms-duplex="@query.gradeId">
+                            <option value="">选择学段</option>
+                            <option ms-for="($index, el) in @grades" ms-attr={value:el.id}>{{el.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="ccol ccol-1">科目</div>
+                <div class="ccol ccol-3 ">
+                    <div class="jselect">
+                        <select ms-duplex="@query.subjectId" data-msg="科目" >
+                            <option value="">请选择</option>
+                            <option ms-for="($index, el) in @subjects" ms-attr={value:el.id}>{{el.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="ccol ccol-1">
+                    <a class="sbtn" ms-click="@search();">确定</a>
+                </div>
+                <div class="ccol ccol-1">
+                    <a class="sbtn" data-toggle="modal" data-target="#myModal" ms-click="@add();">创建课程</a>
+                </div>
+            </div>
+        </div>
+        <div class="ctable noborder newlessonlist">
+            <div class="crow" ms-for="($index,el) in @courseList">
+                <div class="ccol ccol-5 vmiddle q-title" ms-attr="{courseid:el.courseId}">{{el.name}}</div>
+                <div class="ccol ccol-5">
+                    <div  class="btn-area">
+                        <a class="btn-mini float-left" data-op="add" ms-attr="{courseid:el.courseId}">添加</a>
+                        <a class="btn-mini float-left" data-op="edit" ms-attr="{courseid:el.courseId}">编辑</a> 
+                        <!--<a class="btn-mini float-left" data-op="update" ms-attr="{courseid:el.courseId}">修改</a>-->
+                        <a class="btn-mini float-left" data-op="del" ms-attr="{courseid:el.courseId}">删除</a>
+                    </div>
+                    <div  ms-attr="{courseid:el.courseId}">
+                        <a class="btn-mini float-left" data-op="copy" ms-attr="{courseid:el.courseId}">复制</a>
+                        <a class="btn-mini float-left" data-op="release" ms-attr="{courseid:el.courseId}">发布</a>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cdialog modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="newlesson_form">
+                    <div class="modal-header">
+                        <span ms-if="@mode=='add'">创建课程</span>
+                        <span ms-if="@mode=='edit'">编辑课程</span>
+                        <span ms-if="@mode=='update'">复制课程</span>
+                        <div class="cclose" data-dismiss="modal"></div>
+                    </div>
+                    <div class="modal-body jcms">
+                        <div class="jrow">
+                            <div class="jlabel"><span class="jstar">*</span>课程名称</div>
+                            <div class="jinput">
+                                <input class="" ms-duplex="@course.name" data-msg="课程名称" data-verify="require" type="text" />
+                            </div>
+                        </div>
+                        <div class="jrow">
+                            <div class="jlabel"><span class="jstar">*</span>课程介绍</div>
+                            <div class="jinput">
+                                <textarea class="jtext" data-msg="课程介绍" data-verify="require" ms-duplex="@course.intro"></textarea>
+                            </div>
+                        </div>
+                        <div class="jrow">
+                            <div class="jlabel"><span class="jstar">*</span>年级</div>
+                            <div class="jinput">
+                                <div class="jselect">
+                                    <select ms-duplex="@course.grade_id" data-msg="年级" data-verify="require">
+                                        <option value="">请选择</option>
+                                        <option ms-for="($index, el) in @grades" ms-attr={value:el.id}>{{el.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="jrow">
+                            <div class="jlabel"><span class="jstar">*</span>科目</div>
+                            <div class="jinput">
+                                <div class="jselect">
+                                    <select ms-duplex="@course.subject_id" data-msg="科目" data-verify="require">
+                                        <option value="">请选择</option>
+                                        <option ms-for="($index, el) in @subjects" ms-attr={value:el.id}>{{el.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="cbtn">确定</div>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <!--SCRIPT_PLACEHOLDER-->
+    <script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/app/teacher/mylesson.js"></script>
+</body>
+
+</html>

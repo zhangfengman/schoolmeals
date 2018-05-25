@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>熟饭系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+</head>
+
+<body style="background: #f9f6f3;display: none;" ms-controller="statiticscontroller">
+    <div class="title">学生名单</div>
+    <div class="class-body">
+        <ul class="lesson_step_tab">
+            <li data-href="lessoncenterStudent.html">课程中心</li>
+            <li data-href="examcenterStudent.html">我的测试</li>
+            <li data-href="statisticsStudent.html">班级统计</li>
+            <li class="active">学生名单</li>
+        </ul>
+       
+        <div class="ctable">
+            <div class="crow border">
+                <div class="ccol ccol-1">ID</div>
+                <div class="ccol ccol-2">姓名</div>
+                <div class="ccol ccol-2">账号</div>
+                <div class="ccol ccol-1">家长姓名</div>
+                <div class="ccol ccol-2">家长账号</div>
+                <div class="ccol ccol-2">操作</div>
+            </div>
+            <div class="crow border" ms-for="el in @studentList">
+                <div class="ccol ccol-1">{{el.studentUserId}}</div>
+                <div class="ccol ccol-2">{{el.studentName}}</div>
+                <div class="ccol ccol-2">{{el.studentAccount}}</div>
+                <div class="ccol ccol-1">{{el.parentName}}</div>
+                <div class="ccol ccol-2">{{el.parentAccount}}</div>
+                <div class="ccol ccol-2">
+                    <a href="javascript:void(0);" class="btn-mini" ms-click="@report(el)">查看统计</a>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/page.js"></script>
+    <script type="text/javascript" src="../../js/app/student/studentlist.js"></script>
+</body>
+
+</html>

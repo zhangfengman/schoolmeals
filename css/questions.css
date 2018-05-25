@@ -1,0 +1,262 @@
+.choose-list .choose-question {
+    border-bottom: 1px dashed #f0ebe6;
+}
+
+.choose-list .choose-question .crow {
+    border-bottom: 0px dashed #f0ebe6;
+}
+
+.choose-list .choose-question .crow .ccol {
+    padding: 8px 5px;
+}
+
+.choose-question .crow.gray {
+    color: #999;
+}
+
+.question {
+    border: 1px solid #f0ebe6;
+    padding: 10px;
+    margin: 10px 0px;
+}
+
+.question .examquestion {}
+
+.question .theselection {
+    padding: 10px 20px;
+}
+.question .question_delete{
+    float: left;
+    height: 38px;
+    position: relative;
+}
+.question .no {
+    font-size: 14px;
+    margin: 10px 0;
+    display: inline-block;
+}
+
+.question .no.fleft{
+    float: left;
+}
+
+.question .no span {
+    font-weight: bold;
+}
+.question .optertion{
+    text-align: right;
+}
+
+.answerbtn {
+    color: #ff8b0c;
+}
+
+.answerbtn:hover,
+.answerbtn:visited {
+    color: #ff8b0c;
+}
+
+.question .answer {
+    display: none;
+}
+
+.question-query ul {
+    display: inline-block;
+}
+
+.question-query ul li {
+    /* float: left; */
+    display: inline-block;
+    margin: 6px 4px;
+    border: 1px solid #999;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.question-query ul li.current {
+    color: #ff8b0c;
+    border: 1px solid #ff8b0c;
+}
+
+.ctable.question-query .crow .ccol {
+    padding: 5px;
+}
+
+.questions_manage {
+    float: none;
+    margin: 0 auto;
+}
+
+.questions_manage .choose-center {
+    width: 680px;
+}
+
+.question_add .jrow .jlabel {
+    width: 14%;
+}
+
+.question_add .jrow .jinput {
+    width: 86%;
+    vertical-align: middle;
+}
+
+.question_add .jrow .jinput .jtext {
+    width: 100%;
+}
+
+.question_add .line_dashed {
+    border-bottom: 1px dashed #ede5dd;
+}
+
+.question_add .line {
+    border-bottom: 1px solid #ede5dd;
+}
+
+.question_add .res_type {
+    position: absolute;
+    right: 10px;
+    top: 0px;
+}
+
+.question_add .res_type .res_item {
+    display: inline-block;
+    margin: 0px 10px;
+    cursor: pointer;
+}
+
+.question_add .res_type .res_item:hover {
+    color: #2b80ff;
+}
+
+.question_add .res_type.pos2 {
+    position: relative;
+    right: none;
+    top: none;
+}
+
+.question_add .remarks {
+    position: absolute;
+    right: 0px;
+    top: 18px;
+    color: #f66a03;
+    font-size: 15px;
+}
+
+.question_item {
+    border-bottom: 1px dashed #ede5dd;
+}
+
+.add_question_btn {
+    background: url(../images/add_max.png) 0% 50% no-repeat;
+    padding-left: 24px;
+    font-size: 18px;
+    color: #f66a03;
+    display: inline-block;
+}
+
+.mulselect {
+    width: 200px;
+    height: 100px !important;
+    border: 1px solid #ede5dd;
+    font-size: 14px;
+}
+
+.question_delete {
+    background: url(../../images/reduce.png) 0 50% no-repeat;
+    width: 30px;
+    height: 56px;
+    display: inline-block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.lesson_question {
+    position: relative;
+    background: #eff8ff;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px auto;
+    min-height: 160px;
+}
+
+.lesson_question .q_header {
+    position: relative;
+    font-size: 14px;
+    border-bottom: 1px solid #dae5ed;
+    padding: 10px 0;
+    margin: 0px auto 10px;
+}
+
+.lesson_question .q_header .del_question {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -8px;
+    width: 16px;
+    height: 17px;
+    background: url(../images/icon_delete.png) 0 50% no-repeat;
+}
+
+.lesson_question .options {
+    padding: 10px 20px;
+    width: 50%;
+}
+.lesson_question .mainContent {
+   
+    width: 50%;
+}
+
+.lesson_question .question_score {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+.lesson_audio {
+    position: relative;
+    background: #eff8ff;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px auto;
+}
+
+.lesson_audio .audio_title {
+    width: 24px;
+    height: 24px;
+    padding-left: 30px;
+    background: url(../images/audio.png) 0 50% no-repeat;
+    white-space: nowrap;
+}
+
+.lesson_audio .enlarge_audio {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    margin-top: -10px;
+    width: 20px;
+    height: 20px;
+    background: url(../images/icon_search.png) 0 50% no-repeat;
+}
+
+.lesson_audio .del_audio {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -8px;
+    width: 16px;
+    height: 17px;
+    background: url(../images/icon_delete.png) 0 50% no-repeat;
+}
+
+.exam-qtype .question_delete{
+    position: relative;
+    height: 30px;
+
+}
+.edit-question-layout .ztree{
+    float: left;
+}
+.edit-question-layout .edit-question{
+    float: left;
+    width: 700px;
+}

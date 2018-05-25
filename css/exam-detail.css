@@ -1,0 +1,240 @@
+body {
+    color: #333;
+}
+
+.exam_detail_wrap {
+    padding: 20px;
+}
+
+.exam_detail_title {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+.exam_detail_title h2, .exam_detail_title h3 {
+    text-align: center;
+    line-height: 40px;
+}
+
+.exam_detail_title h3 {
+    font-weight: normal;
+}
+
+.exam_detail_con_title {
+    padding: 20px 0;
+}
+
+/*课程详情*/
+.course_detail_head {
+    background: #FFF;
+    width: 100%;
+    padding: 34px 63px 0px 10px;
+    overflow: hidden;
+}
+
+.course_detail_head_l {
+    float: left;
+}
+
+.course_detail_head_row {
+    overflow: hidden;
+    padding-bottom: 14px;
+    line-height: 26px;
+}
+
+.course_detail_head_dt {
+    font-weight: bold;
+    float: left;
+    width: 68px;
+}
+
+.course_detail_head_dd {
+    float: left;
+    width: 357px;
+}
+
+.course_detail_head_r {
+    float: right;
+    color: #ef3d14;
+    font-size: 22px;
+    padding-top: 27px;
+}
+
+.course_detail_head_r span {
+    
+    height: 56px;
+    line-height: 56px;
+    text-align: center;
+    display: inline-block;
+    font-size: 30px;
+    color: #fff;
+    background: #ef3d14;
+    border-radius: 56px;
+    vertical-align: middle;
+    margin: 0 6px;
+    padding: 0px 10px;
+}
+
+.course_detail_body {
+    margin: 30px 40px 0 29px;
+    padding: 40px 43px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.course_detail_body h3 {
+    font-size: 22px;
+    margin-bottom: 25px;
+}
+
+.video_wrap {
+    width: 43.8%;
+}
+
+.course_detail_body .video {
+    width: 100%;
+    height: 188px;
+    position: relative;
+    background: url("../images/lesson/video_cover_1.jpg") no-repeat center;
+}
+
+.play_wrap {
+    width: 206px;
+    height: 44px;
+    padding: 7px 24px 0 21px;
+    box-sizing: border-box;
+    background: #cf6300;
+    border-radius: 44px;
+    font-size: 20px;
+    color: #fff;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+}
+
+.play_wrap img {
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.video_wrap {
+    float: left;
+}
+
+.video_box {
+    overflow: hidden;
+}
+
+.course_con {
+    margin-top: 28px;
+}
+
+.course_con .course_con_list {
+    background: #f9f7f3;
+    padding: 22px 25px 20px 20px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 11px;
+}
+
+.course_title_num {
+    padding-bottom: 17px;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.course_subject_con {
+    position: relative;
+    padding-top: 20px;
+}
+
+.course_subject_title {
+    margin-bottom: 20px;
+    font-weight: normal;
+}
+
+.course_subject_options li {
+    margin-top: 14px;
+}
+.course_subject_options{
+    width: 70%;
+}
+
+
+.course_con_list .sub_btn {
+    width: 120px;
+    text-align: center;
+    height: 34px;
+    line-height: 34px;
+    background: #ef3d14;
+    color: #fff;
+    position: absolute;
+    right: 25px;
+    bottom: 0px;
+    border: 0;
+}
+.course_con_list .query_item{
+    padding-bottom: 10px;
+}
+
+.course_con_list .btn_angly{
+    right: 155px;
+}
+
+.my_ask_wrap {
+    position: fixed;
+    left: 11px;
+    top: 46%;
+    width: 44px;
+    height: 132px;
+    box-sizing: border-box;
+    box-shadow: 0 0 5px #ccc;
+    border-radius: 5px;
+    border-top: 5px solid #ef3d14;
+    padding: 50px 15px;
+    color: #ef3d14;
+    text-align: center;
+    background: url("../images/lesson/ask_icon.png") no-repeat center 19px #fff;
+}
+
+.filling_text {
+    border: 0px;
+    border-bottom: 1px solid #e3e3e3;
+    height: 34px;
+    line-height: 34px;
+    padding: 5px 4px;
+    color: #858585;
+}
+
+.subject_text {
+    border: 0px;
+    border: 1px solid #e3e3e3;
+    height: 34px;
+    line-height: 34px;
+    padding: 5px 4px;
+    color: #858585;
+}
+
+.exam_detail_con p {
+    padding: 0
+}
+.analyze_btn_wrap{
+    position: relative;
+    float: right;
+}
+.analyze_btn{
+    cursor: pointer;
+}
+.analyze_btn_wrap .slide_down{
+    display: none;
+    width:300px;
+    background: #fff;
+    border: 1px solid #ccc;
+    position: absolute;
+    right: 0;
+    top:30px;
+    padding: 5px;
+    z-index: 1;
+}

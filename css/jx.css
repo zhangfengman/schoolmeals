@@ -1,0 +1,364 @@
+.ddmenu{
+    position: relative;
+    /** 不同dropmenu 宽度不一样**/
+    width: 180px;
+    font-size: 16px;
+    font-weight: 300;
+     color: #262626;
+}
+.ddmenu .menu{
+     border: 1px solid #C7CBD5;
+     
+}
+.ddmenu ul{        
+     position: absolute;
+     left: 0px;
+     top: 44px;
+     width: 100%;
+     border-bottom: 1px solid #C7CBD5;
+     border-left: 1px solid #C7CBD5;
+     border-right: 1px solid #C7CBD5;
+    display: none;
+}
+.ddmenu  a{     
+    width: 100%;
+    text-align: center;
+    display: block;
+    padding: 10px;
+    color: #262626;
+    background-color: #ffffff;
+}
+.ddmenu  a:hover,.ddmenu  a:active{
+     color: #0084ff;
+     background-color: #f5f5f5;
+}
+.ddmenu.current .menu{
+    border: 1px solid #C7CBD5;
+}
+.ddmenu.current .menus{
+    display: block;
+}
+.ddmenu:hover ul{
+    display: block;
+}
+.ddmenu .menu_arr{
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    margin-top: -4px;
+    width: 10px;
+    height: 6px;
+    background: url(.../images/search_category_arr.png) no-repeat;
+}
+/**  下面是不同dropmenu 自定义的样式 **/
+.icon-persion{
+    height: 17px;
+    background: url(../images/personal_center.png) no-repeat;
+    display: inline-block;
+    padding-left: 20px;
+}
+.icon-logout{
+    height: 17px;
+    background: url(../images/logout.png) no-repeat;
+    display: inline-block;
+    padding-left: 20px;
+}
+.ddmenu .menu img{
+    margin-top: -4px;
+    vertical-align: middle;
+}
+
+.jmask {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    background-color: #000;
+    opacity: 0.3;
+}
+
+.jmsg {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-top: -86px;
+    margin-left: -271px;
+    width: 542px;
+    _position: absolute;
+    _margin-top: 0;
+    _top: expression(documentElement.scrollTop+(documentElement.clientHeight-this.offsetHeight)/2);
+    border-radius: 5px;
+    background: #fff;
+    padding: 30px 0 24px 0px;
+    z-index: 10001;
+}
+
+.jmsg .jicons {
+    background-image: url(../../images/Icons.png);
+}
+
+.jmsg .close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 17px;
+    height: 17px;
+    background-position: 0 -70px;
+}
+
+.jmsg .close:hover,
+.jmsg .close.current {
+    background-position: -20px -70px;
+}
+
+.jmsg .content {
+    text-align: center;
+    min-height: 64px;
+    color: #7b7b7b;
+    display: table;
+    width: 100%;
+}
+
+.jmsg .content .jtitle {
+    margin: 5px 0 0 20px;
+    font-size: 18px;
+}
+
+.jmsg .content .jtext {
+    margin: 5px 0 0 20px;
+}
+
+.jmsg .content .cell {
+    display: table-cell;
+    vertical-align: top;
+    text-align: left;
+}
+
+.jmsg .content .first-cell {
+    width: 18%;
+}
+
+.jmsg .content .cell:after,
+.jmsg .jbtn-group:after {
+    content: "";
+    clear: both;
+}
+
+.jmsg .jbtn-group .cancle,
+.jmsg .jbtn-group .confirm {
+    width: 98px;
+    height: 34px;
+    line-height: 34px;
+    margin-right: 30px;
+    color: #666;
+    float: right;
+    border: 1px solid #ededed;
+    text-align: center;
+    vertical-align: center;
+    cursor: pointer;
+    margin-left: -15px;
+    border-radius: 2px;
+}
+
+.jmsg .jbtn-group .cancle:hover,
+.jmsg .jbtn-group .confirm:hover {
+    background: #0084ff;
+    color: #fff;
+}
+
+.jmsg_success .jicon_type {
+    width: 60px;
+    height: 60px;
+    background-position: 0 0;
+    float: right;
+}
+
+.jmsg_success .content .jtitle {
+    color: #82c65e;
+}
+
+.jmsg_failed .jicon_type {
+    width: 60px;
+    height: 60px;
+    background-position: -70px 0;
+    float: right;
+}
+
+.jmsg_failed .content .jtitle {
+    color: #f24713;
+}
+
+.jmsg_warning .jicon_type {
+    width: 60px;
+    height: 60px;
+    background-position: -140px 0;
+    float: right;
+}
+
+.jmsg_warning .content .jtitle {
+    color: #ff9a01;
+}
+
+.jmsg.jmsg_msg .first-cell,
+.jmsg.jmsg_confirm .first-cell {
+    display: none;
+}
+
+.jmsg.jmsg_msg .second-cell,
+.jmsg.jmsg_confirm .second-cell,
+{
+    width: 100%;
+}
+
+.jcmsshade{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    background-color:#000;
+    opacity: 0.1;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=10);
+}
+.jcmsloading{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -16px;
+    margin-left: -16px;
+    width: 32px;
+    height: 32px;
+    background: url(../../images/loading-2.gif) no-repeat;
+}
+.jcms .jstar{
+    color: red;
+}
+.jcms .jrow{
+    display: table;     
+    margin: 5px 0;
+    width: 100%;
+}
+.jcms .jrow .jlabel{
+    position: relative;
+    display: table-cell;
+    width: 30%;
+    text-align: right;
+    line-height: 1.5;
+    padding: 8px 8px 8px 0;
+    vertical-align: top;
+    white-space: nowrap;
+}
+.jcms .jrow .jlabel.vmiddle{
+    vertical-align: middle;
+}
+.jcms .jrow .jinput{
+    position: relative;
+    display: table-cell;
+    width: 70%;
+}
+.jcms .jrow .jinput.readonly{
+    vertical-align: middle;
+}
+.jcms .jrow .jinput input[type='text'],.jcms .jrow .jtext{  
+    border-radius: 4px !important;    
+
+    resize: none;
+    background-color: #FFFFFF;
+    border: 1px solid #D5D5D5;
+    height: 34px;
+    
+    /**line-height: 34px;**/
+    padding: 5px 4px;
+    color: #858585;
+    width: 80%;
+    behavior: url(../../imgs/PIE.htc);
+}
+.jcms .jrow.jerror input[type='text'],.jcms .jrow.jerror .jtext{
+    border-radius: 4px !important;    
+    resize: none;
+    background-color: #FFFFFF;
+    border: 1px solid #D5D5D5;
+    height: 34px;
+    line-height: 34px;
+    padding: 5px 4px;
+    color: #858585;
+    border: 1px red solid;
+}
+.jcms  textarea.jtext{
+    height: auto !important;
+}
+.jcms  textarea:active,.jcms  textarea:focus{
+    background-color: #FFFFFF;
+    border: 1px solid #D5D5D5;
+}
+
+.jcms .jrow.jerror .jtips{
+    color: red;
+}
+.jcms .jbtn{
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 34px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    width: 100px;
+    height: 34px;
+    transition: all 0.3s;
+    text-decoration: none;    
+    background-color: #0084ff;
+    border-color: #0084ff;
+    color: #fff;
+}
+.jcms .jrow .jcol-1{
+    width: 10%;
+}
+.jcms .jrow .jcol-22{
+    width: 28%;
+}
+.jcms .jrow .jcol-2{
+    width: 20%;
+}
+.jcms .jrow .jcol-3{
+    width: 30%;
+}
+.jcms .jrow .jcol-4{
+    width: 40%;
+}
+.jcms .jrow .jcol-5{
+    width: 50%;
+}
+.jcms .jrow .jcol-6{
+    width: 60%;
+}
+.jcms .jrow .jcol-7{
+    width: 70%;
+}
+.jcms .jrow .jcol-8{
+    width: 80%;
+}
+.jcms .jrow .jcol-9{
+    width: 90%;
+}
+.task-layout .jrow .jlabel{
+    width: 10%;
+}
+.task-layout .jrow .jinput{
+    width: 90%;
+}

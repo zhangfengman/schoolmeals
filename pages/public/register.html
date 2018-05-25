@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>熟饭系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+</head>
+
+<body>
+    <div class="screen_bg">
+        <img src="../../images/bg.jpg">
+    </div>
+    <div class="logo">
+        <img src="../../images/logo.png">
+    </div>
+    <div class="block_login">
+        <div class="top"></div>
+        <div class="content">
+            <div class="title">注册信息</div>
+            <form id="regForm">
+                <div class="form_row">
+                    <div class="flabel">手机号</div>
+                    <div class="ftext">
+                        <input id="account" name="phoneNumber" data-msg="手机号" data-verify="mphone" maxlength="18" type="text" placeholder="请输入手机号作为登录账号" />
+                    </div>
+                </div>
+                <div class="form_row">
+                    <div class="flabel">短信验证码</div>
+                    <div class="ftext">
+                        <input name="phoneCode" class="min" data-msg="短信验证码" data-verify="require" maxlength="4" type="text" placeholder="请输入验证码" />
+                        <div id="phonecodebtn" class="btn getyzm">获取验证码</div>
+                    </div>
+                </div>
+                <div class="form_row">
+                    <div class="flabel">姓名</div>
+                    <div class="ftext">
+                        <input name="userName" type="text" data-msg="姓名" data-verify="require" placeholder="请输入姓名" />
+                    </div>
+                </div>
+                <div class="form_row">
+                    <div class="flabel">密码</div>
+                    <div class="ftext">
+                        <input id="password" name="password" data-msg="密码" data-verify="require" type="password" placeholder="请输入密码" />
+                    </div>
+                </div>
+                <div class="form_row">
+                    <div class="flabel">确认密码</div>
+                    <div class="ftext">
+                        <input id="password_confirm" data-msg="确认密码" data-verify="require" type="password" placeholder="请输入确认密码" />
+                    </div>
+                </div>
+                <div class="form_row">
+                    <div class="flabel">注册身份</div>
+                    <div class="ftext">
+                        <input id="role" name="role" type="hidden" value="1">
+                        <ul class="fradio">
+                            <li class="checked" data-role="1">教师</li>
+                            <!--li data-role="2">学生</li-->
+                            <li data-role="3">家长</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form_row">
+                    <div class="flabel">&nbsp;</div>
+                    <div class="ftext">
+                        <div class="protocol checked">
+                            阅读并同意<a>《熟饭用户协议》</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="form_row">
+                    <div class="flabel">&nbsp;</div>
+                    <div class="ftext">
+                        <div class="reg_btn">注册并登录</div>
+                    </div>
+                </div>
+            </form>
+            <div class="form_row aligin_right">
+                <a href="login.html" class="link">已有账号，立即登录>></a>
+            </div>
+            <div class="book"></div>
+        </div>
+        <div class="bottom"></div>
+    </div>
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    <script type="text/javascript" src="../../js/libs/jquery.placeholder.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/app/public/user.js"></script>
+    <script type="text/javascript" src="../../js/app/public/register.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        $('input, textarea').placeholder({
+            customClass: 'my-placeholder'
+        });
+    });
+    </script>
+</body>
+
+</html>

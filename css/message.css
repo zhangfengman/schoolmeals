@@ -1,0 +1,70 @@
+.ctext {
+    resize: none;
+    background-color: rgb(255, 255, 255);
+    height: 34px;
+    line-height: 34px;
+    color: rgb(133, 133, 133);
+    width: 80%;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(213, 213, 213);
+    border-image: initial;
+    padding: 5px 4px;
+    border-radius: 4px !important;
+}
+
+.ctexta {
+    resize: none;
+    background-color: rgb(255, 255, 255);
+    height: 200px;
+    color: rgb(133, 133, 133);
+    width: 100%;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(213, 213, 213);
+    border-image: initial;
+    padding: 5px 4px;
+    border-radius: 4px !important;
+}
+
+.message-class {
+    margin: 10px auto;
+}
+
+.message-class a {
+    margin: 10px 5px;
+    color: #000;
+}
+
+.message-class a.cur {
+    color: #0876e7;
+    text-decoration: underline;
+}
+
+.message-student {
+    margin: 10px auto;
+}
+
+.message-student li {
+    margin: 10px 5px;
+    float: left;
+}
+
+
+
+.message-opt {
+    text-align: right;
+    margin: 10px 0px;
+}
+.message-opt.margin {
+    margin: 0px 30px;
+}
+
+.message-opt .message-count {
+    display: inline-block;
+}
+
+.message-opt .message-btn {
+    display: inline-block;
+    margin-right: 0px;
+}

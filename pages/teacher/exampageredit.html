@@ -1,0 +1,225 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>熟饭系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/audio.css">
+    <link rel="stylesheet" type="text/css" href="../../css/questions.css">
+    <link rel="stylesheet" type="text/css" href="../../css/exampager.css">
+</head>
+
+<body style="background: #fff;display: none;" ms-controller="exampageredit">
+    <div class="title">添加试卷</div>
+    <div class="choose-body jcms">
+        <form id="exam_form">
+            <div class="jrow">
+                <div class="jlabel"><span class="jstar">*</span>标题:</div>
+                <div class="jinput">
+                    <input class="" ms-duplex="@examPager.title" data-msg="标题" data-verify="require" type="text" />
+                </div>
+            </div>
+            <div class="jrow">
+                <div class="jlabel"><span class="jstar">*</span>时长:</div>
+                <div class="jinput">
+                    <input class="" ms-duplex="@examPager.requireUseTime" data-msg="时长" data-verify="num" type="text" />
+                </div>
+            </div>
+            <div class="jrow">
+                <div class="jlabel"><span class="jstar">*</span>类型:</div>
+                <div class="jinput">
+                    <input class="" ms-duplex="@examPager.testPaperTypeName" data-msg="标题" data-verify="require" type="text" />
+                </div>
+            </div>
+            <div class="jrow examadd">
+                <div class="jlabel jcol-3"><span class="jstar">*</span>年级:</div>
+                <div class="jinput jcol-2">
+                    <div class="jselect">
+                        <select ms-duplex="@examPager.gradeId" data-msg="年级" data-verify="require">
+                            <option value="">选择学段</option>
+                            <option ms-for="($index, el) in @grades" ms-attr={value:el.id}>{{el.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="jlabel jcol-2"><span class="jstar">*</span>科目:</div>
+                <div class="jinput jcol-3">
+                    <div class="jselect">
+                        <select ms-duplex="@examPager.subjectId" data-msg="测试科目" data-verify="require">
+                            <option value="">请选择科目</option>
+                            <option ms-for="($index, el) in @subjects" ms-attr={value:el.id}>{{el.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="jrow">
+                <div class="jlabel"><span class="jstar">*</span>内容:</div>
+                <div class="jinput">
+                    <div class="exam-content">
+                        <div class="exam-title">{{@examPager.title}}</div>
+                        <div class="exam-subtitle">
+                            <input type="text" ms-duplex="@examPager.subTitle"  data-msg="标题" data-verify="require">
+                        </div>
+                        <div class="exam-qlist">
+                            <div class="exam-qtype" ms-for="($index,el) in @testPaperList">
+                                <div class="ctable noborder">
+                                    <div class="crow">
+                                        <div class="ccol vmiddle">
+                                            <div class="question_delete" ms-click="@delTypeQuestion($index)"></div>
+                                        </div>
+                                        <div class="ccol aleft">
+                                            <input class="q_question_t" type="text" ms-duplex="@testPaperList[$index].title" name="" value="">
+                                        </div>
+                                        <div class="ccol aright">
+                                            <div ms-click="@addTypeQuestion();" class="btn-border">添加</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="question" ms-for="($num,ques) in @testPaperList[$index].qustionList">
+                                    <!-- 选择题-->
+                                    <div ms-if="ques.type == 1">
+                                        <div class="clearfix" style="position: relative;">
+                                            <div class="question_delete" ms-click="@delquestion($index,$num)"></div>
+                                            <div class="no fleft"><span>题号：</span>{{$num+1}}</div>
+                                            <div class="score_input floatR">
+                                                <input class="q_score" type="text" ms-duplex="@testPaperList[$index].qustionList[$num].choiceQuestion.questionTotalScore" />
+                                                <div class="score">分</div>
+                                            </div>
+                                        </div>
+                                        <div class="examquestion">
+                                            <wbr ms-widget="[{is:'ms-content'},{content_:ques.choiceQuestion.mainContent}]" />
+                                        </div>
+                                        <ul class="theselection">
+                                            <li ms-for="opt in ques.choiceQuestion.optionsContent">
+                                                {{opt.option}}.
+                                                <wbr ms-widget="[{is:'ms-content'},{content_:opt.content}]" />
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- 选择题-->
+                                    <div ms-if="ques.type == 2">
+                                        <div class="clearfix">
+                                            <div class="question_delete" ms-click="@delquestion($index,$num)"></div>
+                                            <div class="no fleft"><span>题号：</span>{{$num+1}}</div>
+                                            <div class="score_input floatR">
+                                                <input class="q_score" type="text" ms-duplex="@testPaperList[$index].qustionList[$num].fillingQuestion.questionTotalScore" />
+                                                <div class="score">分</div>
+                                            </div>
+                                        </div>
+                                        <div class="examquestion">
+                                            <wbr ms-widget="[{is:'ms-content'},{content_:ques.fillingQuestion.mainContent}]" />
+                                        </div>
+                                    </div>
+                                    <!-- 主观题-->
+                                    <div ms-if="ques.type == 3">
+                                        <div class="clearfix">
+                                            <div class="question_delete" ms-click="@delquestion($index,$num)"></div>
+                                            <div class="no fleft"><span>题号：</span>{{$num+1}}</div>
+                                            <div class="score_input floatR">
+                                                <input class="q_score" type="text" ms-duplex="@testPaperList[$index].qustionList[$num].subjectiveQuestion.questionTotalScore" />
+                                                <div class="score">分</div>
+                                            </div>
+                                        </div>
+                                        <div class="examquestion">
+                                            <wbr ms-widget="[{is:'ms-content'},{content_:ques.subjectiveQuestion.mainContent}]" />
+                                        </div>
+                                    </div>
+                                    <!--组合题 -->
+                                    <div ms-if="ques.type == 4">
+                                        <div class="clearfix">
+                                            <div class="question_delete" ms-click="@delquestion($index,$num)" style="height: 38px;"></div>
+                                            <div class="no fleft">
+                                                <wbr ms-widget="[{is:'ms-content'},{content_:ques.unionQuestion.mainContent}]" />
+                                            </div>
+                                        </div>
+                                        <div ms-for="($num,unionEl) in ques.unionQuestion.questionList">
+                                            <div class="question">
+                                                <!-- 选择题-->
+                                                <div ms-if="unionEl.questionType == 1">
+                                                    <div class="clearfix">
+                                                        <div class="no fleft"><span>题号：</span>{{$num+1}}</div>
+                                                        <div class="score_input floatR">
+                                                            <input class="q_score" type="text" ms-duplex="ques.unionQuestion.questionList[$num].choiceQuestion.questionTotalScore" />
+                                                            <div class="score">分</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="examquestion">
+                                                        <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.choiceQuestion.mainContent}]" />
+                                                    </div>
+                                                    <ul class="theselection">
+                                                        <li ms-for="opt in unionEl.choiceQuestion.optionsContent">
+                                                            {{opt.option}}.
+                                                            <wbr ms-widget="[{is:'ms-content'},{content_:opt.content}]" />
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <!-- 填空题-->
+                                                <div ms-if="unionEl.questionType == 2">
+                                                    <div class="clearfix">
+                                                        <div class="no"><span>题号：</span>{{$num+1}}</div>
+                                                        <div class="score_input floatR">
+                                                            <input class="q_score" type="text" ms-duplex="ques.unionQuestion.questionList[$num].fillingQuestion.questionTotalScore" />
+                                                            <div class="score">分</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="examquestion">
+                                                        <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.fillingQuestion.mainContent}]" />
+                                                    </div>
+                                                </div>
+                                                <!-- 主观题-->
+                                                <div ms-if="unionEl.questionType == 3">
+                                                    <div class="clearfix">
+                                                        <div class="no"><span>题号：</span>{{$num+1}}</div>
+                                                        <div class="score_input floatR">
+                                                            <input class="q_score" type="text" ms-duplex="ques.unionQuestion.questionList[$num].subjectiveQuestion.questionTotalScore" />
+                                                            <div class="score">分</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="examquestion">
+                                                        <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.subjectiveQuestion.mainContent}]" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ctable noborder">
+                                    <div class="crow">
+                                        <div class="ccol aright">
+                                            <div ms-click="@addQuestion($index);" class="btn-border">添加试题</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="jrow">
+                <div class="jlabel">&nbsp;</div>
+                <div class="jinput">
+                    <a href="javascript:void(0)" class="btn create_exam" style="margin:0px">创建试卷</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/libs/layer/layer.js"></script><!--ignore-->
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/page.js"></script>
+    <script type="text/javascript" src="../../js/app/teacher/exampageredit.js"></script>
+</body>
+
+</html>

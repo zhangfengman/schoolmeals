@@ -1,0 +1,59 @@
+.exam-name{
+   margin: 5px 0 5px 20px;
+}
+
+.exam-search .tag li{
+    width: 86%;
+}
+.examadd .jselect{
+    width: 130px;
+}
+.exam-content{
+    background: #f9f6f3;
+    border:1px solid #e6e1dd;
+    width: 80%;
+    padding: 10px;
+}
+.exam-content .question{
+    position: relative;
+    background: #fff;
+    /* width: 96%; */
+    margin:10px auto;
+}
+.exam-qlist .ctable{
+    /* width: 96%; */
+    margin: 0px auto;
+}
+.exam-qlist .ctable .ccol{
+    padding: 15px 0px;
+}
+.exam-title{
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0px;
+}
+.exam-subtitle{
+    text-align: center;
+    margin: 0px auto;
+
+}
+.exam-qlist{
+    border-top: 1px solid #e6e1dd;
+    /* margin-top: 20px; */
+    margin: 20px auto 0;
+    width: 96%;
+    padding-top: 10px;
+}
+.task-type{
+    margin: 10px 0;
+}
+.task-type li{
+    float: left;
+    margin-right: 20px;
+}
+.question .question_score{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}

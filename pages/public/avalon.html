@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>avalon</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+
+    <script type="text/javascript">
+        avalon.define({
+            $id: 'test',
+            obj: {title: '普通 ', algin: 'left'},
+            active: {title: '激活'},
+            width: 111,
+            height: 222,
+            arr: [{img: 'aaa'}, {img: 'bbb'}, {img: 'ccc'}],
+            path: '../aaa/image.jpg',
+            toggle: false,
+            array: [{width: 1}, {height: 2}]
+        })
+        
+    </script>
+</head>
+
+<body ms-controller="test">
+         <span ms-attr="@obj">直接引用对象</span>
+    <img ms-attr="{src: @path}" />
+    <ul>
+        <li ms-for="el in @arr"><a ms-attr="{href:'http://www.ccc.xxx/ddd/'+ el.img}">下载</a></li>
+    </ul>
+    <span :attr="{width: @width, height: @height}">使用对象字面量</span><br/>
+    <span :attr="@array">直接引用数组</span><br/>
+    <span :attr="[@obj, @toggle && @active ]" :click="@toggle = !@toggle">选择性添加多余属性或重写已有属性</span>
+   
+    
+ 
+</body>
+
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>测试详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/student-lesson.css">
+    <link rel="stylesheet" type="text/css" href="../../css/exam-detail.css">
+</head>
+
+<body style="background: #f9f6f3;display: none;" ms-controller="examDetail">
+    <div id="uploadAudioContainer"></div>
+    <div class="lesson_main">
+        <h2 class="main_title">我的试卷</h2>
+        <div class="search">
+            <div class="ctable">
+                <div class="crow">
+                    <div class="ccol ccol-1" style="text-align: right;">测试标题：</div>
+                    <div class="ccol ccol-2" style="text-align: left;">{{@exam.title}}</div>
+                    <div class="ccol ccol-9" style="text-align: right;">
+                        距离结束时间还有：{{@exam.requireUseTime}}分钟
+                    </div>
+                </div>
+                <div class="crow">
+                    <div class="ccol ccol-1" style="text-align: right;">测试时长：</div>
+                    <div class="ccol ccol-2" style="text-align: left;">{{@exam.requireUseTime}}分钟</div>
+                    <div class="ccol ccol-9" style="text-align: right;"></div>
+                </div>
+                <div class="crow">
+                    <div class="ccol ccol-1" style="text-align: right;">测试类别：</div>
+                    <div class="ccol ccol-2" style="text-align: left;">{{@exam.testPaperTypeName}}</div>
+                    <div class="ccol ccol-9" style="text-align: right;"></div>
+                </div>
+                <div class="crow">
+                    <div class="ccol ccol-1" style="text-align: right;">测试科目：</div>
+                    <div class="ccol ccol-2" style="text-align: left;">{{@exam.subjectName}}</div>
+                    <div class="ccol ccol-9" style="text-align: right;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="statistic_main">
+        <h3 class="score_sort">测试内容</h3>
+        <div class="score_sort_con exam_detail_wrap" style="background: #fff;">
+            <div class="exam_detail_title">
+                <h2>{{@exam.title}}</h2>
+                <h3>{{@exam.subTitle}}</h3>
+            </div>
+            <div class="exam_detail_con">
+                <!--大类型题 -->
+                <div ms-for="{$index,el} in @moduleList">
+                    <h3 class="exam_detail_con_title">{{el.title}}</h3>
+                    <ul class="exercises_list" style="padding: 0">
+                        <li ms-for="($num,ques) in @moduleList[$index].qustionList">
+                            <!-- 选择题-->
+                            <div  class="query_item" ms-attr="{qid:ques.choiceQuestion.choiceQuestionId,type:ques.type,id:'query_item_'+ques.choiceQuestion.choiceQuestionId+'_'+ques.type}" ms-if="ques.type == 1">
+                                <div class="exercises_title">
+                                    <h4>习题{{$num+1}}({{ques.choiceQuestion.questionTotalScore}}分)</h4>
+                                </div>
+                                <div class="exercises_con">
+                                    <form>
+                                    <div class="exercises_subject">
+                                        <p>
+                                            <wbr ms-widget="[{is:'ms-content'},{content_:ques.choiceQuestion.mainContent}]" />
+                                        </p>
+                                        <ul>
+                                            <li ms-for="($j,opt) in ques.choiceQuestion.optionsContent">
+                                                <input type="radio" ms-attr="{value:opt.option,id:'label_'+ques.choiceQuestion.choiceQuestionId+'_'+$j,name:ques.choiceQuestion.choiceQuestionId+'_1'}" ms-if="ques.choiceQuestion.choiceQuestionType == 1" />
+                                                <input type="checkbox" ms-attr="{value:opt.option,id:'label_'+ques.choiceQuestion.choiceQuestionId+'_'+$j,name:ques.choiceQuestion.choiceQuestionId+'_1'}" ms-if="ques.choiceQuestion.choiceQuestionType == 2" />
+                                                <label ms-attr="{for:'label_'+ques.choiceQuestion.choiceQuestionId+'_'+$j}">
+                                                    {{opt.option}}.
+                                                    <wbr ms-widget="[{is:'ms-content'},{content_:opt.content}]" />
+                                                </label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- 填空题-->
+                            <div class="query_item" ms-attr="{qid:ques.fillingQuestion.fillingQuestionId,type:ques.type,id:'query_item_'+ques.fillingQuestion.fillingQuestionId+'_'+ques.type}" ms-if="ques.type == 2">
+                                <div class="exercises_title">
+                                    <h4>习题{{$num+1}}({{ques.fillingQuestion.questionTotalScore}}分)</h4>
+                                </div>
+                                <div class="exercises_con">
+                                    <div class="exercises_subject">
+                                        <p>
+                                            <wbr ms-widget="[{is:'ms-content'},{content_:ques.fillingQuestion.mainContent}]" />
+                                        </p>
+                                        <ul>
+                                            <li ms-for="($num,opt) in ques.fillingQuestion.fillingOpts">
+                                                空{{$num+1}}:
+                                                <input class="filling_text" type="text" />
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 主观题-->
+                            <div class="query_item" ms-attr="{qid:ques.subjectiveQuestion.subjectiveQuestionId,type:ques.type,id:'query_item_'+ques.subjectiveQuestion.subjectiveQuestionId+'_'+ques.type}" ms-if="ques.type == 3">
+                                <div class="exercises_title">
+                                    <h4>习题{{$num+1}}({{ques.subjectiveQuestion.questionTotalScore}}分)</h4>
+                                </div>
+                                <div class="exercises_con">
+                                    <div class="exercises_subject">
+                                        <p>
+                                            <wbr ms-widget="[{is:'ms-content'},{content_:ques.subjectiveQuestion.mainContent}]" />
+                                        </p>
+                                        <ul class="course_subject_options">
+                                            <li>
+                                                <img class="stduent_ans_w" ms-if="ques.studentAnswer.answerContent !=''" ms-attr="{src:ques.studentAnswer.answerContent}"/>
+                                                <input class="subject_text" ms-attr="{id:'uploadAudio_'+ques.subjectiveQuestion.subjectiveQuestionId}" type="text" />
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 组合题-->
+                            <div ms-if="ques.type == 4">
+                                <div class="exercises_title">
+                                    <h4>习题{{$num+1}}</h4>
+                                </div>
+                                <div class="exercises_con">
+                                    <div class="exercises_subject" ms-if="ques.type == 4">
+                                        <p>
+                                            <wbr ms-widget="[{is:'ms-content'},{content_:ques.unionQuestion.mainContent}]" />
+                                        </p>
+                                        <ul class="exercises_list" style="padding: 0">
+                                            <li ms-for="($k,unionEl) in ques.unionQuestion.questionList" style="float: none;">
+                                                <div class="exercises_title">
+                                                    <h4>习题{{$k+1}}
+                                                    <span ms-if="unionEl.questionType == 1">({{unionEl.choiceQuestion.questionTotalScore}}分)</span>
+
+                                                     <span ms-if="unionEl.questionType == 2">({{unionEl.fillingQuestion.questionTotalScore}}分)</span>
+                                                      <span ms-if="unionEl.questionType == 3">({{unionEl.subjectiveQuestion.questionTotalScore}}分)</span>
+
+                                                    </h4>
+                                                </div>
+                                                <div class="exercises_con">
+                                                    <!-- 选择题-->
+                                                    <div  class="exercises_subject query_item"  ms-attr="{qid:unionEl.choiceQuestion.choiceQuestionId,type:unionEl.questionType,id:'query_item_'+unionEl.choiceQuestion.choiceQuestionId+'_'+unionEl.questionType}" ms-if="unionEl.questionType == 1">
+                                                        <p>
+                                                            <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.choiceQuestion.mainContent}]" />
+                                                        </p>
+                                                        <form>
+                                                            <ul>
+                                                                <li ms-for="($i,opt) in unionEl.choiceQuestion.optionsContent">
+                                                                    <input type="radio" ms-attr="{value:opt.option,name:unionEl.choiceQuestion.choiceQuestionId,id:'label_'+unionEl.choiceQuestion.choiceQuestionId+'_'+$i,name:unionEl.choiceQuestion.choiceQuestionId+'_1'}" ms-if="unionEl.choiceQuestion.choiceQuestionType == 1" />
+                                                                    <input type="checkbox" ms-attr="{value:opt.option,id:'label_'+unionEl.choiceQuestion.choiceQuestionId+'_'+$i,name:unionEl.choiceQuestion.choiceQuestionId+'_1'}" ms-if="unionEl.choiceQuestion.choiceQuestionType == 2" />
+                                                                    <label ms-attr="{for:'label_'+unionEl.choiceQuestion.choiceQuestionId+'_'+$i}">
+                                                                        {{opt.option}}.
+                                                                        <wbr ms-widget="[{is:'ms-content'},{content_:opt.content}]" />
+                                                                    </label>
+                                                                </li>
+                                                            </ul>
+                                                        </form>
+                                                    </div>
+                                                    <!-- 填空题-->
+                                                    <div class="exercises_subject query_item"  ms-attr="{qid:unionEl.fillingQuestion.fillingQuestionId,type:unionEl.questionType,id:'query_item_'+unionEl.fillingQuestion.fillingQuestionId+'_'+unionEl.questionType}"  ms-if="unionEl.questionType == 2">
+                                                        <p>
+                                                            <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.fillingQuestion.mainContent}]" />
+                                                        </p>
+                                                        <ul>
+                                                            <li ms-for="($num,opt) in unionEl.fillingQuestion.fillingOpts">
+                                                                空{{$num+1}}:
+                                                                <input class="filling_text" type="text" />
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <!-- 主观题-->
+                                                    <div class="exercises_subject query_item"  ms-attr="{qid:unionEl.subjectiveQuestion.subjectiveQuestionId,type:unionEl.questionType,id:'query_item_'+unionEl.subjectiveQuestion.subjectiveQuestionId+'_'+unionEl.questionType}" ms-if="unionEl.questionType == 3">
+                                                        <p>
+                                                            <wbr ms-widget="[{is:'ms-content'},{content_:unionEl.subjectiveQuestion.mainContent}]" />
+                                                        </p>
+                                                        <ul class="course_subject_options">
+                                                            <li>
+                                                             <img class="stduent_ans_w" ms-if="unionEl.studentAnswer.answerContent !=''" ms-attr="{src:ques.studentAnswer.answerContent}"/>
+                                                                <input class="subject_text" ms-attr="{id:'uploadAudio_'+unionEl.subjectiveQuestion.subjectiveQuestionId}" type="text" />
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="submit_exam_block">
+            <div class="btn" id="submitBtn">返回</div>
+        </div>
+    </div>
+    </div>
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/qiniu.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/libs/layer/layer.js"></script><!--ignore-->
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/chapter.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/upload.js"></script>
+    <script type="text/javascript" src="../../js/app/teacher/examdetail.js"></script>
+</body>
+
+</html>

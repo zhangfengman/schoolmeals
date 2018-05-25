@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>学习报告</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/student-lesson.css">
+</head>
+
+<body style="display: none;" ms-controller="learningsituation">
+    <div class="lesson_main">
+        <h2 class="main_title">
+        学习报告
+    </h2>
+        <div class="main_content" style="padding-top: 0;">
+            <div class="lesson_step my_section">
+                <div class="search">
+                    <div class="ctable" style="border: 0;">
+                        <div class="crow">
+                            <div class="ccol ccol-1">学生</div>
+                            <div class="ccol ccol-3">
+                                <div class="jselect">
+                                    <select ms-duplex="@courseQuery.studentUserId" data-msg="学校" data-verify="require">
+                                        
+                                        <option ms-for="($index, el) in @studentList" ms-attr={value:el.studentUserId}>{{el.studentUserName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ccol ccol-1">类型</div>
+                            <div class="ccol  ccol-3">
+                                <div class="jselect">
+                                    <select ms-duplex="@examQuery.testPaperTypeId" data-msg="学校" data-verify="require">
+                                        <option value="">选择测试类型</option>
+                                        <option ms-for="($index, el) in @types" ms-attr={value:el.testPaperTypeId}>{{el.testPaperTypeName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ccol">
+                                &nbsp;
+                            </div>
+                        </div>
+                        <div class="crow">
+                            <div class="ccol ccol-1">年级</div>
+                            <div class="ccol  ccol-3">
+                                <div class="jselect">
+                                    <select ms-duplex="@examQuery.gradeId">
+                                        <option value="">选择学段</option>
+                                        <option ms-for="($index, el) in @grades" ms-attr={value:el.id}>{{el.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ccol ccol-1">科目</div>
+                            <div class="ccol  ccol-3">
+                                <div class="jselect">
+                                    <select id="subjectId" ms-duplex="@examQuery.subjectId">
+                                        <option value="">请选择</option>
+                                        <option ms-for="($index, el) in @subjects" ms-attr={value:el.id}>{{el.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ccol">
+                                <a class="sbtn" ms-click="@examfunc()">确定</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="learning_situation_title"><span class="highlight_color">测试情况</span>（近5次）</h3>
+                <div class="my_table">
+                    <div class="my_thead">
+                        <div class="my_tr">
+                            <div class="width_50 my_th">测试名称</div>
+                            <div class="width_17 my_th">科目</div>
+                            <div class="width_17 my_th">成绩</div>
+                            <div class="width_16 my_th">排名</div>
+                        </div>
+                    </div>
+                    <div class="my_tbody">
+                        <div class="my_tr" ms-for="($index,el) in @classTestPaperList">
+                            <div class="width_50 my_td">{{el.testPaperTitle}}</div>
+                            <div class="width_17 my_td">{{el.subjectName}}</div>
+                            <div class="width_17 my_td">{{el.acquireScoreCount}}</div>
+                            <div class="width_16 my_td"><span class="highlight_color">{{el.ranking}}</span>/{{el.answerStudentCount}}</div>
+                        </div>
+                       
+                    </div>
+                    <div id="paging1" class="clearfix"></div>
+                </div>
+            </div>
+            <div class="lesson_step my_section">
+                <div class="search">
+                    <div class="ctable" style="border: 0;">
+                        <div class="crow">
+                            <div class="ccol ccol-1">学生</div>
+                            <div class="ccol ccol-3">
+                                <div class="jselect">
+                                    <select ms-duplex="@courseQuery.studentUserId" data-msg="学校" data-verify="require">
+                                        
+                                        <option ms-for="($index, el) in @studentList" ms-attr={value:el.studentUserId}>{{el.studentUserName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ccol ccol-1 ">类型</div>
+                            <div class="ccol ccol-3  ">
+                                <div class="jselect">
+                                    <select ms-duplex="@courseQuery.testPaperTypeId" data-msg="学校" data-verify="require">
+                                        <option value="">选择测试类型</option>
+                                        <option ms-for="($index, el) in @types" ms-attr={value:el.testPaperTypeId}>{{el.testPaperTypeName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                             <div class="ccol ccol-1">
+                            </div>
+                        </div>
+                        <div class="crow">
+                            <div class="ccol ccol-1 ">年级</div>
+                            <div class="ccol ccol-3  ">
+                                <div class="jselect">
+                                    <select id="gradeIdChange" ms-duplex="@courseQuery.gradeId">
+                                        <option value="">选择学段</option>
+                                        <option ms-for="($index, el) in @grades" ms-attr={value:el.id}>{{el.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ccol ccol-1 ">科目</div>
+                            <div class="ccol ccol-3  ">
+                                <div class="jselect">
+                                    <select id="subjectIdChange" ms-duplex="@courseQuery.subjectId">
+                                        <option value="">请选择</option>
+                                        <option ms-for="($index, el) in @subjects" ms-attr={value:el.id}>{{el.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                             <div class="ccol ccol-1">
+                                
+                            </div>
+                        </div>
+                        <div class="crow">
+                            <div class="ccol ccol-1 ">课程</div>
+                            <div class="ccol ccol-3">
+                                <div class="jselect">
+                                    <select id="courseselect" ms-duplex="@courseQuery.courseId" data-msg="学校" data-verify="require">
+                                        <option value="">选择课程</option>
+                                        <option ms-for="($index, el) in @courseList" ms-attr={value:el.courseId}>{{el.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ccol ccol-1 ">章</div>
+                            <div class="ccol ccol-3  ">
+                                <div class="jselect">
+                                    <select id="chapter" ms-duplex="@courseQuery.chapterId">
+                                        <option value="">选择章</option>
+                                        <option ms-for="($index, el) in @chapterList" ms-attr={value:el.courseChapterId}>{{el.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ccol ccol-1">
+                                
+                            </div>
+                        </div>
+                        <div class="crow">
+                            <div class="ccol ccol-1 ">节</div>
+                            <div class="ccol ccol-3  ">
+                                <div class="jselect">
+                                    <select id="courseChapterS" ms-duplex="@courseQuery.courseChapterId">
+                                        <option value="">选择节</option>
+                                        <option ms-for="($index, el) in @children" ms-attr={value:el.courseChapterId}>{{el.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ccol ccol-1 ">属性</div>
+                            <div class="ccol ccol-3  ">
+                                <div class="jselect">
+                                    <select id="segmentTypeS"  ms-duplex="@courseQuery.segmentType">
+                                        <option value="">选择属性</option>
+                                        <option value="1">课前</option>
+                                        <option value="2">课中</option>
+                                        <option value="3">课后</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ccol ccol-1">
+                                
+                            </div>
+                        </div>
+                        <div class="crow">
+                            <div class="ccol ccol-1">
+                                任务
+                            </div>
+                            <div class="ccol ccol-3">
+                                <div class="jselect">
+                                     <select ms-duplex="@courseQuery.segmentId">
+                                        <option value="">选择任务</option>
+                                        <option ms-for="($index, el) in @taskList" ms-attr={value:el.segmentId}>{{el.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ccol ccol-1">
+                            </div>
+                            <div class="ccol ccol-3">
+                                <a class="sbtn" ms-click="@coursefunc()">确定</a>
+                            </div>
+                            <div class="ccol ccol-1">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="learning_situation_title"><span class="highlight_color">课程得分统计</span>（近5次）</h3>
+                <div class="my_table">
+                    <div class="my_thead">
+                        <div class="my_tr">
+                            <div class="width_50 my_th">课程</div>
+                            <div class="width_17 my_th">得分</div>
+                            <div class="width_17 my_th">排名</div>
+                            <div class="width_16 my_th">变化</div>
+                        </div>
+                    </div>
+                    <div class="my_tbody">
+                        <div class="my_tr" ms-for="($index,el) in @courseChapterSegmentList">
+                            <div class="width_50 my_td">{{el.name}}</div>
+                            <div class="width_17 my_td">{{el.acquireScoreCount}}</div>
+                            <div class="width_17 my_td">{{el.ranking}}</div>
+                            <div class="width_16 my_td">
+                                <span class=" icon_rank_down" ms-if="el.rankingChange < 0"></span>
+                                 <span class="icon_rank_balance" ms-if="el.rankingChange == 0"></span>
+                                <span class="icon_rank_up" ms-if="el.rankingChange > 0"></span>
+                                
+                            </div>
+                        </div>                       
+                    </div>
+                </div>
+                <div id="paging2" class="clearfix"></div>
+            </div>
+            <div class="lesson_step my_section">
+                <div class="search">
+                    <div class="ctable" style="border: 0;">
+                        <div class="crow">
+                            <div class="ccol ccol-1">学生</div>
+                            <div class="ccol ccol-3">
+                                <div class="jselect">
+                                    <select ms-duplex="@unfinishQuery.studentUserId" data-msg="学校" data-verify="require">
+                                        
+                                        <option ms-for="($index, el) in @studentList" ms-attr={value:el.studentUserId}>{{el.studentUserName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ccol ccol-1 ">类型</div>
+                            <div class="ccol ccol-3  ">
+                                <div class="jselect">
+                                    <select ms-duplex="@unfinishQuery.testPaperTypeId" data-msg="学校" data-verify="require">
+                                        <option value="">选择测试类型</option>
+                                        <option ms-for="($index, el) in @types" ms-attr={value:el.testPaperTypeId}>{{el.testPaperTypeName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                             <div class="ccol ccol-1">
+                            </div>
+                        </div>
+                        <div class="crow">
+                            <div class="ccol ccol-1 ">年级</div>
+                            <div class="ccol ccol-3  ">
+                                <div class="jselect">
+                                    <select id="gradeIdunfinish" ms-duplex="@unfinishQuery.gradeId">
+                                        <option value="">选择学段</option>
+                                        <option ms-for="($index, el) in @grades" ms-attr={value:el.id}>{{el.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ccol ccol-1 ">科目</div>
+                            <div class="ccol ccol-3  ">
+                                <div class="jselect">
+                                    <select id="subjectIdunfinish" ms-duplex="@unfinishQuery.subjectId">
+                                        <option value="">请选择</option>
+                                        <option ms-for="($index, el) in @subjects" ms-attr={value:el.id}>{{el.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                             <div class="ccol ccol-1">
+                                
+                            </div>
+                        </div>
+                        <div class="crow">
+                            <div class="ccol ccol-1 ">课程</div>
+                            <div class="ccol ccol-3">
+                                <div class="jselect">
+                                    <select id="unfinish_courseselect" ms-duplex="@unfinishQuery.courseId" data-msg="学校" data-verify="require">
+                                        <option value="">选择课程</option>
+                                        <option ms-for="($index, el) in @courseList2" ms-attr={value:el.courseId}>{{el.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ccol ccol-1 ">章</div>
+                            <div class="ccol ccol-3  ">
+                                <div class="jselect">
+                                    <select id="unfinishChapter" ms-duplex="@unfinishQuery.chapterId">
+                                        <option value="">选择章</option>
+                                        <option ms-for="($index, el) in @chapterList2" ms-attr={value:el.courseChapterId}>{{el.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ccol ccol-1">
+                                
+                            </div>
+                        </div>
+                        <div class="crow">
+                            <div class="ccol ccol-1 ">节</div>
+                            <div class="ccol ccol-3  ">
+                                <div class="jselect">
+                                    <select id="unfinishCourseChapterS"  ms-duplex="@unfinishQuery.courseChapterId">
+                                        <option value="">选择节</option>
+                                        <option ms-for="($index, el) in @unfinishChildren" ms-attr={value:el.courseChapterId}>{{el.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ccol ccol-1 ">属性</div>
+                            <div class="ccol ccol-3  ">
+                                <div class="jselect">
+                                    <select id="unfinishSegmentTypeS" ms-duplex="@unfinishQuery.segmentType">
+                                        <option value="">选择属性</option>
+                                        <option value="1">课前</option>
+                                        <option value="2">课中</option>
+                                        <option value="3">课后</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ccol ccol-1">
+                                
+                            </div>
+                        </div>
+                        <div class="crow">
+                            <div class="ccol ccol-1">
+                                任务
+                            </div>
+                            <div class="ccol ccol-3">
+                                <div class="jselect">
+                                     <select ms-duplex="@unfinishQuery.segmentId">
+                                        <option value="">选择任务</option>
+                                        <option ms-for="($index, el) in @taskList2" ms-attr={value:el.segmentId}>{{el.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ccol ccol-1">
+                            </div>
+                            <div class="ccol ccol-3">
+                                <a class="sbtn" ms-click="@unfinishfunc()">确定</a>
+                            </div>
+                            <div class="ccol ccol-1">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="learning_situation_title"><span class="highlight_color">未完成课程</span></h3>
+                <ul class="lesson_step_list learning_situation_list">
+                    <li ms-for="($index,el) in @unfinishList">
+                        <div class="lesson_step_row">
+                            <h4>
+                            <i class="lesson_step_icon"></i><a href="#">【{{el.segmentName}}】</a>
+                        </h4>
+                            <div class="lesson_row">
+                                <div class="lesson_start_time">
+                                    开始时间：<span>{{el.startTime}}</span></div>
+                                <br>
+                                <div class="lesson_end_time">结束时间：<span>{{el.endTime}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div id="paging3" class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/page.js"></script>
+    <script type="text/javascript" src="../../js/app/student/mylearningsituation.js"></script>
+</body>
+
+</html>

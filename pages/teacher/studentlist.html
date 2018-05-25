@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>熟饭系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+</head>
+
+<body style="background: #f9f6f3;display: none;" ms-controller="statiticscontroller">
+    <div class="title">{{@myclass.className}}学生名单</div>
+    <div class="class-body">
+        <ul class="lesson_step_tab">
+            <li data-href="lessoncenter.html">课程中心</li>
+            <li data-href="examcenter.html">我的测试</li>
+            <li data-href="classstatistics.html">班级统计</li>
+            <li class="active">学生名单</li>
+        </ul>
+        <div class="btn-group">
+           
+            <div class="icon_add_1" ms-click="@add();">添加学生</div>
+            <div class="icon_imp dropz" >批量导入</div>
+            <div class="icon_exp" ms-click="@exp()">下载模板</div>
+
+        </div>
+        <div class="ctable">
+            <div class="crow border">
+                <div class="ccol ccol-1">ID</div>
+                <div class="ccol ccol-2">姓名</div>
+                <div class="ccol ccol-2">账号</div>
+                <div class="ccol ccol-1">家长姓名</div>
+                <div class="ccol ccol-2">家长账号</div>
+                <div class="ccol ccol-2">操作</div>
+            </div>
+            <div class="crow border" ms-for="($index,el) in @studentList">
+                <div class="ccol ccol-1">{{el.studentUserId}}</div>
+                <div class="ccol ccol-2">{{el.studentName}}</div>
+                <div class="ccol ccol-2">{{el.studentAccount}}</div>
+                <div class="ccol ccol-1">{{el.parentName}}</div>
+                <div class="ccol ccol-2">{{el.parentAccount}}</div>
+                <div class="ccol ccol-2">
+                    <a href="javascript:void(0);" class="btn-mini" ms-click="@edit($index);">修改</a>
+                    <a href="javascript:void(0);" class="btn-mini" ms-click="@report(el)">查看统计</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cdialog modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="newaccount_form">
+                    <div class="modal-header">
+                        添加学生账号
+                        <div class="cclose" data-dismiss="modal"></div>
+                    </div>
+                    <div class="modal-body jcms">
+                        <div class="jrow">
+                            <div class="jlabel">班级名称:</div>
+                            <div class="jinput readonly">
+                                我的班级
+                            </div>
+                        </div>
+                        <div class="jrow">
+                            <div class="jlabel"><span class="jstar">*</span>学生账号:</div>
+                            <div class="jinput">
+                                <input class="" id="studentAccount" ms-duplex="@account.studentAccount" data-msg="学生账号" placeholder="输入手机号或1开头的11位数字" data-verify="mphone" type="text" />
+                            </div>
+                        </div>
+                        <div class="jrow">
+                            <div class="jlabel"><span class="jstar">*</span>密码:</div>
+                            <div class="jinput">
+                                <input class="jtext" id="studentPassword" ms-duplex="@account.studentPassword" data-msg="密码" placeholder="输入6位密码" data-verify="pwd"  type="password" />
+                            </div>
+                        </div>
+                        <div class="jrow">
+                            <div class="jlabel"><span class="jstar">*</span>姓名:</div>
+                            <div class="jinput">
+                                <input class="" ms-duplex="@account.studentName" data-msg="姓名" placeholder="输入真实姓名" data-verify="require" type="text" />
+                            </div>
+                        </div>
+                        <div class="jrow">
+                            <div class="jlabel">家长账号:</div>
+                            <div class="jinput">
+                                <input class="" ms-if="@type=='1'" ms-duplex="@account.parentAccount"  placeholder="输入手机号或1开头的11位数字"  type="text" />
+
+                                <input class="" ms-if="@type=='2'" readonly="" ms-duplex="@account.parentAccount"  placeholder="输入手机号或1开头的11位数字"  type="text" />
+                            </div>
+                        </div>
+                         <div class="jrow">
+                            <div class="jlabel">密码:</div>
+                            <div class="jinput">
+                                <input class="jtext" id="parentPassword" ms-duplex="@account.parentPassword" placeholder="输入6位密码"  type="password" />
+                            </div>
+                        </div>
+                        <div class="jrow">
+                            <div class="jlabel">姓名:</div>
+                            <div class="jinput">
+                                <input class="" ms-duplex="@account.parentName"  placeholder="输入真实姓名"  type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="cbtn" id="confirmBtn">确定</div>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/libs/dropzone.min.js"></script>
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/page.js"></script>
+    <script type="text/javascript" src="../../js/app/teacher/studentlist.js"></script>
+</body>
+
+</html>

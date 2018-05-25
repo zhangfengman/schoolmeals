@@ -1,0 +1,116 @@
+.jcms .jstar{
+    color: red;
+}
+.jcms .jrow{
+    position: relative;
+     display: table;     
+    margin: 5px 0;
+    width: 100%;
+}
+.jcms .jrow .jlabel{
+    display: table-cell;
+    width: 30%;
+    text-align: right;
+    line-height: 1.5;
+    padding: 8px 8px 8px 0;
+    vertical-align: top;
+    white-space: nowrap;
+}
+.jcms .jrow .jinput{
+    position: relative;
+    display: table-cell;
+    width: 70%;
+}
+.jcms .jrow .jinput input,.jcms .jrow .jtext{  
+    border-radius: 4px !important;    
+
+    resize: none;
+    background-color: #FFFFFF;
+    border: 1px solid #D5D5D5;
+    height: 34px;
+    line-height: 34px;
+    padding: 5px 4px;
+    color: #858585;
+    width: 80%;
+    behavior: url(../../imgs/PIE.htc);
+}
+.jcms .jrow.jerror input,.jcms .jrow.jerror .jtext{
+    border-radius: 4px !important;    
+    resize: none;
+    background-color: #FFFFFF;
+    border: 1px solid #D5D5D5;
+    height: 34px;
+    line-height: 34px;
+    padding: 5px 4px;
+    color: #858585;
+    border: 1px red solid;
+}
+.jcms  textarea.jtext{
+    height: auto !important;
+}
+.jcms  textarea:active,.jcms  textarea:focus{
+    background-color: #FFFFFF;
+    border: 1px solid #D5D5D5;
+}
+
+.jcms .jrow.jerror .jtips{
+    color: red;
+}
+.jcms .jbtn{
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 34px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    width: 100px;
+    height: 34px;
+    transition: all 0.3s;
+    text-decoration: none;    
+    background-color: #0084ff;
+    border-color: #0084ff;
+    color: #fff;
+}
+.jcms .jrow .jcol-1{
+    width: 10%;
+}
+.jcms .jrow .jcol-22{
+    width: 28%;
+}
+.jcms .jrow .jcol-2{
+    width: 20%;
+}
+.jcms .jrow .jcol-3{
+    width: 30%;
+}
+.jcms .jrow .jcol-4{
+    width: 40%;
+}
+.jcms .jrow .jcol-5{
+    width: 50%;
+}
+.jcms .jrow .jcol-6{
+    width: 60%;
+}
+.jcms .jrow .jcol-7{
+    width: 70%;
+}
+.jcms .jrow .jcol-8{
+    width: 80%;
+}
+.jcms .jrow .jcol-9{
+    width: 90%;
+}

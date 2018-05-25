@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>消息中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jx.css">
+    <link rel="stylesheet" type="text/css" href="../../css/student-lesson.css">
+    <link rel="stylesheet" type="text/css" href="../../css/message.css">
+</head>
+
+<body style="display: none; background: #f9f6f3;" ms-controller="messagecenter">
+    <div class="lesson_main">
+        <h2 class="main_title">消息管理</h2>
+        <div class="main_content">
+            <div style="overflow:hidden; margin-bottom: 15px;">
+                <div class="message-opt">
+                    <div class="btn message-btn" ms-click="@publish('1')">发布班级</div>
+                    <div class="btn message-btn"  ms-click="@publish('2')">发布私信</div>
+                </div>
+                <div class="jselect" style="width:30%; float:right;">
+                    <select class="class_select" ms-duplex="@classId" ms-change="@change();">
+                        <option value="">全部班级</option>
+                        <option ms-for="el in @classList" ms-attr="{value:el.classId}">{{el.className}}</option>
+                       
+                    </select>
+                </div>
+            </div>
+            <ul class="info_list">
+                <li ms-for="($index,el) in @annunciateList" >
+                    <dl>
+                        <dt ms-if="el.annunciateType =='1'">{{el.title}}</dt>
+                        <dt ms-if="el.annunciateType =='2'">收件人：{{el.title}}</dt>
+                        <dd>{{el.publicTime}}</dd>
+                    </dl>
+                    <p data-toggle="modal" data-target="#myModal" ms-click="@read(el);">
+                        {{el.content}}
+                    </p>
+                </li>
+              
+            </ul>
+             <div id="paging"></div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">消息详情</h4>
+                </div>
+                <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
+                    <p>发送时间：{{@msg.publicTime}}<span style="float:right;">发送老师：{{@msg.name}}</span></p>
+                    <div style="background: #fff; padding: 15px; text-align: justify; line-height: 20px;">
+                        {{@msg.content}}
+                       
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <!--SCRIPT_PLACEHOLDER--><script type="text/javascript" src="../../js/libs/jquery.js"></script>
+    
+    <script type="text/javascript" src="../../js/libs/avalon.js"></script>
+    <script type="text/javascript" src="../../js/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/libs/store.min.js"></script>
+    <script type="text/javascript" src="../../js/core/jx.js"></script>
+    <script type="text/javascript" src="../../js/core/jx/page.js"></script>
+    <script type="text/javascript" src="../../js/app/teacher/messagecenter.js"></script>
+   
+</body>
+
+</html>
